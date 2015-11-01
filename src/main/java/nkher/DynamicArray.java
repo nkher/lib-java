@@ -1,11 +1,10 @@
 package nkher;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import nkher.Interfaces.MyList;
-import nkher.exception.DynamicArrayEmptyException;
+import nkher.exception.DataStructureEmptyException;
 
 /***
  * This class is an implementation of the array class and provides a useful set of API for insertion, deletion, searching of elements and much more. 
@@ -76,7 +75,7 @@ public class DynamicArray<T> implements MyList<T> {
 	 */
 	public boolean remove(T element) {
 		if (isEmpty()) {
-			throw new DynamicArrayEmptyException();
+			throw new DataStructureEmptyException();
 		}
 		
 		int ind = -1;
@@ -183,7 +182,7 @@ public class DynamicArray<T> implements MyList<T> {
 	public int lastIndexOf(T element) {
 		int lastIndex = -1;
 		if (isEmpty()) {
-			throw new DynamicArrayEmptyException();
+			throw new DataStructureEmptyException();
 		}
 		
 		for (int i=0; i<size; i++) {
@@ -261,7 +260,7 @@ public class DynamicArray<T> implements MyList<T> {
 	 */
 	public void removeAllElements() {
 		if (isEmpty()) {
-			throw new DynamicArrayEmptyException();
+			throw new DataStructureEmptyException();
 		}
 		for (int i=0; i<size; i++) {
 			data[i] = null;
@@ -292,7 +291,7 @@ public class DynamicArray<T> implements MyList<T> {
 
 	public String toString() {
 		if (isEmpty()) {
-			return "";
+			return "[ ]";
 		}
 		StringBuilder sb = new StringBuilder();
 		sb.append("[");
