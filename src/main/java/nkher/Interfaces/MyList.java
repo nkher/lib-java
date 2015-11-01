@@ -17,6 +17,20 @@ public interface MyList<T> {
 	boolean isEmpty();
 	
 	/***
+	 * Inserts the element at the tail of the list.
+	 * 
+	 * @param element
+	 */
+	void insert(T element);
+	
+	/***
+	 * Insert the element at the head of the list
+	 * 
+	 * @param element
+	 */
+	void insertAtHead(T element);
+	
+	/***
 	 * Removes the specified element.
 	 * 
 	 * @param element
@@ -30,28 +44,5 @@ public interface MyList<T> {
 	 * @param index
 	 */
 	void removeAt(int index);
-	
-	/***
-	 * Insert the element at the head of the list
-	 * 
-	 * @param element
-	 */
-	void insertAtHead(T element);
-	
-	/***
-	 * Gets the element at the specified index.
-	 * 
-	 * @param index
-	 * @return
-	 */
-	T getAt(int index);
-	
-	/***
-	 * Sets the passed element at the specified index.
-	 * 
-	 * @param index
-	 * @param element
-	 */
-	void setAt(int index, T element);
 	
 }
