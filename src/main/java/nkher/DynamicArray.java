@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import nkher.Interfaces.MyList;
 import nkher.exception.DynamicArrayEmptyException;
 
 /***
@@ -14,7 +15,7 @@ import nkher.exception.DynamicArrayEmptyException;
  *
  * @param <T>
  */
-public class DynamicArray<T> {
+public class DynamicArray<T> implements MyList<T> {
 	
 	public static int DEFAULT_CAPACITY = 10;
 	public static int SCALE_FACTOR = 2;
