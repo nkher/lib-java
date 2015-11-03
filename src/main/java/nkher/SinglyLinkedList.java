@@ -5,7 +5,7 @@ import nkher.exception.DataStructureEmptyException;
 
 /***
  * This class demonstrates the singly linked list implementation.
- * The inner data representation is a Node<T> which has pointers to forwad elements.
+ * The inner data representation is a SinglyNode<T> which has pointers to forwad elements.
  * 
  * @author nameshkher
  *
@@ -14,24 +14,24 @@ import nkher.exception.DataStructureEmptyException;
 public class SinglyLinkedList<T> implements MyList<T> {
 
 	private int size;
-	private Node<T> head;
-	private Node<T> tail;
+	private SinglyNode<T> head;
+	private SinglyNode<T> tail;
 	
 	public SinglyLinkedList() {
 		size = 0;
 	}
 	
-	protected static class Node<T> {
+	protected static class SinglyNode<T> {
 		T data;
-		Node<T> next;
+		SinglyNode<T> next;
 		
-		public Node() {}
+		public SinglyNode() {}
 		
-		public Node(T data) {
+		public SinglyNode(T data) {
 			this.data = data;
 		}
 		
-		public Node(T data, Node<T> next) {
+		public SinglyNode(T data, SinglyNode<T> next) {
 			this.data = data;
 			this.next = next;
 		}
@@ -80,10 +80,10 @@ public class SinglyLinkedList<T> implements MyList<T> {
 	public void insert(T element) {
 		size++;
 		if (head == null) {
-			head = tail = new Node<T>(element);
+			head = tail = new SinglyNode<T>(element);
 			return;
 		}
-		Node<T> new_node = new Node<T>(element);
+		SinglyNode<T> new_node = new SinglyNode<T>(element);
 		tail.next = new_node;
 		tail = new_node;
 	}
@@ -93,8 +93,14 @@ public class SinglyLinkedList<T> implements MyList<T> {
 	 * 
 	 * @param node
 	 */
-	public void insert(Node<T> node) {
-		
+	public void insert(SinglyNode<T> node) {
+		size++;
+		if (head == null) {
+			head = tail = node;
+			return;
+		}
+		tail.next = node;
+		tail = node;
 	}
 	
 	/***
@@ -103,10 +109,10 @@ public class SinglyLinkedList<T> implements MyList<T> {
 	public void insertAtHead(T element) {
 		size++;
 		if (head == null) {
-			head = tail = new Node<T>(element);
+			head = tail = new SinglyNode<T>(element);
 			return;
 		}
-		Node<T> new_node = new Node<T>(element, head);
+		SinglyNode<T> new_node = new SinglyNode<T>(element, head);
 		head = new_node;
 	}
 
@@ -122,7 +128,7 @@ public class SinglyLinkedList<T> implements MyList<T> {
 			throw new DataStructureEmptyException("Singly Linked list is empty");
 		}
 		boolean found = false;
-		Node<T> itr = head, prev = null;
+		SinglyNode<T> itr = head, prev = null;
 		while (itr != tail) {
 			if (itr.data.equals(element)) {
 				size--;
@@ -140,6 +146,7 @@ public class SinglyLinkedList<T> implements MyList<T> {
 		}
 		if (itr == tail && itr.data.equals(element)) { // If the data is the last element in the list
 			tail = prev;
+			tail.next = null;
 			size--;
 		}
 		if (size == 1) tail = head;
@@ -168,7 +175,7 @@ public class SinglyLinkedList<T> implements MyList<T> {
 			head = head.next;
 		}
 		else {
-			Node<T> itr = head, prev = null;
+			SinglyNode<T> itr = head, prev = null;
 			int i = 0;
 			while (i < index) {
 				prev = itr;
@@ -193,7 +200,7 @@ public class SinglyLinkedList<T> implements MyList<T> {
 		}
 		StringBuilder sb = new StringBuilder();
 		sb.append("[");
-		Node<T> itr = head;
+		SinglyNode<T> itr = head;
 		while (itr != tail) {
 			sb.append(itr.data.toString() + ", "); 
 			itr = itr.next;
@@ -204,7 +211,9 @@ public class SinglyLinkedList<T> implements MyList<T> {
 	}
 	
 	/***
-	 * Appends the passed linked list at the tail of this linked list
+	 * Appends the passed linked list at the tail of this linked list.
+	 * This does not create new memory for the nodes that are being appended.
+	 * But it uses the existing nodes from the linked list which is to be appended.
 	 * 
 	 * @param linkedlist
 	 */
@@ -212,13 +221,16 @@ public class SinglyLinkedList<T> implements MyList<T> {
 		if (linkedlist.isEmpty() || linkedlist.head() == null) {
 			return;
 		}
-		if (head == null) { // this linked list is empty
-			Node<T> itr = linkedlist.head;
-			while (itr != tail) {
-				
-				itr = itr.next;
-			}
+		SinglyNode<T> itr = head;
+		while (itr != tail) {
+			itr = itr.next;
 		}
+		SinglyNode<T> itr2 = linkedlist.head;
+		while (itr2 != linkedlist.tail) {
+			insert(itr2);
+			itr2 = itr2.next;
+		}
+		insert(itr2); // insert the last node
 	}
 	
 	/***
@@ -229,7 +241,7 @@ public class SinglyLinkedList<T> implements MyList<T> {
 			return new SinglyLinkedList<T>();
 		}
 		SinglyLinkedList<T> clone_list = new SinglyLinkedList<T>();
-		Node<T> itr = head;
+		SinglyNode<T> itr = head;
 		while (itr != tail) {
 			clone_list.insert(itr.data);
 			itr = itr.next;
