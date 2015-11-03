@@ -35,10 +35,31 @@ public class SinglyLinkedList<T> implements MyList<T> {
 			this.data = data;
 			this.next = next;
 		}
+		
+		public String toString() {
+			if(data == null) return "";
+			return data.toString();
+		}
 	}
 	
+	/***
+	 * Returns the head of the linked list.
+	 * 
+	 * @return data at the head of the linked list
+	 */
 	public T head() {
+		if (head == null) return null;
 		return this.head.data;
+	}
+	
+	/***
+	 * Returns the tail of the linked list.
+	 * 
+	 * @return data at the tail of the linked list
+	 */
+	public T tail() {
+		if (head == null) return null;
+		return this.tail.data;
 	}
 	
 	public int size() {
@@ -65,6 +86,15 @@ public class SinglyLinkedList<T> implements MyList<T> {
 		Node<T> new_node = new Node<T>(element);
 		tail.next = new_node;
 		tail = new_node;
+	}
+	
+	/***
+	 * Inserts the node to the linked list
+	 * 
+	 * @param node
+	 */
+	public void insert(Node<T> node) {
+		
 	}
 	
 	/***
@@ -172,5 +202,39 @@ public class SinglyLinkedList<T> implements MyList<T> {
 		sb.append("]");
 		return sb.toString();
 	}
-
+	
+	/***
+	 * Appends the passed linked list at the tail of this linked list
+	 * 
+	 * @param linkedlist
+	 */
+	public void append(SinglyLinkedList<T> linkedlist) {
+		if (linkedlist.isEmpty() || linkedlist.head() == null) {
+			return;
+		}
+		if (head == null) { // this linked list is empty
+			Node<T> itr = linkedlist.head;
+			while (itr != tail) {
+				
+				itr = itr.next;
+			}
+		}
+	}
+	
+	/***
+	 * Function to clone a linked list.
+	 */
+	public SinglyLinkedList<T> clone() {
+		if (head == null) {
+			return new SinglyLinkedList<T>();
+		}
+		SinglyLinkedList<T> clone_list = new SinglyLinkedList<T>();
+		Node<T> itr = head;
+		while (itr != tail) {
+			clone_list.insert(itr.data);
+			itr = itr.next;
+		}
+		clone_list.insert(itr.data);
+		return clone_list;
+	}
 }
