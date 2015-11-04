@@ -5,7 +5,7 @@ import nkher.exception.DataStructureEmptyException;
 
 /***
  * This class demonstrates the singly linked list implementation.
- * The inner data representation is a SinglyNode<T> which has pointers to forwad elements.
+ * The inner data representation is a SinglyNode<T> which has pointers to forward elements.
  * 
  * @author nameshkher
  *
@@ -29,6 +29,7 @@ public class SinglyLinkedList<T> implements MyList<T> {
 		
 		public SinglyNode(T data) {
 			this.data = data;
+			this.next = null;
 		}
 		
 		public SinglyNode(T data, SinglyNode<T> next) {
@@ -118,7 +119,7 @@ public class SinglyLinkedList<T> implements MyList<T> {
 
 	/***
 	 * Searches for the passed element and returns true if the 
-	 * element was successfully found and then deleted.
+	 * element was successfully found and then deleted. Only the first occurrence is deleted.
 	 * If the element was not found then returns false.
 	 * This function removes the first occurrence of the element from the linked list.
 	 * 
@@ -131,6 +132,7 @@ public class SinglyLinkedList<T> implements MyList<T> {
 		SinglyNode<T> itr = head, prev = null;
 		while (itr != tail) {
 			if (itr.data.equals(element)) {
+				found = true;
 				size--;
 				if (itr == head) {
 					head = head.next;
@@ -147,6 +149,7 @@ public class SinglyLinkedList<T> implements MyList<T> {
 		if (itr == tail && itr.data.equals(element)) { // If the data is the last element in the list
 			tail = prev;
 			tail.next = null;
+			found = true;
 			size--;
 		}
 		if (size == 1) tail = head;
