@@ -2,6 +2,7 @@ package nkher;
 
 import nkher.Interfaces.MyList;
 import nkher.exception.DataStructureEmptyException;
+import nkher.exception.DataStructureSmallerException;
 
 /***
  * This class demonstrates the singly linked list implementation.
@@ -171,7 +172,7 @@ public class SinglyLinkedList<T> implements MyList<T> {
 			throw new DataStructureEmptyException("Singly Linked list is empty");
 		}
 		else if (index > size-1) {
-			throw new DataStructureEmptyException("Linked List length is shorter than passed Index. Index out of bounds at : " + index);
+			throw new DataStructureSmallerException("Linked List length is shorter than passed Index. Index out of bounds at : " + index);
 		}
 		size--;
 		if (index == 0) { // deletion is at the head
