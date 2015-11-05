@@ -1,6 +1,5 @@
-package nkher;
+package nkher.datastructures;
 
-import nkher.DynamicArray;
 import nkher.Interfaces.MyStack;
 import nkher.exception.DataStructureEmptyException;
 
