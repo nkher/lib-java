@@ -1,8 +1,11 @@
 package nkher;
 
+import javax.activity.InvalidActivityException;
+
 import nkher.Interfaces.MyList;
 import nkher.exception.DataStructureEmptyException;
 import nkher.exception.DataStructureSmallerException;
+import nkher.exception.InvalidIndexException;
 
 /***
  * This class demonstrates the singly linked list implementation.
@@ -173,6 +176,9 @@ public class SinglyLinkedList<T> implements MyList<T> {
 		}
 		else if (index > size-1) {
 			throw new DataStructureSmallerException("Linked List length is shorter than passed Index. Index out of bounds at : " + index);
+		}
+		else if (index < 0) {
+			throw new InvalidIndexException("Cannot access negative index : " + index);
 		}
 		size--;
 		if (index == 0) { // deletion is at the head
