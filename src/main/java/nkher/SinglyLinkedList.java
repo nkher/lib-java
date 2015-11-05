@@ -1,7 +1,5 @@
 package nkher;
 
-import javax.activity.InvalidActivityException;
-
 import nkher.Interfaces.MyList;
 import nkher.exception.DataStructureEmptyException;
 import nkher.exception.DataStructureSmallerException;
@@ -25,6 +23,14 @@ public class SinglyLinkedList<T> implements MyList<T> {
 		size = 0;
 	}
 	
+	/***
+	 * Represents the node of a doubly linked list. It contains a data element,
+	 * and a pointer to the next node.
+	 * 
+	 * @author nameshkher
+	 *
+	 * @param <T>
+	 */
 	protected static class SinglyNode<T> {
 		T data;
 		SinglyNode<T> next;
