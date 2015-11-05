@@ -171,8 +171,8 @@ public class ArrayUtility {
 	 * Copies everything from the Integer[] object array to the primitive array.
 	 * 
 	 * 
-	 * @param array
-	 * @param arr
+	 * @param array a {@code Integer} array
+	 * @param arr a {@code int} array
 	 */
 	public static void arrayCopy(Integer[] array, int[] arr) {
 		if (null == array) return;
@@ -181,4 +181,95 @@ public class ArrayUtility {
 			arr[i] = array[i];
 		}
 	}
+	
+	/***
+	 * Copies everything from the Character[] object array to the primitive char array.
+	 * 
+	 * 
+	 * @param array a {@code Character} array
+	 * @param arr a {@code char} array
+	 */
+	public static void arrayCopy(Character[] array, char[] arr) {
+		if (null == array) return;
+		if (null == arr) arr = new char[array.length];
+		for (int i=0; i<array.length; i++) {
+			arr[i] = array[i];
+		}
+	}
+	
+	/***
+	 * Copies everything from the Byte[] object array to the primitive byte[] array.
+	 * 
+	 * 
+	 * @param array a {@code Byte} array
+	 * @param arr a {@code byte} array
+	 */
+	public static void arrayCopy(Byte[] array, byte[] arr) {
+		if (null == array) return;
+		if (null == arr) arr = new byte[array.length];
+		for (int i=0; i<array.length; i++) {
+			arr[i] = array[i];
+		}
+	}
+	
+	/***
+	 * Copies everything from the Long[] object array to the primitive long[] array.
+	 * 
+	 * 
+	 * @param array a {@code Long} array
+	 * @param arr a {@code long} array
+	 */
+	public static void arrayCopy(Long[] array, long[] arr) {
+		if (null == array) return;
+		if (null == arr) arr = new long[array.length];
+		for (int i=0; i<array.length; i++) {
+			arr[i] = array[i];
+		}
+	}
+	
+	/***
+	 * Copies everything from the Float[] object array to the primitive float[] array.
+	 * 
+	 * 
+	 * @param array a {@code Float} array
+	 * @param arr a {@code float} array
+	 */
+	public static void arrayCopy(Float[] array, float[] arr) {
+		if (null == array) return;
+		if (null == arr) arr = new float[array.length];
+		for (int i=0; i<array.length; i++) {
+			arr[i] = array[i];
+		}
+	}
+	
+	/***
+	 * Copies everything from the Double[] object array to the primitive double[] array.
+	 * 
+	 * 
+	 * @param array a {@code Double} array
+	 * @param arr a {@code double} array
+	 */
+	public static void arrayCopy(Double[] array, double[] arr) {
+		if (null == array) return;
+		if (null == arr) arr = new double[array.length];
+		for (int i=0; i<array.length; i++) {
+			arr[i] = array[i];
+		}
+	}
+	
+	/***
+	 * Copies everything from the Short[] object array to the primitive short[] array.
+	 * 
+	 * 
+	 * @param array a {@code Short} array
+	 * @param arr a {@code short} array
+	 */
+	public static void arrayCopy(Short[] array, short[] arr) {
+		if (null == array) return;
+		if (null == arr) arr = new short[array.length];
+		for (int i=0; i<array.length; i++) {
+			arr[i] = array[i];
+		}
+	}
+	
 }
