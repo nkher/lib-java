@@ -1,4 +1,4 @@
-package nkher;
+package nkher.datastructures;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -140,7 +140,7 @@ public class DynamicArray<T> implements MyList<T> {
 	}
 	
 	/***
-	 * Returns the element at the specified index but does not delete it.
+	 * Gets the element at the specified index from the dynamic array.
 	 * 
 	 * @param index
 	 * @return
@@ -154,11 +154,12 @@ public class DynamicArray<T> implements MyList<T> {
 	}
 	
 	/***
-	 * Sets the element at the specified index. Throws index out of bounds if 
+	 * Sets the element at the specified index in the dynamic array. Throws index-out-of-bounds if 
 	 * an element is set at an index greater than the vectors capacity at that instant.
 	 * To be able to set an element at an index the array must be of at least the size of the index.
 	 * 
 	 * @param index
+	 * @param element
 	 */
 	public void setAt(int index, T element) {
 		if (isEmpty() || index > size-1) {
@@ -221,6 +222,7 @@ public class DynamicArray<T> implements MyList<T> {
 	 * 
 	 * @return last element of the array
 	 */
+	
 	public T getLast() {
 		return getAt(this.size-1);
 	}

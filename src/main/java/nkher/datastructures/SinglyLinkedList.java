@@ -1,4 +1,4 @@
-package nkher;
+package nkher.datastructures;
 
 import nkher.Interfaces.MyList;
 import nkher.exception.DataStructureEmptyException;
@@ -31,7 +31,7 @@ public class SinglyLinkedList<T> implements MyList<T> {
 	 *
 	 * @param <T>
 	 */
-	protected static class SinglyNode<T> {
+	public static class SinglyNode<T> {
 		T data;
 		SinglyNode<T> next;
 		

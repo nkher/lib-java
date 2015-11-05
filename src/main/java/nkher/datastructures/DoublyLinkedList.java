@@ -1,4 +1,4 @@
-package nkher;
+package nkher.datastructures;
 
 import nkher.Interfaces.MyList;
 import nkher.exception.DataStructureEmptyException;
@@ -31,7 +31,7 @@ public class DoublyLinkedList<T> implements MyList<T> {
 	 *
 	 * @param <T>
 	 */
-	protected static class DoublyNode<T> {
+	public static class DoublyNode<T> {
 		T data;
 		DoublyNode<T> next;
 		DoublyNode<T> prev;
