@@ -169,6 +169,7 @@ public class DynamicArray<T> implements MyList<T> {
 	}
 	
 	public int size() {
+		System.out.println("WI _ " + this.writeIndex);
 		return this.size;
 	}
 	
@@ -269,6 +270,38 @@ public class DynamicArray<T> implements MyList<T> {
 		}
 		this.capacity = DEFAULT_CAPACITY;
 		this.size = 0;
+	}
+	
+	/***
+	 * Fills the Dynamic Array with the passed array.
+	 * This would remove the existing elements from the DArray
+	 * 
+	 * @param array
+	 */
+	public void fill(T[] array) {
+		if (null == array) return;
+		clear(); // clear the dynamic array
+		for (int i=0; i<array.length; i++) {
+			data[i] = array[i];
+			size++;
+		}
+		writeIndex = size; // adjusting the writeIndex
+	}
+	
+	/***
+	 * Clears the dynamic array to the initial state.
+	 *  by making everything currently in the array to null.
+	 * 
+	 */
+	public void clear() {
+		if (size == 0) return;
+		for (int i=0; i<size; i++) {
+			data[i] = null;
+		}
+		this.size = 0;
+		this.capacity = DEFAULT_CAPACITY;
+		this.writeIndex = 0;
+		data = new Object[DEFAULT_CAPACITY];
 	}
  	
 	/***
