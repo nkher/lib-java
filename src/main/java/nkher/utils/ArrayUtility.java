@@ -275,12 +275,12 @@ public class ArrayUtility {
 	}
 	
 	/***
-	 * Fills the Dynamic Array with the elements of the Integer array
+	 * Fills the Dynamic Array with the elements of the int[] array
 	 *  
 	 * @param array
 	 * @param dArray
 	 */
-	public static void getDArray(Integer[] array, DynamicArray<Integer> dArray) {
+	public static void getDArray(int[] array, DynamicArray<Integer> dArray) {
 		if (null == array) return;
 		if (array.length == 0) return;
 		for (int i=0; i<array.length; i++) {
@@ -289,12 +289,12 @@ public class ArrayUtility {
 	}
 	
 	/***
-	 * Fills the Dynamic Array with the elements of the Character array
+	 * Fills the Dynamic Array with the elements of the char array
 	 *  
 	 * @param array
 	 * @param dArray
 	 */
-	public static void getDArray(Character[] array, DynamicArray<Character> dArray) {
+	public static void getDArray(char[] array, DynamicArray<Character> dArray) {
 		if (null == array) return;
 		if (array.length == 0) return;
 		for (int i=0; i<array.length; i++) {
@@ -303,12 +303,12 @@ public class ArrayUtility {
 	}
 	
 	/***
-	 * Fills the Dynamic Array with the elements of the Long array
+	 * Fills the Dynamic Array with the elements of the long array
 	 *  
 	 * @param array
 	 * @param dArray
 	 */
-	public static void getDArray(Long[] array, DynamicArray<Long> dArray) {
+	public static void getDArray(long[] array, DynamicArray<Long> dArray) {
 		if (null == array) return;
 		if (array.length == 0) return;
 		for (int i=0; i<array.length; i++) {
@@ -317,12 +317,12 @@ public class ArrayUtility {
 	}
 	
 	/***
-	 * Fills the Dynamic Array with the elements of the Boolean array
+	 * Fills the Dynamic Array with the elements of the boolean array
 	 *  
 	 * @param array
 	 * @param dArray
 	 */
-	public static void getDArray(Boolean[] array, DynamicArray<Boolean> dArray) {
+	public static void getDArray(boolean[] array, DynamicArray<Boolean> dArray) {
 		if (null == array) return;
 		if (array.length == 0) return;
 		for (int i=0; i<array.length; i++) {
@@ -331,12 +331,12 @@ public class ArrayUtility {
 	}
 	
 	/***
-	 * Fills the Dynamic Array with the elements of the Float array
+	 * Fills the Dynamic Array with the elements of the float array
 	 *  
 	 * @param array
 	 * @param dArray
 	 */
-	public static void getDArray(Float[] array, DynamicArray<Float> dArray) {
+	public static void getDArray(float[] array, DynamicArray<Float> dArray) {
 		if (null == array) return;
 		if (array.length == 0) return;
 		for (int i=0; i<array.length; i++) {
@@ -345,12 +345,12 @@ public class ArrayUtility {
 	}
 	
 	/***
-	 * Fills the Dynamic Array with the elements of the Double array
+	 * Fills the Dynamic Array with the elements of the double array
 	 *  
 	 * @param array
 	 * @param dArray
 	 */
-	public static void getDArray(Double[] array, DynamicArray<Double> dArray) {
+	public static void getDArray(double[] array, DynamicArray<Double> dArray) {
 		if (null == array) return;
 		if (array.length == 0) return;
 		for (int i=0; i<array.length; i++) {
@@ -359,12 +359,12 @@ public class ArrayUtility {
 	}
 	
 	/***
-	 * Fills the Dynamic Array with the elements of the Short array
+	 * Fills the Dynamic Array with the elements of the short array
 	 *  
 	 * @param array
 	 * @param dArray
 	 */
-	public static void getDArray(Short[] array, DynamicArray<Short> dArray) {
+	public static void getDArray(short[] array, DynamicArray<Short> dArray) {
 		if (null == array) return;
 		if (array.length == 0) return;
 		for (int i=0; i<array.length; i++) {
@@ -373,12 +373,12 @@ public class ArrayUtility {
 	}
 	
 	/***
-	 * Fills the Dynamic Array with the elements of the Byte array
+	 * Fills the Dynamic Array with the elements of the byte array
 	 *  
 	 * @param array
 	 * @param dArray
 	 */
-	public static void getDArray(Byte[] array, DynamicArray<Byte> dArray) {
+	public static void getDArray(byte[] array, DynamicArray<Byte> dArray) {
 		if (null == array) return;
 		if (array.length == 0) return;
 		for (int i=0; i<array.length; i++) {
@@ -477,6 +477,146 @@ public class ArrayUtility {
 	 * @param array
 	 */
 	public static void fillArray(DynamicArray<Long> dArray, Long[] array) {
+		if (null == dArray) return;
+		if (dArray.size() == 0) return;
+		for (int i=0; i<dArray.size(); i++) {
+			array[i] = dArray.getAt(i);
+		}
+	}
+	
+	/***
+	 * Fills the Character[] array with the elements of the Dynamic Array
+	 * 
+	 * @param dArray
+	 * @param array
+	 */
+	public static void fillArray(DynamicArray<Character> dArray, Character[] array) {
+		if (null == dArray) return;
+		if (dArray.size() == 0) return;
+		for (int i=0; i<dArray.size(); i++) {
+			array[i] = dArray.getAt(i);
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	/***
+	 * Fills the Integer[] array with the elements of the Dynamic Array
+	 * int[] array must be the size of dArray
+	 * 
+	 * @param dArray
+	 * @param array
+	 */
+	public static void fillArray(DynamicArray<Integer> dArray, int[] array) {
+		if (null == dArray) return;
+		if (dArray.size() == 0) return;
+		for (int i=0; i<dArray.size(); i++) {
+			array[i] = dArray.getAt(i);
+		}
+	}
+	
+	/***
+	 * Fills the Byte[] array with the elements of the Dynamic Array
+	 * byte[] array must be the size of dArray
+	 * 
+	 * @param dArray
+	 * @param array
+	 */
+	public static void fillArray(DynamicArray<Byte> dArray, byte[] array) {
+		if (null == dArray) return;
+		if (dArray.size() == 0) return;
+		for (int i=0; i<dArray.size(); i++) {
+			array[i] = dArray.getAt(i);
+		}
+	}
+	
+	/***
+	 * Fills the Float[] array with the elements of the Dynamic Array
+	 * float[] array must be the size of dArray
+	 * 
+	 * @param dArray
+	 * @param array
+	 */
+	public static void fillArray(DynamicArray<Float> dArray, float[] array) {
+		if (null == dArray) return;
+		if (dArray.size() == 0) return;
+		for (int i=0; i<dArray.size(); i++) {
+			array[i] = dArray.getAt(i);
+		}
+	}
+	
+	/***
+	 * Fills the Double[] array with the elements of the Dynamic Array
+	 * double[] array must be the size of dArray
+	 * 
+	 * @param dArray
+	 * @param array
+	 */
+	public static void fillArray(DynamicArray<Double> dArray, double[] array) {
+		if (null == dArray) return;
+		if (dArray.size() == 0) return;
+		for (int i=0; i<dArray.size(); i++) {
+			array[i] = dArray.getAt(i);
+		}
+	}
+	/***
+	 * Fills the Boolean[] array with the elements of the Dynamic Array
+	 * boolean[] array must be the size of dArray
+	 * 
+	 * @param dArray
+	 * @param array
+	 */
+	public static void fillArray(DynamicArray<Boolean> dArray, boolean[] array) {
+		if (null == dArray) return;
+		if (dArray.size() == 0) return;
+		for (int i=0; i<dArray.size(); i++) {
+			array[i] = dArray.getAt(i);
+		}
+	}
+	
+	/***
+	 * Fills the Short[] array with the elements of the Dynamic Array
+	 * short[] array must be the size of dArray
+	 * 
+	 * @param dArray
+	 * @param array
+	 */
+	public static void fillArray(DynamicArray<Short> dArray, short[] array) {
+		if (null == dArray) return;
+		if (dArray.size() == 0) return;
+		for (int i=0; i<dArray.size(); i++) {
+			array[i] = dArray.getAt(i);
+		}
+	}
+	
+	/***
+	 * Fills the Long[] array with the elements of the Dynamic Array
+	 * long[] array must be the size of dArray
+	 * 
+	 * @param dArray
+	 * @param array
+	 */
+	public static void fillArray(DynamicArray<Long> dArray, long[] array) {
+		if (null == dArray) return;
+		if (dArray.size() == 0) return;
+		for (int i=0; i<dArray.size(); i++) {
+			array[i] = dArray.getAt(i);
+		}
+	}
+	
+	/***
+	 * Fills the Character[] array with the elements of the Dynamic Array
+	 * char[] array must be the size of dArray
+	 * 
+	 * @param dArray
+	 * @param array
+	 */
+	public static void fillArray(DynamicArray<Character> dArray, char[] array) {
 		if (null == dArray) return;
 		if (dArray.size() == 0) return;
 		for (int i=0; i<dArray.size(); i++) {
