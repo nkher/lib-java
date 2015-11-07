@@ -1,5 +1,7 @@
 package nkher.utils;
 
+import nkher.datastructures.DynamicArray;
+
 /****
  * This class provides some helper methods on arrays.
  * Inspired by the apache commons-lang jar. Specific classes referred are: ArrayUtils.java
@@ -272,4 +274,213 @@ public class ArrayUtility {
 		}
 	}
 	
+	/***
+	 * Fills the Dynamic Array with the elements of the Integer array
+	 *  
+	 * @param array
+	 * @param dArray
+	 */
+	public static void getDArray(Integer[] array, DynamicArray<Integer> dArray) {
+		if (null == array) return;
+		if (array.length == 0) return;
+		for (int i=0; i<array.length; i++) {
+			dArray.insert(array[i]);
+		}
+	}
+	
+	/***
+	 * Fills the Dynamic Array with the elements of the Character array
+	 *  
+	 * @param array
+	 * @param dArray
+	 */
+	public static void getDArray(Character[] array, DynamicArray<Character> dArray) {
+		if (null == array) return;
+		if (array.length == 0) return;
+		for (int i=0; i<array.length; i++) {
+			dArray.insert(array[i]);
+		}
+	}
+	
+	/***
+	 * Fills the Dynamic Array with the elements of the Long array
+	 *  
+	 * @param array
+	 * @param dArray
+	 */
+	public static void getDArray(Long[] array, DynamicArray<Long> dArray) {
+		if (null == array) return;
+		if (array.length == 0) return;
+		for (int i=0; i<array.length; i++) {
+			dArray.insert(array[i]);
+		}
+	}
+	
+	/***
+	 * Fills the Dynamic Array with the elements of the Boolean array
+	 *  
+	 * @param array
+	 * @param dArray
+	 */
+	public static void getDArray(Boolean[] array, DynamicArray<Boolean> dArray) {
+		if (null == array) return;
+		if (array.length == 0) return;
+		for (int i=0; i<array.length; i++) {
+			dArray.insert(array[i]);
+		}
+	}
+	
+	/***
+	 * Fills the Dynamic Array with the elements of the Float array
+	 *  
+	 * @param array
+	 * @param dArray
+	 */
+	public static void getDArray(Float[] array, DynamicArray<Float> dArray) {
+		if (null == array) return;
+		if (array.length == 0) return;
+		for (int i=0; i<array.length; i++) {
+			dArray.insert(array[i]);
+		}
+	}
+	
+	/***
+	 * Fills the Dynamic Array with the elements of the Double array
+	 *  
+	 * @param array
+	 * @param dArray
+	 */
+	public static void getDArray(Double[] array, DynamicArray<Double> dArray) {
+		if (null == array) return;
+		if (array.length == 0) return;
+		for (int i=0; i<array.length; i++) {
+			dArray.insert(array[i]);
+		}
+	}
+	
+	/***
+	 * Fills the Dynamic Array with the elements of the Short array
+	 *  
+	 * @param array
+	 * @param dArray
+	 */
+	public static void getDArray(Short[] array, DynamicArray<Short> dArray) {
+		if (null == array) return;
+		if (array.length == 0) return;
+		for (int i=0; i<array.length; i++) {
+			dArray.insert(array[i]);
+		}
+	}
+	
+	/***
+	 * Fills the Dynamic Array with the elements of the Byte array
+	 *  
+	 * @param array
+	 * @param dArray
+	 */
+	public static void getDArray(Byte[] array, DynamicArray<Byte> dArray) {
+		if (null == array) return;
+		if (array.length == 0) return;
+		for (int i=0; i<array.length; i++) {
+			dArray.insert(array[i]);
+		}
+	}
+	
+	
+	/***
+	 * Fills the Integer[] array with the elements of the Dynamic Array
+	 * 
+	 * @param dArray
+	 * @param array
+	 */
+	public static void fillArray(DynamicArray<Integer> dArray, Integer[] array) {
+		if (null == dArray) return;
+		if (dArray.size() == 0) return;
+		for (int i=0; i<dArray.size(); i++) {
+			array[i] = dArray.getAt(i);
+		}
+	}
+	
+	/***
+	 * Fills the Byte[] array with the elements of the Dynamic Array
+	 * 
+	 * @param dArray
+	 * @param array
+	 */
+	public static void fillArray(DynamicArray<Byte> dArray, Byte[] array) {
+		if (null == dArray) return;
+		if (dArray.size() == 0) return;
+		for (int i=0; i<dArray.size(); i++) {
+			array[i] = dArray.getAt(i);
+		}
+	}
+	
+	/***
+	 * Fills the Float[] array with the elements of the Dynamic Array
+	 * 
+	 * @param dArray
+	 * @param array
+	 */
+	public static void fillArray(DynamicArray<Float> dArray, Float[] array) {
+		if (null == dArray) return;
+		if (dArray.size() == 0) return;
+		for (int i=0; i<dArray.size(); i++) {
+			array[i] = dArray.getAt(i);
+		}
+	}
+	
+	/***
+	 * Fills the Double[] array with the elements of the Dynamic Array
+	 * 
+	 * @param dArray
+	 * @param array
+	 */
+	public static void fillArray(DynamicArray<Double> dArray, Double[] array) {
+		if (null == dArray) return;
+		if (dArray.size() == 0) return;
+		for (int i=0; i<dArray.size(); i++) {
+			array[i] = dArray.getAt(i);
+		}
+	}
+	/***
+	 * Fills the Boolean[] array with the elements of the Dynamic Array
+	 * 
+	 * @param dArray
+	 * @param array
+	 */
+	public static void fillArray(DynamicArray<Boolean> dArray, Boolean[] array) {
+		if (null == dArray) return;
+		if (dArray.size() == 0) return;
+		for (int i=0; i<dArray.size(); i++) {
+			array[i] = dArray.getAt(i);
+		}
+	}
+	
+	/***
+	 * Fills the Short[] array with the elements of the Dynamic Array
+	 * 
+	 * @param dArray
+	 * @param array
+	 */
+	public static void fillArray(DynamicArray<Short> dArray, Short[] array) {
+		if (null == dArray) return;
+		if (dArray.size() == 0) return;
+		for (int i=0; i<dArray.size(); i++) {
+			array[i] = dArray.getAt(i);
+		}
+	}
+	
+	/***
+	 * Fills the Long[] array with the elements of the Dynamic Array
+	 * 
+	 * @param dArray
+	 * @param array
+	 */
+	public static void fillArray(DynamicArray<Long> dArray, Long[] array) {
+		if (null == dArray) return;
+		if (dArray.size() == 0) return;
+		for (int i=0; i<dArray.size(); i++) {
+			array[i] = dArray.getAt(i);
+		}
+	}
 }
