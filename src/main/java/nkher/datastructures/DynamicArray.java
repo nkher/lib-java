@@ -1,6 +1,7 @@
 package nkher.datastructures;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import nkher.Interfaces.MyList;
@@ -18,7 +19,7 @@ public class DynamicArray<T> implements MyList<T> {
 	
 	public static int DEFAULT_CAPACITY = 10;
 	public static int SCALE_FACTOR = 2;
-	private static int MAX_SIZE = Integer.MAX_VALUE - 10;
+	// private static int MAX_SIZE = Integer.MAX_VALUE - 10;
 	
 	private int size = 0;
 	private int capacity;
@@ -169,7 +170,6 @@ public class DynamicArray<T> implements MyList<T> {
 	}
 	
 	public int size() {
-		System.out.println("WI _ " + this.writeIndex);
 		return this.size;
 	}
 	
@@ -238,24 +238,35 @@ public class DynamicArray<T> implements MyList<T> {
 	}
 	
 	/***
-	 * Returns an array of all the elements in the dynamic array.
+	 * Returns an object array of all the elements in the dynamic array.
 	 * If the array is empty the function returns an empty array. 
 	 * 
-	 * @return
+	 * @return array of {@code Object} type
 	 */
-	@SuppressWarnings("unchecked")
-	public T[] toArray() {
+	public Object[] toArray() {
 		Object[] array;
 		if (size == 0) {
 			array = new Object[0];
-			return (T[]) array;
+			return array;
 		}
 		array = new Object[size];
 		for (int i=0; i<size; i++) {
 			array[i] = data[i];
 		}
-		return (T[]) array;
+		return array;
 	}
+	
+	@SuppressWarnings({ "unchecked"})
+	public <E> E[] toArray(E[] e) {
+		if (e.length < size) {
+			return (E[]) Arrays.copyOf(data, size, e.getClass());
+		}
+		System.arraycopy(data, 0, e, 0, size);
+		if (e.length > size)
+            e[size] = null;
+        return e;
+	}
+	
 	
 	/***
 	 * Removes all elements from the array by setting each element to null
@@ -286,6 +297,18 @@ public class DynamicArray<T> implements MyList<T> {
 			size++;
 		}
 		writeIndex = size; // adjusting the writeIndex
+	}
+	
+	@SuppressWarnings("unchecked")
+	public ArrayList<T> toArrayList() {
+		if (size == 0) {
+			return new ArrayList<T>();
+		}
+		ArrayList<T> list = new ArrayList<T>();
+		for (int i=0; i<this.size; i++) {
+			list.add((T) data[i]);
+		}
+		return list;
 	}
 	
 	/***
