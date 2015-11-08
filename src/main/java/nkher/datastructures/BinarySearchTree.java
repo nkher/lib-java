@@ -1,6 +1,8 @@
 package nkher.datastructures;
 
 import nkher.Interfaces.MyTree;
+import nkher.exception.DataStructureEmptyException;
+import nkher.exception.NodeDoesNotExistException;
 
 public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V> {
 	
@@ -108,11 +110,77 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 		return this.size;
 	}
 
-	public void insert(K k, V v) {
+	public void insert(K key, V value) {
+		insert(new BSTNode<K, V>(key, value));
+	}
+	
+	/***
+	 * Algorithm to insert a node in a binary search tree.
+	 * Runtime - O(logN)
+	 * 
+	 * @param node - a {@code BSTNode} type node to be inserted
+	 */
+	public void insert(BSTNode<K, V> node) {
+		size++;
+		if (this.root == null) {
+			root = node;
+			return;
+		}
+		BSTNode<K, V> focusNode = root;
+		BSTNode<K, V> parent;
 		
+		while (true) {
+			parent = focusNode;
+			if (parent.key.compareTo(node.key) > 1) { // parent is greater
+				focusNode = focusNode.left;
+				if (focusNode == null) {
+					parent.left = node;
+					return;
+				}
+			}
+			else {
+				focusNode = focusNode.right;
+				if(focusNode == null) {
+					parent.right = node;
+					return;
+				}
+			}
+		}
+	}
+	
+	public void search(BSTNode<K, V> node) {
+		
+	}
+	
+	public BSTNode<K, V> search(K key) {
+		if (root == null) {
+			throw new DataStructureEmptyException("Binary Search Tree is Empty. Cannot search in an empty BST.");
+		}
+		return search(key, root);
+	}
+	
+	private BSTNode<K, V> search(K key, BSTNode<K, V> node) {
+		if (node == null) {
+			throw new NodeDoesNotExistException("Node does not exist in the binary tree.");
+		}
+		else {
+			if (node.key.equals(key)) { // found the node
+				return node;
+			}
+			else if (node.key.compareTo(key) > 1) {
+				return search(key, node.left);
+			}
+			else {
+				return search(key, node.right);
+			}
+		}
 	}
 
 	public void remove(K k) {
+		
+	}
+	
+	public void remove(BSTNode<K, V> bstNode) {
 		
 	}
 
