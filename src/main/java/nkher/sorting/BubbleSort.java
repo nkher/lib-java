@@ -11,11 +11,7 @@ import nkher.utils.ArrayUtility;
  *
  * @param <Object>
  */
-public class BubbleSort {
-	
-	public static final int ORDER_ASC = 0;
-	public static final int ORDER_DESC = 1;
-		
+public class BubbleSort extends Sorting {
 	
 	/***
 	 * Sorts the passed array in ascending order using the bubble sort algorithm.
@@ -222,6 +218,19 @@ public class BubbleSort {
 		ArrayUtility.getDArray(barray, dArray);
 		sort(dArray, sortOrder);
 		ArrayUtility.fillArray(dArray, barray);
+	}
+	
+	/***
+	 * Sorts the String[] array using the bubble sort algorithm.
+	 * 
+	 * @param sarray
+	 * @param sortOrder
+	 */
+	public static void sort(String[] sarray, int sortOrder) {
+		DynamicArray<String> dArray = new DynamicArray<String>();
+		ArrayUtility.getDArray(sarray, dArray);
+		sort(dArray, sortOrder);
+		ArrayUtility.fillArray(dArray, sarray);
 	}
 
 }

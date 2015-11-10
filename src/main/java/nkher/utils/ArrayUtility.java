@@ -28,6 +28,10 @@ public class ArrayUtility {
 	
 	public static final Short SHORT_OBJ_ARR[] = new Short[0];
 		
+	/*************************************************************************************************************************
+	 * RETURNS AN OBJECT ARRAY OF THE SAME PRIMITIVE TYPE PASSED WITH CONTENT SAME AS THAT OF THE PRIMITIVE TYPE ARRAYS
+	 *************************************************************************************************************************/
+	
 	
 	/***
 	 * Utility method to convert a primitive type int[] array into an Integer[] object array.
@@ -274,6 +278,10 @@ public class ArrayUtility {
 		}
 	}
 	
+	/********************************************************************
+	 * FILLS THE DYNAMIC ARRAY WITH CONTENT OF THE PRIMITIVE TYPE ARRAYS
+	 ********************************************************************/
+	
 	/***
 	 * Fills the Dynamic Array with the elements of the int[] array
 	 *  
@@ -379,6 +387,20 @@ public class ArrayUtility {
 	 * @param dArray
 	 */
 	public static void getDArray(byte[] array, DynamicArray<Byte> dArray) {
+		if (null == array) return;
+		if (array.length == 0) return;
+		for (int i=0; i<array.length; i++) {
+			dArray.insert(array[i]);
+		}
+	}
+	
+	/***
+	 * Fills the Dynamic Array with the elements of the String array
+	 *  
+	 * @param array
+	 * @param dArray
+	 */
+	public static void getDArray(String[] array, DynamicArray<String> dArray) {
 		if (null == array) return;
 		if (array.length == 0) return;
 		for (int i=0; i<array.length; i++) {
@@ -499,14 +521,12 @@ public class ArrayUtility {
 	}
 	
 	
-	
-	
-	
-	
-	
+	/*****************************************************************
+	 * FILLS THE PRIMITIVE ARRAY WITH CONTENT OF THE DYNAMIC ARRAYS
+	 *****************************************************************/
 	
 	/***
-	 * Fills the Integer[] array with the elements of the Dynamic Array
+	 * Fills the Integer[] array with the elements of the Dynamic Array.
 	 * int[] array must be the size of dArray
 	 * 
 	 * @param dArray
@@ -521,7 +541,7 @@ public class ArrayUtility {
 	}
 	
 	/***
-	 * Fills the Byte[] array with the elements of the Dynamic Array
+	 * Fills the Byte[] array with the elements of the Dynamic Array.
 	 * byte[] array must be the size of dArray
 	 * 
 	 * @param dArray
@@ -536,7 +556,7 @@ public class ArrayUtility {
 	}
 	
 	/***
-	 * Fills the Float[] array with the elements of the Dynamic Array
+	 * Fills the Float[] array with the elements of the Dynamic Array.
 	 * float[] array must be the size of dArray
 	 * 
 	 * @param dArray
@@ -551,7 +571,7 @@ public class ArrayUtility {
 	}
 	
 	/***
-	 * Fills the Double[] array with the elements of the Dynamic Array
+	 * Fills the Double[] array with the elements of the Dynamic Array.
 	 * double[] array must be the size of dArray
 	 * 
 	 * @param dArray
@@ -565,7 +585,7 @@ public class ArrayUtility {
 		}
 	}
 	/***
-	 * Fills the Boolean[] array with the elements of the Dynamic Array
+	 * Fills the Boolean[] array with the elements of the Dynamic Array.
 	 * boolean[] array must be the size of dArray
 	 * 
 	 * @param dArray
@@ -580,7 +600,7 @@ public class ArrayUtility {
 	}
 	
 	/***
-	 * Fills the Short[] array with the elements of the Dynamic Array
+	 * Fills the Short[] array with the elements of the Dynamic Array.
 	 * short[] array must be the size of dArray
 	 * 
 	 * @param dArray
@@ -595,7 +615,7 @@ public class ArrayUtility {
 	}
 	
 	/***
-	 * Fills the Long[] array with the elements of the Dynamic Array
+	 * Fills the Long[] array with the elements of the Dynamic Array.
 	 * long[] array must be the size of dArray
 	 * 
 	 * @param dArray
@@ -610,7 +630,7 @@ public class ArrayUtility {
 	}
 	
 	/***
-	 * Fills the Character[] array with the elements of the Dynamic Array
+	 * Fills the Character[] array with the elements of the Dynamic Array.
 	 * char[] array must be the size of dArray
 	 * 
 	 * @param dArray
@@ -620,6 +640,21 @@ public class ArrayUtility {
 		if (null == dArray) return;
 		if (dArray.size() == 0) return;
 		for (int i=0; i<dArray.size(); i++) {
+			array[i] = dArray.getAt(i);
+		}
+	}
+	
+	/***
+	 * Fills the String[] array with the elements of the Dynamic Array.
+	 * String[] array must be the size of dArray
+	 * 
+	 * @param dArray
+	 * @param array
+	 */
+	public static void fillArray(DynamicArray<String> dArray, String[] array) {
+		if(null == dArray) return;
+		if(dArray.size() == 0) return;
+		for(int i=0; i<dArray.size(); i++) {
 			array[i] = dArray.getAt(i);
 		}
 	}
