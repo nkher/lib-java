@@ -1,5 +1,8 @@
 package nkher.datastructures;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 import nkher.Interfaces.MyList;
 import nkher.exception.DataStructureEmptyException;
 import nkher.exception.DataStructureSmallerException;
@@ -13,7 +16,7 @@ import nkher.exception.InvalidIndexException;
  *
  * @param <T>
  */
-public class SinglyLinkedList<T> implements MyList<T> {
+public class SinglyLinkedList<T> implements MyList<T>, Iterable<T> {
 
 	private int size;
 	private SinglyNode<T> head;
@@ -265,4 +268,30 @@ public class SinglyLinkedList<T> implements MyList<T> {
 		clone_list.insert(itr.data);
 		return clone_list;
 	}
+
+	public Iterator<T> iterator() {
+		return new SinglyIterator();
+	}
+	
+	private class SinglyIterator implements Iterator<T> {
+
+		SinglyNode<T> curr = null;
+		
+		public boolean hasNext() {
+			return (!SinglyLinkedList.this.isEmpty() && curr != SinglyLinkedList.this.tail);
+		}
+
+		public T next() {
+			if (curr == null) {
+				curr = head;
+				return curr.data;
+			}
+			if (curr.next == null) {
+				throw new NoSuchElementException();
+			}
+			curr = curr.next;
+			return curr.data;
+		}
+	}
+	
 }
