@@ -104,6 +104,10 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 			if (left == null) return this;
 			return left.minnode();
 		}
+		
+		public String toString() {
+			return "[ key->" + this.key.toString() + ", value->" + this.val.toString() + " ]";
+		}
 	}
 
 	public int size() {
@@ -131,7 +135,7 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 		
 		while (true) {
 			parent = focusNode;
-			if (parent.key.compareTo(node.key) > 1) { // parent is greater
+			if (parent.key.compareTo(node.key) > 0) { // parent is greater
 				focusNode = focusNode.left;
 				if (focusNode == null) {
 					parent.left = node;
@@ -175,6 +179,51 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 			}
 		}
 	}
+	
+	/***
+	 * This is to get all the nodes in the tree between (within) the specified range.
+	 * This works well when the keys are of the numeric types : int, double, float etc.
+	 * It also would work well when the Object Key implements its own Comparator. 
+	 * 
+	 * The function starts at the root of the tree and goes
+	 * down to the lower levels based on key comparison. The algorithm is as follows :
+	 * 
+	 * 1. search key > max, recurse left subtree
+	 * 2. search key < min, recurse right subtree
+	 * 3. search key > min and search key < max, add the key and recurse on both sides
+	 * 
+	 * @param max
+	 * @param min
+	 * @return
+	 */
+	public DynamicArray<BSTNode<K, V>> rangeSearch(K min, K max) {
+		if (min.compareTo(max) > 0) {
+			throw new IllegalArgumentException("Min cannot be greater than max");
+		}
+		DynamicArray<BSTNode<K, V>> dArray = new DynamicArray<BSTNode<K,V>>();
+		return rangeSearchHelper(min, max, this.root, dArray);
+	}
+	
+	private DynamicArray<BSTNode<K, V>> rangeSearchHelper(K min, K max, BSTNode<K, V> curr, DynamicArray<BSTNode<K,V>> dArray) {
+		
+		if (null == curr) return dArray;
+		
+		if (curr.key.compareTo(max) > 0) { // go on the left
+			rangeSearchHelper(min, max, curr.left, dArray);
+		}
+		
+		else if (min.compareTo(curr.key) > 0) { // go on the right
+			rangeSearchHelper(min, max, curr.right, dArray);
+		}
+		
+		else if (curr.key.compareTo(min) >= 0 && max.compareTo(curr.key) >= 0) { // it is in between hence add and search both sides
+			dArray.insert(curr);
+			rangeSearchHelper(min, max, curr.left, dArray);
+			rangeSearchHelper(min, max, curr.right, dArray);
+		}
+
+		return dArray;
+	}
 
 	public void remove(K k) {
 		
@@ -195,18 +244,89 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 	public boolean isEmpty() {
 		return (size == 0);
 	}
-
-	public DynamicArray<V> inorder() {
-		return null;
+	
+	/***
+	 * Returns the min key node of the tree.
+	 * 
+	 * @return - node of {@code BSTNode<K, V>} type
+	 */
+	public BSTNode<K, V> min() {
+		if (null == root) {
+			throw new DataStructureEmptyException("Tree is empty.");
+		}
+		return root.minnode();
+	}
+	
+	/***
+	 * Returns the max key node of the tree.
+	 * 
+	 * @return - node of {@code BSTNode<K, V>} type
+	 */
+	public BSTNode<K, V> max() {
+		if (null == root) {
+			throw new DataStructureEmptyException("Tree is empty.");
+		}
+		return root.maxnode();
 	}
 
-	public DynamicArray<V> preorder() {
-		return null;
+	/***
+	 * Function to get the nodes of the tree in in-order fashion.
+	 * In-order -> left, vertex, right
+	 * 
+	 * @return - array of {@code DynamicArray<BSTNode<K, V>>} type
+	 */
+	public DynamicArray<BSTNode<K, V>> inorder() {
+		DynamicArray<BSTNode<K, V>> dArray = new DynamicArray<BSTNode<K,V>>();
+		return inorderUtil(root, dArray);
+	}
+	
+	private DynamicArray<BSTNode<K, V>> inorderUtil(BSTNode<K, V> node, DynamicArray<BSTNode<K, V>> dArray) {
+		if (node != null) {
+			inorderUtil(node.left, dArray);
+			dArray.insert(node);
+			inorderUtil(node.right, dArray);
+		}
+		return dArray;
 	}
 
-	public DynamicArray<V> postorder() {
-		return null;
+	/***
+	 * Function to get the nodes of the tree in pre-order fashion.
+	 * Pre-order -> vertex, left, right
+	 * 
+	 * @return - array of {@code DynamicArray<BSTNode<K, V>>} type
+	 */
+	public DynamicArray<BSTNode<K, V>> preorder() {
+		DynamicArray<BSTNode<K, V>> dArray = new DynamicArray<BSTNode<K,V>>();
+		return preorderUtil(root, dArray);
+	}
+	
+	private DynamicArray<BSTNode<K, V>> preorderUtil(BSTNode<K, V> node, DynamicArray<BSTNode<K, V>> dArray) {
+		if (node != null) {
+			dArray.insert(node);
+			preorderUtil(node.left, dArray);
+			preorderUtil(node.right, dArray);
+		}
+		return dArray;
 	}
 
+	/***
+	 * Function to get the nodes of the tree in post-order fashion.
+	 * Post-order -> left, right, vertex
+	 * 
+	 * @return - array of {@code DynamicArray<BSTNode<K, V>>} type
+	 */
+	public DynamicArray<BSTNode<K, V>> postorder() {
+		DynamicArray<BSTNode<K, V>> dArray = new DynamicArray<BSTNode<K,V>>();
+		return postorderUtil(root, dArray);
+	}
+
+	private DynamicArray<BSTNode<K, V>> postorderUtil(BSTNode<K, V> node, DynamicArray<BSTNode<K, V>> dArray) {
+		if (node != null) {
+			postorderUtil(node.left, dArray);
+			postorderUtil(node.right, dArray);
+			dArray.insert(node);
+		}
+		return dArray;
+	}
 
 }
