@@ -2,7 +2,10 @@ package nkher.datastructures;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+<<<<<<< HEAD
 import java.util.Iterator;
+=======
+>>>>>>> f7dd467c3dbe4a58909377e9251c357bafc5516e
 import java.util.List;
 
 import nkher.Interfaces.MyList;
@@ -16,7 +19,11 @@ import nkher.exception.DataStructureEmptyException;
  *
  * @param <T>
  */
+<<<<<<< HEAD
 public class DynamicArray<T> implements MyList<T>, Iterable<T> {
+=======
+public class DynamicArray<T> implements MyList<T> {
+>>>>>>> f7dd467c3dbe4a58909377e9251c357bafc5516e
 	
 	public static int DEFAULT_CAPACITY = 10;
 	public static int SCALE_FACTOR = 2;
@@ -361,6 +368,7 @@ public class DynamicArray<T> implements MyList<T>, Iterable<T> {
 		sb.append("]");
 		return sb.toString();
 	}
+<<<<<<< HEAD
 
 	public Iterator<T> iterator() {
 		return new DIterator();
@@ -385,5 +393,7 @@ public class DynamicArray<T> implements MyList<T>, Iterable<T> {
 	}
 	
 	
+=======
+>>>>>>> f7dd467c3dbe4a58909377e9251c357bafc5516e
 	
 }
