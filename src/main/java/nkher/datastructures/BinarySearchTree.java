@@ -328,5 +328,55 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 		}
 		return dArray;
 	}
+	
+	/***
+	 * Returns the height of the BST. It calculates the height of the subtree tree at every
+	 * node under it and hence is inefficient.
+	 *  
+	 * 
+	 */
+	public int height() {
+		return heightUtil(root);
+	}
+	
+	private int heightUtil(BSTNode<K, V> node) {
+		if (null == node) return 0;
+		return Math.max(heightUtil(node.left), heightUtil(node.right)) + 1;
+	}
+	
+	/***
+	 * Utility function to get the nodes of a BST in level order fashion.
+	 * Each level is a linked list of nodes.
+	 * 
+	 * @return - an array of type {@code DynamicArray<SinglyLinkedList<BSTNode<K, V>>>}
+	 */
+	public DynamicArray<SinglyLinkedList<BSTNode<K, V>>> levelorder() {
+		
+		DynamicArray<SinglyLinkedList<BSTNode<K, V>>> result = new DynamicArray<SinglyLinkedList<BSTNode<K,V>>>();
+		SinglyLinkedList<BSTNode<K, V>> children = new SinglyLinkedList<BSTNode<K,V>>();
+		SinglyLinkedList<BSTNode<K, V>> parents;
+		
+		if (null == root) return result;
+		
+		children.insert(root); // insert the first node in the tree
+		
+		while (!children.isEmpty()) {
+			result.insert(children);
+			parents = children;
+			children = new SinglyLinkedList<BSTNode<K,V>>();
+			
+			for (BSTNode<K, V> bstNode : parents) {
+				
+				if (bstNode.left != null) {
+					children.insert(bstNode.left);
+				}
+				if (bstNode.right != null) {
+					children.insert(bstNode.right);
+				}
+			}
+		}
+		
+		return result;
+	}
 
 }
