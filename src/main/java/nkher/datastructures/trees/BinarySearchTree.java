@@ -1,6 +1,8 @@
-package nkher.datastructures;
+package nkher.datastructures.trees;
 
 import nkher.Interfaces.MyTree;
+import nkher.datastructures.DynamicArray;
+import nkher.datastructures.SinglyLinkedList;
 import nkher.exception.DataStructureEmptyException;
 import nkher.exception.NodeDoesNotExistException;
 
@@ -20,7 +22,8 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 		/** Constructor that initializes a BSTNode with its key and value only 
 		 * @param - K key 
 		 * @param - V value 
-		 * @return - Returns a BSTNode */
+		 * @return - Returns a Node of type {@code BSTNode} 
+		 */
 		public BSTNode(K key, V val) {
 			this.key = key;
 			this.val = val;
@@ -31,9 +34,10 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 		/** Constructor that initializes a BSTNode with its left and right nodes, key and value 
 		 * @param - K key 
 		 * @param - V value 
-		 * @param - left (left child) 
-		 * @param - right (right child) 
-		 * @return - Returns a BSTNode */
+		 * @param - left child
+		 * @param - right child
+		 * @return - Returns a Node of type {@code BSTNode} 
+		 */
 		public BSTNode(K key, V val, BSTNode<K, V> left, BSTNode<K, V> right) {
 			this.key = key;
 			this.val = val;
@@ -335,6 +339,9 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 	}
 
 	public K rootkey() {
+		if (root == null || size == 0) {
+			throw new DataStructureEmptyException("Cannot return root key from an empty tree.");
+		}
 		return this.root.key;
 	}
 	
