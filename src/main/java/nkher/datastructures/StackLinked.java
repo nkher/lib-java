@@ -2,8 +2,9 @@ package nkher.datastructures;
 
 import nkher.Interfaces.MyStack;
 import nkher.exception.DataStructureEmptyException;
+import nkher.sorting.Sorting;
 
-public class StackLinked<T> implements MyStack<T> {
+public class StackLinked<T extends Comparable<T>> implements MyStack<T> {
 
 	private int size = 0;
 	private Node<T> top;
@@ -112,26 +113,28 @@ public class StackLinked<T> implements MyStack<T> {
 		if (!isEmpty()) {
 			T element = pop();
 			reverseUtil();
-			insertUtil(element);
+			reverseInsertUtil(element);
 		}
 	}
 	
 	/***
 	 * Utility function 2 to reverse the stack.
 	 */
-	private void insertUtil(T element) {
+	private void reverseInsertUtil(T element) {
 		if (isEmpty()) {
 			push(element);
 		}
 		else {
 			T x = pop();
-			insertUtil(element);
+			reverseInsertUtil(element);
 			push(x);
 		}
 	}
 	
 	/***
 	 * A recursive O(N^2) algorithm to sort the stack in ascending order.
+	 * 
+	 * @param sortOrder - a {@code int} type variable, 1 for descending and 0 for ascending order
 	 */
 	public void sort(int sortOrder) {
 		if (isEmpty()) {
@@ -141,12 +144,39 @@ public class StackLinked<T> implements MyStack<T> {
 	}
 	
 	/***
-	 * Utility function to reverse the stack.
+	 * Utility function to sort the stack.
 	 */
 	private void sortUtil(int sortOrder) {
 		if (!isEmpty()) {
 			T element = pop();			
+			sortUtil(sortOrder);
+			sortInsertUtil(element, sortOrder);
 		}
 	}
-
+	
+	/***
+	 * Utility function to sort the stack.
+	 */
+	private void sortInsertUtil(T element, int sortOrder) { 
+		
+		if (isEmpty() || (sortOrder == Sorting.ORDER_ASC && (peek().compareTo(element) < 0)) || (sortOrder == Sorting.ORDER_DESC && (peek().compareTo(element) > 0))) {
+			push(element);
+		}			
+		else {
+			T x = pop();
+			sortInsertUtil(element, sortOrder);
+			push(x);
+		}
+	}
+	
+	/***
+	 * Functions that clears the stack and sets its size to 0.
+	 */
+	public void clear() {
+		if (size == 0) {
+			return;
+		}
+		top = bottom = null;
+		this.size = 0;
+	}
 }
