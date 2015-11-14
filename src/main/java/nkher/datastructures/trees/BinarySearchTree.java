@@ -1,8 +1,8 @@
 package nkher.datastructures.trees;
 
 import nkher.Interfaces.MyTree;
-import nkher.datastructures.DynamicArray;
-import nkher.datastructures.SinglyLinkedList;
+import nkher.datastructures.lists.DynamicArray;
+import nkher.datastructures.lists.SinglyLinkedList;
 import nkher.exception.DataStructureEmptyException;
 import nkher.exception.NodeDoesNotExistException;
 
