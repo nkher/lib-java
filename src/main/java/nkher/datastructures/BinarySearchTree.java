@@ -41,6 +41,8 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 			this.right = right;
 		}
 		
+		/** Getters  for key, value, left and right nodes */
+		
 		public K key() {
 			return this.key;
 		}
@@ -56,6 +58,8 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 		public BSTNode<K, V> right() {
 			return right;
 		}
+		
+		/** Setters for left and right nodes */
 		
 		public void setLeft(BSTNode<K, V> node) {
 			this.left = node;
@@ -108,6 +112,51 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 		public String toString() {
 			return "[ key->" + this.key.toString() + ", value->" + this.val.toString() + " ]";
 		}
+		
+		public boolean isLeaf() {
+			return (left == null && right == null);
+		}
+		
+		public void remove(K k, BSTNode<K, V> parent) {
+			if (this.key.equals(k)) { // found the node
+				
+				/* Handle the deletion here */
+				if (isLeaf()) { // Case 1 : node has no children
+					if (parent.left == this) parent.left = null;
+					else parent.right = null;
+				}
+				
+				else if (left == null && right != null) { // Case 2 : node has only right child 
+					parent.right = right;
+					return;
+				}
+				
+				else { // Case 3 : node has both children or only left child
+					
+					BSTNode<K, V> rightMin;
+					
+					if (right != null) rightMin = right.minnode();
+					else rightMin = minnode();
+					
+					remove(rightMin.key, this); // remove the rightMin from its current position
+					
+					/* Adjust the pointers */
+					rightMin.left = this.left;
+					rightMin.right = this.right;
+					
+					if (parent.right == this) parent.right = rightMin;
+					else parent.left = rightMin;
+					
+					return;
+				}
+			}
+			else if (this.key.compareTo(k) < 0) { // go on the right
+				right.remove(k, this);
+			}
+			else { // go on the left
+				left.remove(k, this);
+			}
+		}
 	}
 
 	public int size() {
@@ -127,7 +176,7 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 	public void insert(BSTNode<K, V> node) {
 		size++;
 		if (this.root == null) {
-			root = node;
+			this.root = node;
 			return;
 		}
 		BSTNode<K, V> focusNode = root;
@@ -225,12 +274,64 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 		return dArray;
 	}
 
-	public void remove(K k) {
-		
+	/***
+	 * Function to remove a node from the binary search tree.
+	 * The function would throw a NodeDoesNotExistException() if the
+	 * node to be deleted is not found in the tree. It uses a recursive algorithm 
+	 * to perform deletion.
+	 * 
+	 * ALGORITHM : 
+	 * 
+	 * Following are the cases that are taken care of:
+	 * 
+	 * 1. The tree is empty, throws an exception.
+	 * 2. The tree does not contain the key at all.
+	 * 
+	 * If the node to be deleted is found then following cases are taken care of :
+	 * 
+	 * 3. The root is itself the key node.
+	 * 4. The node is a leaf node.
+	 * 5. The node is an internal node with only right child.
+	 * 6. The node is an internal node with left as well as right child. 
+	 * 
+	 * @return returns true if a node is deleted else returns false
+	 */
+	public boolean remove(K k) {
+		boolean found = false;
+		if (root == null) {
+			throw new DataStructureEmptyException("Cannot delete from an empty tree !");
+		}
+		else {
+			if (root.key.equals(k)) { // root equals the key
+				
+				/* Here we create a temporary parent to the root which would help us in deletion */
+				BSTNode<K, V> tempParent = new BSTNode<K, V>();
+				tempParent.right = this.root;
+				root = tempParent;
+				
+				root.right.remove(k, tempParent);
+				root = tempParent.right;
+				tempParent.right = null;
+				found = true;
+			}
+			else {
+				this.root.remove(k, null);
+				found = true;
+			}
+		}
+		if (found) {
+			size--;
+		}
+		return found;
 	}
 	
-	public void remove(BSTNode<K, V> bstNode) {
-		
+	/***
+	 * Function to remove a node from the Binary Search Tree.
+	 * 
+	 * @param bstNode
+	 */
+	public boolean remove(BSTNode<K, V> bstNode) {
+		return remove(bstNode.key);
 	}
 
 	public K rootkey() {
@@ -238,6 +339,7 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 	}
 	
 	public BSTNode<K, V> root() {
+
 		return this.root;
 	}
 
@@ -277,6 +379,7 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 	 */
 	public DynamicArray<BSTNode<K, V>> inorder() {
 		DynamicArray<BSTNode<K, V>> dArray = new DynamicArray<BSTNode<K,V>>();
+		if (this.root == null) return dArray;
 		return inorderUtil(root, dArray);
 	}
 	
@@ -297,6 +400,7 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 	 */
 	public DynamicArray<BSTNode<K, V>> preorder() {
 		DynamicArray<BSTNode<K, V>> dArray = new DynamicArray<BSTNode<K,V>>();
+		if (this.root == null) return dArray;
 		return preorderUtil(root, dArray);
 	}
 	
@@ -317,6 +421,7 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 	 */
 	public DynamicArray<BSTNode<K, V>> postorder() {
 		DynamicArray<BSTNode<K, V>> dArray = new DynamicArray<BSTNode<K,V>>();
+		if (this.root == null) return dArray;
 		return postorderUtil(root, dArray);
 	}
 
@@ -375,8 +480,69 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 				}
 			}
 		}
-		
 		return result;
 	}
+	
+	/***
+	 * Function to get the keys of all the nodes of the tree in in-order fashion.
+	 * In-order -> left, vertex, right
+	 * 
+	 * @return - array of {@code DynamicArray<K>} type
+	 */
+	public DynamicArray<K> inorderkeys() {
+		DynamicArray<K> dArray = new DynamicArray<K>();
+		if (this.root == null) return dArray;
+		return inorderkeysUtil(root, dArray);
+	}
+	
+	private DynamicArray<K> inorderkeysUtil(BSTNode<K, V> node, DynamicArray<K> dArray) {
+		if (node != null) {
+			inorderkeysUtil(node.left, dArray);
+			dArray.insert(node.key);
+			inorderkeysUtil(node.right, dArray);
+		}
+		return dArray;
+	}
 
+	/***
+	 * Function to get the keys of all the nodes of the tree in pre-order fashion.
+	 * Pre-order -> vertex, left, right
+	 * 
+	 * @return - array of {@code DynamicArray<K>} type
+	 */
+	public DynamicArray<K> preorderkeys() {
+		DynamicArray<K> dArray = new DynamicArray<K>();
+		if (this.root == null) return dArray;
+		return preorderkeysUtil(root, dArray);
+	}
+	
+	private DynamicArray<K> preorderkeysUtil(BSTNode<K, V> node, DynamicArray<K> dArray) {
+		if (node != null) {
+			dArray.insert(node.key);
+			preorderkeysUtil(node.left, dArray);
+			preorderkeysUtil(node.right, dArray);
+		}
+		return dArray;
+	}
+
+	/***
+	 * Function to get the keys of all the nodes of the tree in post-order fashion.
+	 * Pre-order -> vertex, left, right
+	 * 
+	 * @return - array of {@code DynamicArray<K>} type
+	 */
+	public DynamicArray<K> postorderkeys() {
+		DynamicArray<K> dArray = new DynamicArray<K>();
+		if (this.root == null) return dArray;
+		return postorderkeysUtil(root, dArray);
+	}
+
+	private DynamicArray<K> postorderkeysUtil(BSTNode<K, V> node, DynamicArray<K> dArray) {
+		if (node != null) {
+			postorderkeysUtil(node.left, dArray);
+			postorderkeysUtil(node.right, dArray);
+			dArray.insert(node.key);
+		}
+		return dArray;
+	}
 }
