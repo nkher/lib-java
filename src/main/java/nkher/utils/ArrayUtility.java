@@ -1,6 +1,7 @@
 package nkher.utils;
 
-import nkher.datastructures.DynamicArray;
+import nkher.datastructures.lists.DynamicArray;
+
 
 /****
  * This class provides some helper methods on arrays.

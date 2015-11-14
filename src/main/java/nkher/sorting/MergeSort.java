@@ -1,6 +1,6 @@
 package nkher.sorting;
 
-import nkher.datastructures.DynamicArray;
+import nkher.datastructures.lists.DynamicArray;
 import nkher.utils.ArrayUtility;
 
 /****
