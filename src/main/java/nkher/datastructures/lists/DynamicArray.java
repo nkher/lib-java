@@ -1,4 +1,4 @@
-package nkher.datastructures;
+package nkher.datastructures.lists;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -369,7 +369,7 @@ public class DynamicArray<T> implements MyList<T>, Iterable<T> {
 	private class DIterator implements Iterator<T> {
 
 		int currentPointer = 0;
-		
+				
 		public boolean hasNext() {
 			return (currentPointer != size);
 		}
@@ -383,7 +383,5 @@ public class DynamicArray<T> implements MyList<T>, Iterable<T> {
 			return (T) data[currentPointer++];
 		}
 	}
-	
-	
 	
 }

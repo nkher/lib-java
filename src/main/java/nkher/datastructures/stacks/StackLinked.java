@@ -1,4 +1,4 @@
-package nkher.datastructures;
+package nkher.datastructures.stacks;
 
 import nkher.Interfaces.MyStack;
 import nkher.exception.DataStructureEmptyException;

@@ -1,4 +1,4 @@
-package nkher.datastructures;
+package nkher.datastructures.lists;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;

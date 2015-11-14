@@ -1,11 +1,11 @@
-package nkher.datastructures;
+package nkher.datastructures.stacks;
 
 import nkher.Interfaces.MyStack;
+import nkher.datastructures.lists.DynamicArray;
 import nkher.exception.DataStructureEmptyException;
 
 /***
  *	This class demonstrates the implementation of a Stack interface. The underlying implementation is an array.
- *
  * 
  * @author nameshkher
  *
@@ -32,6 +32,10 @@ public class StackArray<T> implements MyStack<T> {
 		this.capacity = capacity;
 		this.size = 0;
 		dArray = new DynamicArray<T>(capacity);
+	}
+	
+	public int capacity() {
+		return this.capacity;
 	}
 	
 	/***

@@ -1,4 +1,4 @@
-package nkher.datastructures;
+package nkher.datastructures.lists;
 
 import nkher.Interfaces.MyList;
 import nkher.exception.DataStructureEmptyException;
