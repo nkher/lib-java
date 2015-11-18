@@ -1,10 +1,10 @@
-package nkher;
+package nkher.main;
 
 import java.util.Arrays;
 
 import nkher.sorting.BubbleSort;
 
-public class TesBubbleSort {
+public class BubbleSortTester {
 
 	public static void main(String[] args) {
 		

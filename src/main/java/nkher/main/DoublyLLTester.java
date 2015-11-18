@@ -1,4 +1,4 @@
-package nkher;
+package nkher.main;
 
 import nkher.datastructures.lists.DoublyLinkedList;
 import nkher.datastructures.lists.DoublyLinkedList.DoublyNode;

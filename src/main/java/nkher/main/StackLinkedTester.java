@@ -1,4 +1,4 @@
-package nkher;
+package nkher.main;
 
 import nkher.datastructures.stacks.StackLinked;
 import nkher.sorting.Sorting;

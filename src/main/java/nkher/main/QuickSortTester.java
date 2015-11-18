@@ -1,4 +1,4 @@
-package nkher;
+package nkher.main;
 
 import nkher.sorting.QuickSort;
 import nkher.sorting.Sorting;

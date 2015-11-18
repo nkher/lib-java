@@ -1,4 +1,4 @@
-package nkher;
+package nkher.main;
 
 import java.util.Stack;
 

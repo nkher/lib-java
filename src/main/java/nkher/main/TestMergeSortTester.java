@@ -1,10 +1,10 @@
-package nkher;
+package nkher.main;
 
 import nkher.datastructures.lists.DynamicArray;
 import nkher.sorting.MergeSort;
 import nkher.sorting.Sorting;
 
-public class TestMergeSort {
+public class TestMergeSortTester {
 	
 	public static void main(String args[]) {
 		
