@@ -7,7 +7,7 @@ import nkher.utils.ArrayUtility;
  * Implementation of the classic merge sort algorithm. 
  * Works well for large array sizes.
  * 
- * RunTime = O(N * logN)
+ * RunTime = O(N * logN) - Worst Case
  * 
  * @author nameshkher
  *
@@ -16,14 +16,14 @@ import nkher.utils.ArrayUtility;
 public class MergeSort extends Sorting {
 	
 	/***
-	 * Sorts the passed array in ascending order using the bubble sort algorithm.
+	 * Sorts the passed array in ascending order using the merge sort algorithm.
 	 * If the incoming array is of a complex type (object), then it sorts the array based on the 
 	 * implementation of the compareTo() method of the object (if the incoming object type's extends the Comparable interface.) 
 	 * Else if the array is of a primitive type {any one of Integer, String, Double, Float, Double, Long etc.} then 
 	 * sorting is done on the based on the primitive type.	  
 	 * 
 	 * @param array - a {@code T} type array to be sorted
-	 * @param sortOrder - {@code int} flag representing order in which you want to sort {0 for ascending and 1 for descending}, can also use BubbleSort.ORDER_ASC and BubbleSort.ORDER_DESC
+	 * @param sortOrder - {@code int} flag representing order in which you want to sort {0 for ascending and 1 for descending}, can also use Sorting.ORDER_ASC and Sorting.ORDER_DESC
 	 */
 	public static <T extends Comparable<T>> void sort(DynamicArray<T> dArray, int sortOrder) {
 		if (null == dArray) return;

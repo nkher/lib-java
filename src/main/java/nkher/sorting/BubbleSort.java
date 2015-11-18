@@ -21,7 +21,7 @@ public class BubbleSort extends Sorting {
 	 * sorting is done on the based on the primitive type.	  
 	 * 
 	 * @param array - a {@code T} type array to be sorted
-	 * @param sortOrder - {@code int} flag representing order in which you want to sort {0 for ascending and 1 for descending}, can also use BubbleSort.ORDER_ASC and BubbleSort.ORDER_DESC
+	 * @param sortOrder - {@code int} flag representing order in which you want to sort {0 for ascending and 1 for descending}, can also use Sorting.ORDER_ASC and Sorting.ORDER_DESC
 	 */
 	public static <T extends Comparable<T>> void sort(DynamicArray<T> dArray, int sortOrder) {
 		if (null == dArray) return;
@@ -201,7 +201,7 @@ public class BubbleSort extends Sorting {
 	 * @param sortOrder
 	 */
 	public static void sort(long[] larray, int sortOrder) {
-		DynamicArray<Long> dArray = new DynamicArray<Long>();
+		DynamicArray<Long> dArray = new DynamicArray<Long>();	
 		ArrayUtility.getDArray(larray, dArray);
 		sort(dArray, sortOrder);
 		ArrayUtility.fillArray(dArray, larray);

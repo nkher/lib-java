@@ -3,13 +3,45 @@ package nkher.sorting;
 import nkher.datastructures.lists.DynamicArray;
 import nkher.utils.ArrayUtility;
 
+/****
+ * Implementation of the classic quick sort algorithm. 
+ * Works well for large array sizes.
+ * 
+ * RunTime = O(N * logN) - Best Case, O(N ^ 2) - Worst Case
+ * 
+ * @author nameshkher
+ *
+ * @param <Object>
+ */
 public class QuickSort extends Sorting {
 
+	/***
+	 * Sorts the passed array in ascending order using the quick sort algorithm.
+	 * If the incoming array is of a complex type (object), then it sorts the array based on the 
+	 * implementation of the compareTo() method of the object (if the incoming object type's extends the Comparable interface.) 
+	 * Else if the array is of a primitive type {any one of Integer, String, Double, Float, Double, Long etc.} then 
+	 * sorting is done on the based on the primitive type.	  
+	 * 
+	 * @param array - a {@code T} type array to be sorted
+	 * @param sortOrder - {@code int} flag representing order in which you want to sort {0 for ascending and 1 for descending}, can also use Sorting.ORDER_ASC and Sorting.ORDER_DESC
+	 */
 	public static <T extends Comparable<T>> void sort(DynamicArray<T> dArray, int sortOrder) {
 		if (null == dArray || dArray.size() == 0) return;
 		quicksort(dArray, sortOrder, 0, dArray.size()-1);
 	}
 	
+	/****
+	 * Helper function which kick starts the quick sort process.
+	 * Calls another helper function named pIndex to get the partitionIndex and 
+	 * partitions the array into 2 arrays. It then recursively quicksort's both the halves
+	 * in the same manner. Stops splitting when high is less than the low.
+	 * Initially high is set to the number of elements in the array minus 1 and low is set to 0. 
+	 * 
+	 * @param dArray
+	 * @param sortOrder
+	 * @param low
+	 * @param high
+	 */
 	private static <T extends Comparable<T>> void quicksort(DynamicArray<T> dArray, int sortOrder, int low, int high) {
 		if (high > low) {
 			int partitionInd = pIndex(dArray, sortOrder, low, high);
@@ -18,6 +50,17 @@ public class QuickSort extends Sorting {
 		}
 	}
 	
+	/***
+	 * Partitions the array based on a pivot. This implementation selects the last element of the sub array as the pivot.
+	 * It places elements greater than the pivot towards the left of the pivot and greater ones after the pivot. 
+	 * And at the last places the pivot at the right spot and returns the index of the pivot.
+	 * 
+	 * @param dArray
+	 * @param sortOrder
+	 * @param left
+	 * @param right
+	 * @return
+	 */
 	private static <T extends Comparable<T>> int pIndex(DynamicArray<T> dArray, int sortOrder, int left, int right) {
 		int pIndex = left;
 		T pivot = dArray.getAt(right);
