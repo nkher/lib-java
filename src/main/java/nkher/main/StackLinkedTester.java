@@ -1,7 +1,7 @@
 package nkher.main;
 
+import nkher.algorithms.sorting.Sorting;
 import nkher.datastructures.stacks.StackLinked;
-import nkher.sorting.Sorting;
 
 public class StackLinkedTester {
 

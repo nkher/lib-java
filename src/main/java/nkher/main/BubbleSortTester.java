@@ -2,7 +2,7 @@ package nkher.main;
 
 import java.util.Arrays;
 
-import nkher.sorting.BubbleSort;
+import nkher.algorithms.sorting.BubbleSort;
 
 public class BubbleSortTester {
 

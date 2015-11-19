@@ -1,7 +1,7 @@
 package nkher.main;
 
-import nkher.sorting.QuickSort;
-import nkher.sorting.Sorting;
+import nkher.algorithms.sorting.QuickSort;
+import nkher.algorithms.sorting.Sorting;
 
 public class QuickSortTester {
 

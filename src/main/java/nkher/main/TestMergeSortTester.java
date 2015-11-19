@@ -1,8 +1,8 @@
 package nkher.main;
 
+import nkher.algorithms.sorting.MergeSort;
+import nkher.algorithms.sorting.Sorting;
 import nkher.datastructures.lists.DynamicArray;
-import nkher.sorting.MergeSort;
-import nkher.sorting.Sorting;
 
 public class TestMergeSortTester {
 	
