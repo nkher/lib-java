@@ -8,6 +8,12 @@ package nkher.utils;
  */
 public class StringUtility {
 	
+	// TO IMPLEMENT
+	// 1. SUBSTRING
+	// 2. STR_REPLACE
+	// 3. ADD 2 Strings
+	// 4. Multiply 2 Strings
+	
 	/***
 	 * An efficient method for compressing a String using Run Length Encoding.
 	 * It optimizes for single char sequences by only appending the char and not the count (1). 
@@ -15,8 +21,8 @@ public class StringUtility {
 	 * These work good for Strings that have no numerics in them.
 	 * Example : The String should not contain [0 - 9]
 	 * 
-	 * @param str
-	 * @return
+	 * @param str - input of type {@code String}
+	 * @return - {@code String}
 	 */
 	public static String runLengthEncoding(String str) {
 		
@@ -62,8 +68,8 @@ public class StringUtility {
 	 * returned by the following function would be 13. This method optimizes for character sequences occurring only once
 	 * in a consecutive sequence by not appending its occurrence. 
 	 * 
-	 * @param str
-	 * @return
+	 * @param str - input of type {@code String}
+	 * @return - {@code String}
 	 */
 	private static int compressionSize(String str) {
 		
@@ -93,8 +99,8 @@ public class StringUtility {
 	 * using the runLengthEncoding method of this class. This decompress function is guaranteed to 
 	 * work appropriately if the String is compressed by the above compressing function.
 	 * 
-	 * @param str
-	 * @return
+	 * @param str - input of type {@code String}
+	 * @return - {@code String}
 	 */
 	public static String decompress(String str) {
 		
@@ -144,8 +150,8 @@ public class StringUtility {
 	/***
 	 * Reverses the passed String and returns the reversed one.
 	 * 
-	 * @param str
-	 * @return
+	 * @param str - input of type {@code String}
+	 * @return - {@code String}
 	 */
 	public static String reverse(String str) {
 		
@@ -166,17 +172,77 @@ public class StringUtility {
 		
 		return new String(arr);
 	}
-
 	
-	public static void main(String args[]) {
+	/***
+	 * Checks whether a String is a palindrome  or not. True indicates that the String is a palindrome
+	 * and false means it is not. Performs a case sensitive match.
+	 * 
+	 * @param str - input of type {@code String}
+	 * @return - a {@code boolean} value 
+	 */
+	public static boolean isPalindrome(String str) {
 		
-		String str = "aabeedbbbesssffeh";
-		System.out.println(runLengthEncoding(str));
+		if (null == str) return false;
+		int n = str.length();
+		if (n == 0) return true; // empty string is a palindrome
 		
-		// System.out.println(decompress("a2be2db3es3f2").equals(str));
+		char[] arr = str.toCharArray();
+		int start = 0, end = n-1;
 		
-		System.out.println(decompress("a2be2db3es3f2eh").equals(str));
+		while (start < end) {
+			if (arr[start] != arr[end]) return false;
+			start++;
+			end--;
+		}
+		return true;
+	}
+	
+	/***
+	 * Checks whether a String is a palindrome  or not. True indicates that the String is a palindrome
+	 * and false means it is not. Performs a case in-sensitive match.
+	 * 
+	 * @param str - input of type {@code String}
+	 * @return - a {@code boolean} value 
+	 */
+	public static boolean isPalindromeCaseInsensitive(String str) {
+		return isPalindrome(str.toLowerCase());
+	}
+	
+	/***
+	 * Converts a String into Integer (primitive int) and returns the integer.
+	 * If null or empty String is passed then an exception of type - 
+	 * IllegalArgumentException() is thrown with appropriate message.
+	 * 
+	 * @param str - input of type {@code String}
+	 * @return - a {@code int} value
+	 */
+	public static int stoi(String str) {
 		
-				
+		if (null == str) {
+			throw new IllegalArgumentException("Cannot convert null String to Integer.");
+		}
+		int n = str.length();
+		if (n == 0) {
+			throw new IllegalArgumentException("Cannot convert zero length String to Integer.");
+		}
+		
+		/** Check for negative numbers */
+		boolean neg = false;
+		if (str.charAt(0) == '-') {
+			neg = true;
+			str = str.substring(1);
+			n = n-1;
+		}
+		
+		int num = 0;
+		for (int i=0; i<n; i++) {
+			num = (num * 10) + (str.charAt(i) - '0');
+		}
+		
+		if (neg) {
+			num = num * (-1);
+		}
+		
+		return num;
 	}
 }
