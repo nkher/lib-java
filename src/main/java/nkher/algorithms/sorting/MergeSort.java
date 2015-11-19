@@ -1,4 +1,4 @@
-package nkher.sorting;
+package nkher.algorithms.sorting;
 
 import nkher.datastructures.lists.DynamicArray;
 import nkher.utils.ArrayUtility;

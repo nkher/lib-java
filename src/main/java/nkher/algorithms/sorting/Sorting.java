@@ -1,4 +1,4 @@
-package nkher.sorting;
+package nkher.algorithms.sorting;
 
 
 public abstract class Sorting {
