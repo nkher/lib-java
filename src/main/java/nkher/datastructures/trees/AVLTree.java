@@ -3,6 +3,15 @@ package nkher.datastructures.trees;
 import nkher.Interfaces.MyTree;
 import nkher.exception.DataStructureEmptyException;
 
+/****
+ * 
+ * 
+ * @author nameshkher
+ *
+ *
+ * @param <K>
+ * @param <V>
+ */
 public class AVLTree<K extends Comparable<K>, V> implements MyTree<K, V> {
 
 	private int size = 0;
@@ -13,7 +22,7 @@ public class AVLTree<K extends Comparable<K>, V> implements MyTree<K, V> {
 		private V value;
 		private AVLNode<K, V> left;
 		private AVLNode<K, V> right;
-		private int height = 0;
+		private int height;
 		
 		public AVLNode() {}
 		
@@ -26,6 +35,7 @@ public class AVLTree<K extends Comparable<K>, V> implements MyTree<K, V> {
 			this.key = key;
 			this.value = val;
 			left = right = null;
+			height = 1;
 		}
 		
 		/** Constructor that initializes a AVLNode with its left and right nodes, key and value 
@@ -40,6 +50,7 @@ public class AVLTree<K extends Comparable<K>, V> implements MyTree<K, V> {
 			this.value = val;
 			this.left = left;
 			this.right = right;
+			height = 1;
 		}
 		
 		/** Getters  for key, value, left and right nodes */
@@ -132,79 +143,79 @@ public class AVLTree<K extends Comparable<K>, V> implements MyTree<K, V> {
 		return this.size;
 	}
 
+	/***
+	 * Algorithm to insert a node in a AVL tree.
+	 * The function accepts a Key and Value for inserting into the tree.
+	 * Runtime - O(logN)
+	 * 
+	 * @param node - a Key of type {@code K} and Value of type {@code V} for inserting into the tree.
+	 */
 	public void insert(K k, V v) {
 		insert(new AVLNode<K, V>(k, v));
 	}
 	
 	/***
 	 * Algorithm to insert a node in a AVL tree.
+	 * The function accepts a AVLNode<K, V> type object.
 	 * Runtime - O(logN)
 	 * 
 	 * @param node - a {@code AVLNode} type node to be inserted
 	 */
 	public void insert(AVLNode<K, V> node) {
-		
 		if (node == null) {
 			throw new IllegalArgumentException("Cannot insert a null node");
 		}
+		root = insertHelper(root, node);
+	}
+	
+	private AVLNode<K, V> insertHelper(AVLNode<K, V> root, AVLNode<K, V> node) {
 		
-		/* Performing a BST insertion */
+		/* Performing a Recursive BST insertion */
 		size++;		
-		if (null == this.root) {
-			root = node;
-			return;
+		if (null == root) {
+			return node;
 		}
-		AVLNode<K, V> temp = this.root;
-		while (true) {
-			if (temp.key.compareTo(node.key) > 0) { // temp is greater then go left
-				if (temp.left != null) {
-					temp = temp.left;
-				}
-				else {
-					temp.left = node;
-					break;
-				}
-			}
-			else {
-				if (temp.right != null) {
-					temp = temp.right;
-				}
-				else {
-					temp.right = node;
-					break;
-				}
-			}
+		else if (root.key.compareTo(node.key) > 0) { // root is greater then go left
+			root.left = insertHelper(root.left, node);
+		}
+		else {
+			root.right = insertHelper(root.right, node);
 		}
 		/* BST insertion done */
 		
-		/* Performing the balancing */
-		System.out.println("temp : " + temp.toString());
-		node.setHeight(Math.max(heightAt(temp.left), heightAt(temp.right)) + 1);
-		int balanceFactor = balanceAt(temp);
+		/* Performing the balancing of each of the ancestors of the node inserted */
+		root.setHeight(Math.max(heightAt(root.left), heightAt(root.right)) + 1);
+						
+		/* Get the balance factor at this point to re check if it is unbalanced */
+		int balanceFactor = balanceAt(root);
+		
+		// System.out.println("Root : " + root + ", BF : " + balanceFactor);
 		
 		/* Check all possible cases where balance can go wrong */
 		
 		// CASE 1 : LEFT LEFT CASE
-		if (balanceFactor > 1 && node.key.compareTo(temp.left.key) < 0) {
-			this.root = rightRotate(temp);
+		if (balanceFactor > 1 && node.key.compareTo(root.left.key) < 0) {
+			return rightRotate(root);
 		}
 		
 		// CASE 2 : LEFT RIGHT CASE
-		if (balanceFactor > 1 && node.key.compareTo(temp.left.key) > 0) {
-			temp.left = leftRotate(root.left);
-			this.root = rightRotate(root);
+		if (balanceFactor > 1 && node.key.compareTo(root.left.key) > 0) {
+			root.left = leftRotate(root.left);
+			return rightRotate(root);
 		}
 		
 		// CASE 3 : RIGHT RIGHT CASE
-		if (balanceFactor < -1 && node.key.compareTo(temp.right.key) > 0) {
-			this.root = leftRotate(temp);
+		if (balanceFactor < -1 && node.key.compareTo(root.right.key) > 0) {
+			return leftRotate(root);
 		}
 		
 		// CASE 4 : RIGHT LEFT CASE
-		if (balanceFactor < -1 && node.key.compareTo(temp.right.key) < 0) {
+		if (balanceFactor < -1 && node.key.compareTo(root.right.key) < 0) {
 			root.right = rightRotate(root.right);
-			this.root = leftRotate(temp);
-		}		
+			return leftRotate(root);
+		}
+		
+		return root;
 	}
 
 	public boolean remove(K k) {
@@ -232,33 +243,33 @@ public class AVLTree<K extends Comparable<K>, V> implements MyTree<K, V> {
 	 *******************************************************************************/
 	
 	private AVLNode<K, V> leftRotate(AVLNode<K, V> y) {
-		AVLNode<K, V> right = y.right;
-		AVLNode<K, V> rightsLChild = right.left;
+		AVLNode<K, V> x = y.right;
+		AVLNode<K, V> subtree = x.left;
 		
 		/** Rotation */
-		right.left = y;
-		y.right = rightsLChild.left;
+		x.left = y;
+		y.right = subtree;
 		
 		/** Fixing the heights */
-		right.height = Math.max(right.left.height, right.right.height) + 1;
-		y.height = Math.max(y.left.height, y.right.height) + 1;
+		y.height = Math.max(heightAt(y.left), heightAt(y.right)) + 1;
+		x.height = Math.max(heightAt(x.right), heightAt(x.left)) + 1;
 		
-		return right;
+		return x;
 	}
 	
 	private AVLNode<K, V> rightRotate(AVLNode<K, V> y) {
-		AVLNode<K, V> left = y.left; /* get the left child */
-		AVLNode<K, V> leftsRChild = left.right; /* get the right child of the left child */
+		AVLNode<K, V> x = y.left; /* get the left child */
+		AVLNode<K, V> subtree = x.right; /* get the right child of the left child */
 		
 		/** Rotation */
-		left.right = y;
-		y.left = leftsRChild;
+		x.right = y;
+		y.left = subtree;
 		
 		/** Fixing the heights */
-		left.height = Math.max(left.left.height, left.right.height) + 1;
-		y.height = Math.max(y.left.height, y.right.height) + 1;
+		y.height = Math.max(heightAt(y.left), heightAt(y.right)) + 1;
+		x.height = Math.max(heightAt(x.right), heightAt(x.left)) + 1;
 		
-		return left;
+		return x;
 	}
 	
 	/***
@@ -275,8 +286,8 @@ public class AVLTree<K extends Comparable<K>, V> implements MyTree<K, V> {
 	}
 	
 	private int heightAt(AVLNode<K, V> node) {
-		if (null == root) return 0;
-		return root.height;
+		if (null == node) return 0;
+		return node.height;
 	}
 
 }
