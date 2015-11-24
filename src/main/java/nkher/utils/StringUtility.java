@@ -134,11 +134,14 @@ public class StringUtility {
 				prev = str.charAt(i);
 			}
 		}
-		while (count > 0) {
-			sb.append(prev);
-			count--;
+		
+		if (!Character.isDigit(str.charAt(n-1))) sb.append(prev);
+		else {
+			while (count > 0) {
+				sb.append(prev);
+				count--;
+			}
 		}
-		if (count == 0) sb.append(prev);
 		return sb.toString();
 	}
 	
@@ -242,7 +245,145 @@ public class StringUtility {
 		if (neg) {
 			num = num * (-1);
 		}
-		
 		return num;
+	}
+	
+	/***
+	 * Method to add 2 strings and return the added string as the result.
+	 * If both the Strings are null or empty then throw appropriate exception with message.
+	 * 
+	 * 
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public static String add(String x, String y) {
+		
+		if (null == x || null == y) {
+			throw new IllegalArgumentException("Either of one string is null. Please pass appropriate parameters.");
+		}
+		
+		int lenX = x.length(), lenY = y.length();
+		
+		if (lenX == 0 || lenY == 0) {
+			throw new IllegalArgumentException("Either of one String is empty. Please pass appropriate parameters.");
+		}
+		
+		boolean subtract = false, xIsNeg = false, yIsNeg = false;;
+		if (x.charAt(0) == '-') {
+			subtract = !subtract;
+			x = x.substring(1);
+			xIsNeg = true;
+		}
+		if (y.charAt(0) == '-') {
+			subtract = !subtract;
+			y = y.substring(1);
+			yIsNeg = true;
+		}
+		
+		if (subtract) {
+			return (yIsNeg ? subtract(x, y) : subtract(y, x));
+		}
+		
+		if (lenX != lenY) {
+			int diff = (lenX > lenY) ? (lenX - lenY) : (lenY - lenX);
+			StringBuilder zeroSb = new StringBuilder();
+			while (diff > 0) {
+				zeroSb.append("0");
+				diff--;
+			}
+			
+			if (lenX > lenY) {
+				y = zeroSb.toString() + y;
+				lenY = y.length();
+			} else {
+				x = zeroSb.toString() + x;
+				lenX = x.length();
+			}
+		}
+		
+		String result = "";
+		int i=lenX-1, carry = 0;
+				
+		while (i >= 0) {			
+			int d1 = x.charAt(i) - '0', d2 = y.charAt(i) - '0';
+						
+			int sum = d1+d2+carry;
+			
+			if (i == 0) {
+				result = sum + result;
+			}			
+			else if (sum > 9) {
+				result = (sum%10) + result;
+				carry = sum / 10;
+			}
+			else {
+				result = sum + result;
+				carry = 0;
+			}			
+			i--;
+		}
+		
+		if (stoi(result) == 0) {
+			result = "0";
+		}
+		
+		return result;
+	}
+	
+	/***
+	 * Subtracts 'y' from 'x' using grade school subtracting algorithm.
+	 * 
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public static String subtract(String x, String y) {
+		
+		int lenX = x.length(), lenY = y.length(), i = lenX-1, j = lenY-1;
+		
+		String result = "";
+		int carry = 0;
+						
+		while (i >= 0 && j >= 0) {			
+			int d1 = x.charAt(i) - '0', d2 = y.charAt(j) - '0';
+			d1 = d1 - carry;
+			if (d1 >= d2) {
+				result = (d1-d2) + result;
+				carry = 0;
+			}
+			else { //  handling negative case
+				result = (d1+10-d2) + result;
+				carry = 1;
+			}			
+			i--; j--; // decrement for next run
+		}
+		
+		// System.out.println(result);
+		
+		if (lenX != lenY) {
+			if (lenX > lenY) {
+				result = (carry == 0) ? x.substring(0, i+1) + result : subtract(x.substring(0, i+1), "1") + result;
+			}
+			else {
+				result = (carry == 0) ? y.substring(0, j+1) + result : subtract(y.substring(0, j+1), "1") + result;
+			}
+		}
+		
+		
+		if (stoi(result) == 0) {
+			result = "0";
+		}
+		
+		return result;
+	}
+	
+	private static String trimzeros(String x) {
+		if (null == x) throw new IllegalArgumentException("Cannot trim null String");
+		if (x.length() == 0) throw new IllegalArgumentException("Cannot trim null String");
+		
+		int n = x.length();
+		
+		return "";
 	}
 }
