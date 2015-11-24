@@ -273,11 +273,13 @@ public class StringUtility {
 		if (x.charAt(0) == '-') {
 			subtract = !subtract;
 			x = x.substring(1);
+			lenX--;
 			xIsNeg = true;
 		}
 		if (y.charAt(0) == '-') {
 			subtract = !subtract;
 			y = y.substring(1);
+			lenY--;
 			yIsNeg = true;
 		}
 		
@@ -327,6 +329,9 @@ public class StringUtility {
 		if (stoi(result) == 0) {
 			result = "0";
 		}
+		if (xIsNeg && yIsNeg) {
+			result = "-" + result;
+		}
 		
 		return result;
 	}
@@ -339,7 +344,6 @@ public class StringUtility {
 	 * @return
 	 */
 	public static String subtract(String x, String y) {
-		
 		int lenX = x.length(), lenY = y.length(), i = lenX-1, j = lenY-1;
 		
 		String result = "";
