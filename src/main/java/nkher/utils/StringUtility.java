@@ -11,20 +11,19 @@ public class StringUtility {
 	// TO IMPLEMENT
 	// 1. SUBSTRING
 	// 2. STR_REPLACE
-	// 3. ADD 2 Strings
-	// 4. Multiply 2 Strings
+	// 3. Multiply 2 Strings
 	
 	/***
 	 * An efficient method for compressing a String using Run Length Encoding.
 	 * It optimizes for single char sequences by only appending the char and not the count (1). 
 	 * Internally uses a StringBuilder for forming the compression String.
-	 * These work good for Strings that have no numerics in them.
+	 * These work good for Strings that have no numerics in them.<br>
 	 * Example : The String should not contain [0 - 9]
-	 * 
+	 * <br><br>
 	 * @param str - input of type {@code String}
 	 * @return - {@code String}
 	 */
-	public static String runLengthEncoding(String str) {
+	public static String compress(String str) {
 		
 		if (null == str) return null;
 		int n = str.length();
@@ -64,10 +63,10 @@ public class StringUtility {
 	 * Calculates and returns the size of the compressed String without actually performing the compression.
 	 * This helps in determining whether or not compression should be performed. The Algorithm is to count the 
 	 * number of character sequences and every character sequence has another number after it which gives its count.
-	 * The total length is the compression size. For example if str = 'aabeedbbbesssff' then the size after compression
+	 * The total length is the compression size. <br>For example if str = 'aabeedbbbesssff' then the size after compression
 	 * returned by the following function would be 13. This method optimizes for character sequences occurring only once
 	 * in a consecutive sequence by not appending its occurrence. 
-	 * 
+	 * <br><br>
 	 * @param str - input of type {@code String}
 	 * @return - {@code String}
 	 */
@@ -97,8 +96,8 @@ public class StringUtility {
 	/***
 	 * Returns the de-compressed String for the passed String which has been previously compressed 
 	 * using the runLengthEncoding method of this class. This decompress function is guaranteed to 
-	 * work appropriately if the String is compressed by the above compressing function.
-	 * 
+	 * work appropriately if the String is compressed by the above compressing function -> compress().
+	 * <br><br>
 	 * @param str - input of type {@code String}
 	 * @return - {@code String}
 	 */
@@ -152,7 +151,7 @@ public class StringUtility {
 	
 	/***
 	 * Reverses the passed String and returns the reversed one.
-	 * 
+	 * <br><br>
 	 * @param str - input of type {@code String}
 	 * @return - {@code String}
 	 */
@@ -179,7 +178,7 @@ public class StringUtility {
 	/***
 	 * Checks whether a String is a palindrome  or not. True indicates that the String is a palindrome
 	 * and false means it is not. Performs a case sensitive match.
-	 * 
+	 * <br><br>
 	 * @param str - input of type {@code String}
 	 * @return - a {@code boolean} value 
 	 */
@@ -203,7 +202,7 @@ public class StringUtility {
 	/***
 	 * Checks whether a String is a palindrome  or not. True indicates that the String is a palindrome
 	 * and false means it is not. Performs a case in-sensitive match.
-	 * 
+	 * <br><br>
 	 * @param str - input of type {@code String}
 	 * @return - a {@code boolean} value 
 	 */
@@ -215,7 +214,7 @@ public class StringUtility {
 	 * Converts a String into Integer (primitive int) and returns the integer.
 	 * If null or empty String is passed then an exception of type - 
 	 * IllegalArgumentException() is thrown with appropriate message.
-	 * 
+	 * <br><br>
 	 * @param str - input of type {@code String}
 	 * @return - a {@code int} value
 	 */
@@ -251,10 +250,10 @@ public class StringUtility {
 	/***
 	 * Method to add 2 strings and return the added string as the result.
 	 * If both the Strings are null or empty then throw appropriate exception with message.
+	 * <br><br>
 	 * 
-	 * 
-	 * @param x
-	 * @param y
+	 * @param x - a number wrapped in a type of {@code String} which is to be added to another number (string)
+	 * @param y - a number wrapped in a type of {@code String} which is to be added to another number (string)
 	 * @return
 	 */
 	public static String add(String x, String y) {
@@ -333,14 +332,16 @@ public class StringUtility {
 			result = "-" + result;
 		}
 		
-		return result;
+		return trimzeros(result);
 	}
 	
 	/***
-	 * Subtracts 'y' from 'x' using grade school subtracting algorithm.
+	 * Subtracts 'y' from 'x' using grade school subtraction algorithm.
+	 * Subtracts y from x starting from the last character.
+	 * <br><br>
 	 * 
-	 * @param x
-	 * @param y
+	 * @param x - a number wrapped in a type of {@code String} from which another quantity is subtracted
+	 * @param y - a number wrapped in a type of {@code String} which is subtracted from another String integer
 	 * @return
 	 */
 	public static String subtract(String x, String y) {
@@ -379,15 +380,32 @@ public class StringUtility {
 			result = "0";
 		}
 		
-		return result;
+		return trimzeros(result);
 	}
 	
+	/***
+	 * A function for trimming zero chars from both the ends. This is used by the add and subtract methods
+	 * before returning the result.
+	 * <br><br>
+	 * 
+	 * @param x - type of {@code String}
+	 * @return - a {@code String} with zeros trimmed on both sides
+	 */
 	private static String trimzeros(String x) {
 		if (null == x) throw new IllegalArgumentException("Cannot trim null String");
 		if (x.length() == 0) throw new IllegalArgumentException("Cannot trim null String");
 		
-		int n = x.length();
+		int start=0, end;
+		StringBuilder sb = new StringBuilder(x);
 		
-		return "";
+		while (start < sb.length() && sb.charAt(start) == '0') {
+			sb.deleteCharAt(start++);
+		}
+		end = sb.length()-1;
+		while (end >= 0 && sb.charAt(end) == '0') {
+			sb.deleteCharAt(end--);
+		}
+		
+		return sb.toString();
 	}
 }
