@@ -13,13 +13,12 @@ public class NaviePatternSearch {
 	/***
 	 * Returns an ArrayList of all the indices in the text where a match is found for the pattern.
 	 * Throws Exceptions with appropriate messages arguments passed are incorrect. 
-	 * The worst case time complexity is bounded by the maximum number of comparisons that can take place.
-	 * Hence the worst case time complexity is :
-	 * <br><br>
-	 * Big O ( pattern_length * ( text_length - pattern_length + 1 )) 
+	 * The worst case time complexity is bounded by the maximum number of comparisons that can take place. <br><br>
+	 *
+	 * Worst Case Time Complexity - O( pattern_length * ( text_length - pattern_length + 1 )) 
 	 * 
-	 * @param text
-	 * @param pat
+	 * @param text - a text of type {@code String} in which we search for the pattern 
+	 * @param pat - a pattern of type {@code String} which is to be searched
 	 */
 	public static ArrayList<Integer> simpleMatch(String text, String pat) {
 		
@@ -58,12 +57,12 @@ public class NaviePatternSearch {
 	 * our pattern is unique. Hence we can safely start searching after 'j' indices.
 	 * <br><br>
 	 * The worst case time complexity still remains the same and is bounded by the maximum number of comparisons that can take place.
-	 * Hence the worst case time complexity is :
-	 * <br>
-	 * Big O ( pattern_length * ( text_length - pattern_length + 1 )) 
+	 * <br><br>
+	 *
+	 * Worst Case Time Complexity - O( pattern_length * ( text_length - pattern_length + 1 )) 
 	 * 
-	 * @param text
-	 * @param pat
+	 * @param text - a text of type {@code String} in which we search for the pattern 
+	 * @param pat - a pattern of type {@code String} which is to be searched
 	 */
 	public static ArrayList<Integer> simpleMatchEffUniquePattern(String text, String pat) {
 		
@@ -94,12 +93,4 @@ public class NaviePatternSearch {
 		
 		return result;
 	}
-	
-	public static void main(String[] args) {
-		
-		// System.out.println(simpleMatch("rtyuio9", "rtyuio9").toString());
-		
-		System.out.println(simpleMatchEffUniquePattern("ABCEABCDABCEABCD", "ABCD").toString());
-	}
-
 }
