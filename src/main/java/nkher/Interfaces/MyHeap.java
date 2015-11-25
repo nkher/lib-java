@@ -28,7 +28,7 @@ public interface MyHeap<T> {
 	 * @param key
 	 * @return
 	 */
-	T remove(T key);
+	boolean remove(T key);
 	
 	/***
 	 * Returns the size of the heap.

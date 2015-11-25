@@ -339,6 +339,26 @@ public class DynamicArray<T> implements MyList<T>, Iterable<T> {
 	}
 	
 	/***
+	 * Returns the index of the first occurrence of the element from the array.
+	 * If the Array is empty then this function throws a DataStructureEmptyException().
+	 * If the element is not found then it returns -1.
+	 * 
+	 * @param elem
+	 * @return
+	 */
+	public int search(T elem) {
+		if (isEmpty()) {
+			throw new DataStructureEmptyException("Cannot search in an empty array.");
+		}
+		for (int i=0; i<size; i++) {
+			if (data[i].equals(elem)) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	/***
 	 * Checks if the array is empty.
 	 * Returns true if yes and false if not empty.
 	 * 
