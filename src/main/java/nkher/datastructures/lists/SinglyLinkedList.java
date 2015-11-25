@@ -230,6 +230,34 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<T> {
 	}
 	
 	/***
+	 * Removes all the elements from the SinglyLinkedList.
+	 */
+	public void clear() {
+		if (isEmpty()) return;
+		head = null;
+		tail = null;
+		size = 0;
+	}
+
+	/***
+	 * Returns an Object[] array containing all the elements of the SinglyLinkedList.
+	 */
+	public Object[] toArray() {
+		if (isEmpty()) {
+			return new Object[1];
+		}
+		Object[] result = new Object[size];
+		SinglyNode<T> itr = head;
+		int i=0;
+		while (itr != tail) {
+			result[i++] = itr.data;
+			itr = itr.next;
+		}
+		result[i] = itr.data;
+		return result;
+	}
+	
+	/***
 	 * Appends the passed linked list at the tail of this linked list.
 	 * This does not create new memory for the nodes that are being appended.
 	 * But it uses the existing nodes from the linked list which is to be appended.

@@ -45,4 +45,16 @@ public interface MyList<T> {
 	 */
 	void removeAt(int index);
 	
+	
+	/***
+	 * Clears the list by removing all the elements from it.
+	 */
+	void clear();
+	
+	/***
+	 * Returns an array containing all the elements.
+	 * 
+	 * @return
+	 */
+	Object[] toArray();
 }
