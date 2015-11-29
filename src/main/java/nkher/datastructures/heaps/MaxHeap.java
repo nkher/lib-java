@@ -1,12 +1,17 @@
 package nkher.datastructures.heaps;
 
+import java.util.HashMap;
+
 import nkher.Interfaces.MyHeap;
 import nkher.datastructures.lists.DynamicArray;
+import nkher.exception.DataStructureEmptyException;
 
 /****
  * A simple implementation of a MaxHeap data structure. This class extends the MyHeap<T>
- * interface and provides useful api() for inserting, deleting and searching through
- * the heap all in logarithmic time complexity.
+ * interface and provides useful API for inserting, deleting and searching through
+ * the heap all in logarithmic time complexity. This heap is augmented to store keys
+ * in a HashMap of the java.util collection. This helps in having functions like 
+ * contains in the heap which tells us if the heap contains a particular object.
  * 
  * Time Complexity - O(log N)
  * 
@@ -18,6 +23,7 @@ public class MaxHeap<T extends Comparable<T>> implements MyHeap<T> {
 
 	private int size;
 	DynamicArray<T> heapArr;
+	private HashMap<T, Integer> keys; // maps the keys to their spots in the array
 	
 	/***
 	 * Creates an empty heap.
@@ -25,6 +31,7 @@ public class MaxHeap<T extends Comparable<T>> implements MyHeap<T> {
 	public MaxHeap() {
 		size = 0;
 		heapArr = new DynamicArray<T>();
+		keys = new HashMap<T, Integer>();
 	}
 	
 	/***
@@ -33,13 +40,16 @@ public class MaxHeap<T extends Comparable<T>> implements MyHeap<T> {
 	 * @param dArray - An array of type - {@code DynamicArray<T>}
 	 */
 	public MaxHeap(DynamicArray<T> dArray) {
-		this.size = dArray.size();
+		for (T elem : dArray) {
+			insert(elem);
+		}
 	}
 	
 	public void insert(T t) {
 		size++;
 		heapArr.insert(t); // insert the element in the array
 		int ind = size-1;
+		keys.put(t, ind);
 		
 		/** Now start fixing the max heap property by checking in bottom up manner in the tree */
 		while (ind != 0 && heapArr.getAt(parent(ind)).compareTo(heapArr.getAt(ind)) < 0) { // until the parent has a value lesses than the child
@@ -81,9 +91,40 @@ public class MaxHeap<T extends Comparable<T>> implements MyHeap<T> {
 		return extractMax();
 	}
 	
-	public T remove(T key) {
-		return null;
+	/***
+	 * This method is used to remove an element from the heap.
+	 * It returns true if the element is successfully found and deleted and
+	 * false if not found. If the heap is empty then the function throws a 
+	 * DataStructureEmptyException(). <br><br>
+	 */
+	public boolean remove(T key) {
+		if (isEmpty()) {
+			throw new DataStructureEmptyException("Heap is empty. Cannot delete from empty heap.");
+		}
+		// Find the node in the heap
+		if (!keys.containsKey(key)) { return false; } // element not found
+		int ind = keys.get(key);		
+						
+		if (ind == size-1) { // if the element is the last node
+			heapArr.removeAt(size-1);
+			System.out.println("Comes here");
+			size--;
+			keys.remove(key);
+			return true;
+		}
+				
+		/** Replace the node with the last node */
+		swap(ind, size-1);
+		heapArr.removeAt(size-1); // remove the last element
+		size--;
+		
+		/** Now perform the max-heapify operation */
+		maxHeapify(ind);
+		keys.remove(key);
+		
+		return true;
 	}
+	
 
 	public int size() {
 		return size;
@@ -160,12 +201,41 @@ public class MaxHeap<T extends Comparable<T>> implements MyHeap<T> {
 	 * @param ind2
 	 */
 	private void swap(int ind1, int ind2) {
+		swapKeyIndices(heapArr.getAt(ind1), heapArr.getAt(ind2));
 		T temp = heapArr.getAt(ind1);
 		heapArr.setAt(ind1, heapArr.getAt(ind2));
 		heapArr.setAt(ind2, temp);
 	}
 	
+	/***
+	 * Utility method to swap indices in the keys hashmap when ever swap happens
+	 * within the main heap data structure.
+	 * 
+	 * @param ind1
+	 * @param ind2
+	 */
+	private void swapKeyIndices(T e1, T e2) {
+		int ind_e1 = keys.get(e1);
+		int ind_e2 = keys.get(e2);
+		keys.put(e1, ind_e2);
+		keys.put(e2, ind_e1);
+	}
+	
 	public String toString() {
 		return heapArr.toString();
+	}
+	
+	/***
+	 * A function to check if the key is present in the heap or not.
+	 * 
+	 * @param key
+	 * @return
+	 */
+	public boolean contains(T key) {
+		return keys.containsKey(key);
+	}
+	
+	public Object[] toArray() {
+		return heapArr.toArray();
 	}
 }
