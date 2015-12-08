@@ -27,19 +27,19 @@ public class QueueArray<T> implements MyQueue<T>, Iterable<T> {
 	
 	public QueueArray() {
 		size = 0;
-		initQueueArray();
+		initQueueArray(DEFAULT_CAPACITY);
 	}
 	
 	public QueueArray(QueueArray<T> qa) {
 		this.size = qa.size;
-		data = new Object[size];
+		initQueueArray(size);
 		for (T elem : qa) {
 			enqueue(elem);
 		}
 	}
 	
-	private void initQueueArray() {
-		data = new Object[DEFAULT_CAPACITY];
+	private void initQueueArray(int size) {
+		data = new Object[size];
 	}
 	
 	public int size() {
@@ -62,6 +62,9 @@ public class QueueArray<T> implements MyQueue<T>, Iterable<T> {
 		return (T) data[rear];
 	}
 
+	/***
+	 * Removes and returns the element at the head of the queue.
+	 */
 	public T dequeue() {
 		if (isEmpty()) {
 			throw new DataStructureEmptyException("Cannot remove from an empty queue");
@@ -72,10 +75,19 @@ public class QueueArray<T> implements MyQueue<T>, Iterable<T> {
 		size--;
 		return ret;
 	}
-
+	
 	/***
-	 * The resizing is handled by the dynamic array internally.
+	 * Returns the element at the head of the queue without removing it.
+	 * @return
 	 */
+	@SuppressWarnings("unchecked")
+	public T peek() {
+		if (isEmpty()) {
+			throw new DataStructureEmptyException("Cannot peek from an empty queue.");
+		}
+		return (T) data[front];
+	}
+
 	public void enqueue(T element) {
 		if (isFull()) {
 			resize();
@@ -167,7 +179,7 @@ public class QueueArray<T> implements MyQueue<T>, Iterable<T> {
 	}
 	
 	public void clear() {
-		initQueueArray();
+		initQueueArray(DEFAULT_CAPACITY);
 		this.size = 0;
 		front = rear = 0;
 	}

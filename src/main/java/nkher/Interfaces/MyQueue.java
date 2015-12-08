@@ -17,11 +17,18 @@ public interface MyQueue<T> {
 	T head();
 	
 	/***
-	 * Removes the first inserted element from the queue. 
+	 * Returns the first inserted element from the queue. 
+	 * Also deletes the element from the queue.
 	 * 
 	 * @return
 	 */
 	T dequeue();
+	
+	/***
+	 * Returns the first inserted element from the queue but does not delete the element.
+	 * @return
+	 */
+	T peek();
 	
 	/***
 	 * Pushes an element onto the queue.
@@ -36,4 +43,10 @@ public interface MyQueue<T> {
 	 * @return
 	 */
 	boolean isEmpty();
+	
+	
+	/***
+	 * Clears the dequeue array and sets the size to the default capacity.
+	 */
+	void clear();
 }
