@@ -21,6 +21,7 @@ public class NaviePatternSearch {
 	 * 
 	 * @param text - a text of type {@code String} in which we search for the pattern 
 	 * @param pat - a pattern of type {@code String} which is to be searched
+	 * @return - an {@code ArrayList<Integers>} with index at which match occurred
 	 */
 	public static ArrayList<Integer> simpleMatch(String text, String pat) {
 		
@@ -59,6 +60,7 @@ public class NaviePatternSearch {
 	 * 
 	 * @param text - a text of type {@code String} in which we search for the pattern 
 	 * @param pat - a pattern of type {@code String} which is to be searched
+	 * @return - an {@code ArrayList<Integers>} with index at which match occurred
 	 */
 	public static ArrayList<Integer> simpleMatchCaseInSensitive(String text, String pat) {
 		return simpleMatch(text.toLowerCase(), pat.toLowerCase());
@@ -83,6 +85,7 @@ public class NaviePatternSearch {
 	 * 
 	 * @param text - a text of type {@code String} in which we search for the pattern 
 	 * @param pat - a pattern of type {@code String} which is to be searched
+	 * @return - an {@code ArrayList<Integers>} with index at which match occurred
 	 */
 	public static ArrayList<Integer> simpleMatchEffUniquePattern(String text, String pat) {
 		
@@ -132,6 +135,7 @@ public class NaviePatternSearch {
 	 * 
 	 * @param text - a text of type {@code String} in which we search for the pattern 
 	 * @param pat - a pattern of type {@code String} which is to be searched
+	 * @return - an {@code ArrayList<Integers>} with index at which match occurred
 	 */
 	public static ArrayList<Integer> simpleMatchEffUniquePatternCaseInSensitive(String text, String pat) {
 		return simpleMatchEffUniquePattern(text.toLowerCase(), pat.toLowerCase());

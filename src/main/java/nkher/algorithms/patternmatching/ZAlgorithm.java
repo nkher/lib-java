@@ -25,9 +25,9 @@ public class ZAlgorithm {
 	 * 
 	 * NOTE : Performs a case sensitive match
 	 * 
-	 * @param text
-	 * @param pat
-	 * @return
+	 * @param text - a text of type {@code String} in which we search for the pattern 
+	 * @param pat - a pattern of type {@code String} which is to be searched
+	 * @return - an {@code ArrayList<Integers>} with index at which match occurred
 	 */
 	public static ArrayList<Integer> zAlgoSearch(String text, String pat) {
 		return zAlgoSearch(text.toCharArray(), pat.toCharArray());
@@ -46,9 +46,9 @@ public class ZAlgorithm {
 	 * 
 	 * NOTE : Performs a case insensitive match
 	 * 
-	 * @param text
-	 * @param pat
-	 * @return
+	 * @param text - a text of type {@code String} in which we search for the pattern 
+	 * @param pat - a pattern of type {@code String} which is to be searched
+	 * @return - an {@code ArrayList<Integers>} with index at which match occurred
 	 */
 	public static ArrayList<Integer> zAlgoSearchCaseInSensitive(String text, String pat) {
 		return zAlgoSearch(text.toLowerCase().toCharArray(), pat.toLowerCase().toCharArray());
@@ -68,9 +68,9 @@ public class ZAlgorithm {
 	 * 
 	 * NOTE : Performs a case sensitive match
 	 * 
-	 * @param text
-	 * @param pat
-	 * @return
+	 * @param text - a text of type {@code char[]} in which we search for the pattern 
+	 * @param pat - a pattern of type {@code char[]} which is to be searched
+	 * @return - an {@code ArrayList<Integers>} with index at which match occurred
 	 */
 	public static ArrayList<Integer> zAlgoSearch(char text[], char pat[]) {
 		

@@ -37,7 +37,7 @@ public class KnuthMorrisPratt {
 	 * 
 	 * @param text - a text of type {@code String} in which we search for the pattern 
 	 * @param pat - a pattern of type {@code String} which is to be searched
-	 * @return
+	 * @return - an {@code ArrayList<Integers>} with index at which match occurred
 	 */
 	public static ArrayList<Integer> searchPattern(String text, String pat) {
 		return searchPattern(text.toCharArray(), pat.toCharArray());
@@ -69,7 +69,7 @@ public class KnuthMorrisPratt {
 	 * 
 	 * @param text - a text array of type {@code char[]} in which we search for the pattern 
 	 * @param pat - a pattern array of type {@code char[]} which is to be searched
-	 * @return
+	 * @return - an {@code ArrayList<Integers>} with index at which match occurred
 	 */
 	public static ArrayList<Integer> searchPattern(char[] text, char pat[]) {
 		
@@ -134,7 +134,7 @@ public class KnuthMorrisPratt {
 	 * 
 	 * @param text - a text of type {@code String} in which we search for the pattern 
 	 * @param pat - a pattern of type {@code String} which is to be searched
-	 * @return
+	 * @return - an {@code ArrayList<Integers>} with index at which match occurred
 	 */
 	public static ArrayList<Integer> searchPatternCaseInSensitive(String text, String pattern) {
 		return searchPattern(text.toLowerCase().toCharArray(), pattern.toLowerCase().toCharArray());
