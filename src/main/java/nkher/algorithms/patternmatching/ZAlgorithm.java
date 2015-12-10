@@ -21,7 +21,9 @@ public class ZAlgorithm {
 	 * characters in the main pattern which eventually reduces the time for search. 
 	 * The extra information saved is called the Z array which is an integer array. <br><br>
 	 * 
-	 * Time Complexity : O(m+n) time where m = pattern length and n = text length.
+	 * Time Complexity : O(m+n) time where m = pattern length and n = text length. <br>
+	 * 
+	 * NOTE : Performs a case sensitive match
 	 * 
 	 * @param text
 	 * @param pat
@@ -40,7 +42,31 @@ public class ZAlgorithm {
 	 * characters in the main pattern which eventually reduces the time for search. 
 	 * The extra information saved is called the Z array which is an integer array. <br><br>
 	 * 
-	 * Time Complexity : O(m+n) time where m = pattern length and n = text length.
+	 * Time Complexity : O(m+n) time where m = pattern length and n = text length. <br>
+	 * 
+	 * NOTE : Performs a case insensitive match
+	 * 
+	 * @param text
+	 * @param pat
+	 * @return
+	 */
+	public static ArrayList<Integer> zAlgoSearchCaseInSensitive(String text, String pat) {
+		return zAlgoSearch(text.toLowerCase().toCharArray(), pat.toLowerCase().toCharArray());
+	}
+
+	
+	/***
+	 * Searches for a pattern in a text and returns the indices of the start positions 
+	 * where the match occurs. It does this search based on some preprocessing and saving
+	 * a some state/information of the pattern to reduce the time during the actual search.
+	 * Here the preprocessing is performed on a concatenated String of the form (pattern + '$' + text)
+	 * and not alone on the text of the pattern. The extra information helps in skipping 
+	 * characters in the main pattern which eventually reduces the time for search. 
+	 * The extra information saved is called the Z array which is an integer array. <br><br>
+	 * 
+	 * Time Complexity : O(m+n) time where m = pattern length and n = text length. <br>
+	 * 
+	 * NOTE : Performs a case sensitive match
 	 * 
 	 * @param text
 	 * @param pat
