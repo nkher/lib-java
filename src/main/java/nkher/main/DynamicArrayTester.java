@@ -3,6 +3,7 @@ package nkher.main;
 import java.util.ArrayList;
 
 import nkher.datastructures.lists.DynamicArray;
+import nkher.utils.ArrayUtility;
 
 public class DynamicArrayTester {
 
@@ -44,15 +45,45 @@ public class DynamicArrayTester {
 		v.insertAtHead(-10);
 		System.out.println("Size : " + v.size());
 		System.out.println(v.toString() + " -- " + v.size());
+		System.out.println("capacity : " + v.capacity());
+		
+		v.remove();
+		v.remove();
+		v.remove();
+		v.remove();
+		
+		System.out.println(v.toString() + " -- " + v.size());
+		System.out.println("capacity : " + v.capacity());
+		
+		v.remove();
+		
+		System.out.println(v.toString() + " -- " + v.size());
+		System.out.println("capacity : " + v.capacity());
+		
+		v.remove();
+		v.remove();
+		v.remove();
+		v.remove();
+		v.remove();
+		
+		System.out.println(v.toString() + " -- " + v.size());
+		System.out.println("capacity : " + v.capacity());
+		
+		v.remove();
+		v.remove();
+		
+		System.out.println(v.toString() + " -- " + v.size());
+		System.out.println("capacity : " + v.capacity());
+		
+		
+		System.out.println("\n----------------------------------\n");
 		
 		v.clear();
 		
 		System.out.println(v.toString() + " -- " + v.size());
 		
 		Integer a[] = {1, 2, 3};
-		
-		System.out.println("jwbewj : " + a.toString());
-		
+				
 		v.fill(a);
 		
 		System.out.println(v.toString() + " -- " + v.size());

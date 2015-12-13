@@ -20,6 +20,7 @@ public class DynamicArray<T> implements MyList<T>, Iterable<T> {
 	
 	public static int DEFAULT_CAPACITY = 10;
 	public static int SCALE_FACTOR = 2;
+	public static int REDUCE_FACTOR = 2;
 	// private static int MAX_SIZE = Integer.MAX_VALUE - 10;
 	
 	private int size = 0;
@@ -56,13 +57,32 @@ public class DynamicArray<T> implements MyList<T>, Iterable<T> {
 	}
 	
 	/***
+	 * Constructor that initializes the array with an existing DynamicArray.
+	 * @param dArray
+	 */
+	public DynamicArray(DynamicArray<T> dArray) {
+		this(DEFAULT_CAPACITY);
+		for (T element : dArray) {
+			insert(element);
+		}
+	}
+	
+	/***
+	 * Returns the capacity of the DynamicArray.
+	 * @return
+	 */
+	public int capacity() {
+		return this.capacity;
+	}
+	
+	/***
 	 * Inserts a new element at the tail of the array.
 	 * 
 	 * @param element
 	 */
 	public void insert(T element) {
 		if (isFull()) { 
-			resize();
+			resize(size * SCALE_FACTOR);
 		}
 		data[writeIndex++] = element;
 		size++;
@@ -93,6 +113,9 @@ public class DynamicArray<T> implements MyList<T>, Iterable<T> {
 			removeAt(ind);
 			writeIndex--;
 			size--;
+			if (data.length > DEFAULT_CAPACITY && data.length > (size * 2) && (data.length/REDUCE_FACTOR > size)) { // resizing appropriately
+				resize(data.length/REDUCE_FACTOR);
+			}
 			return true;
 		}
 		return false;
@@ -109,35 +132,47 @@ public class DynamicArray<T> implements MyList<T>, Iterable<T> {
 		if (isEmpty() || index > size-1) {
 			throw new ArrayIndexOutOfBoundsException(index);
 		}
-		int copyLength = size - index + 1;
+		int copyLength = size - index - 1;
 		System.arraycopy(data, index+1, data, index, copyLength);
 		writeIndex--;
 		size--;
+		if (data.length > DEFAULT_CAPACITY && data.length > (size * 2) && (data.length/REDUCE_FACTOR > size)) { // resizing appropriately
+			resize(data.length/REDUCE_FACTOR);
+		}
+	}
+	
+	/***
+	 * Deletes the element from the tail of the dynamic array. 
+	 *
+	 * @param index
+	 * @return
+	 */
+	public void remove() {
+		removeAt(size-1);
 	}
 	
 	public void insertAtHead(T element) {
 		if (isFull()) {
-			resize();
+			resize(size * SCALE_FACTOR);
 		}
 		size++;
 		if (isFull()) {
-			resize();
+			resize(size * SCALE_FACTOR);
 		}
 		System.arraycopy(data, 0, data, 1, size-1); // shift the elements by 1
 		data[0] = element;
 		writeIndex++;
 	}
 	
-	private void resize() {
-		int new_capacity = this.size * SCALE_FACTOR;
-		Object new_data[] = new Object[new_capacity];
+	private void resize(int new_cap) {
+		Object new_data[] = new Object[new_cap];
 		
 		for (int i=0; i<size; i++) {
 			new_data[i] = data[i];
 		}
 		
 		/* Re assign the variables */
-		capacity = new_capacity;
+		capacity = new_cap;
 		data = new_data;
 	}
 	
@@ -404,4 +439,13 @@ public class DynamicArray<T> implements MyList<T>, Iterable<T> {
 		}
 	}
 	
+	/***
+	 * Function to clone this DynamicArray and returned the cloned
+	 * copy of the new DynamicArray.
+	 * @return
+	 */
+	public DynamicArray<T> clone() {
+		DynamicArray<T> cloneDArr = new DynamicArray<T>(this);
+		return cloneDArr;
+	}
 }
