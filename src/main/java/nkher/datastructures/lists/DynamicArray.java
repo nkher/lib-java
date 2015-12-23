@@ -2,8 +2,10 @@ package nkher.datastructures.lists;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import nkher.Interfaces.MyList;
 import nkher.exception.DataStructureEmptyException;
@@ -63,6 +65,17 @@ public class DynamicArray<T> implements MyList<T>, Iterable<T> {
 	public DynamicArray(DynamicArray<T> dArray) {
 		this(DEFAULT_CAPACITY);
 		for (T element : dArray) {
+			insert(element);
+		}
+	}
+	
+	/***
+	 * Constructor that initializes the array with an existing List of type {@code java.util.List}.
+	 * @param dArray
+	 */
+	public DynamicArray(List<T> list) {
+		this(DEFAULT_CAPACITY);
+		for (T element : list) {
 			insert(element);
 		}
 	}
