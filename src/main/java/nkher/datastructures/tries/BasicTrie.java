@@ -3,7 +3,10 @@ package nkher.datastructures.tries;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
+import java.util.Set;
 
 import nkher.datastructures.lists.DynamicArray;
 
@@ -26,10 +29,12 @@ public class BasicTrie extends Trie {
 	private class BasicTrieNode {
 		char data; // this will contain the data
 		boolean leaf;
+		char parentData; 
 		private HashMap<Character, BasicTrieNode> children;
 		
-		public BasicTrieNode(char data) {
+		public BasicTrieNode(char data, char parent) {
 			this.data = data;
+			this.parentData = parent;
 			children = new HashMap<>();
 		}
 		
@@ -46,21 +51,29 @@ public class BasicTrie extends Trie {
 		}
 		
 		// adds a child node to the HashMap with count as 1
-		public void addChild(char ch) {
-			children.put(ch, new BasicTrieNode(ch));
+		public void addChild(char ch, char parentData) {
+			children.put(ch, new BasicTrieNode(ch, parentData));
 		}
 		
 		public void removeChild(char ch) {
 			children.remove(ch);
 		}
 		
+		public String toString() {
+			return "(" + data + "," + parentData + "," + leaf + ")";
+		}
+		
 		public boolean childEligibleForDeletion(char ch) {
 			return false;
+		}
+		
+		public boolean hasChildren() {
+			return (children.size() > 0);
 		}
 	}
 	
 	public BasicTrie() {
-		root = new BasicTrieNode('$'); // place holder value for the root
+		root = new BasicTrieNode('$', 'n'); // place holder value for the root
 		dictionary = new HashSet<>();
 	}
 	
@@ -86,7 +99,7 @@ public class BasicTrie extends Trie {
 		for (level=0; level<n; level++) {
 			ch = key.charAt(level); // get the character at that level
 			if (!node.children.containsKey(ch)) {
-				node.addChild(ch); // adding a child with count as 1
+				node.addChild(ch, node.data); // adding a child with count as 1
 			}
 			// crawl to the child node
 			node = node.children.get(ch);
@@ -237,5 +250,50 @@ public class BasicTrie extends Trie {
 			return "{ }";
 		}
 		return dictionary.toString();
+	}
+	
+	/***
+	 * Using a BFS for printing the trie.
+	 */
+	public String toString() {
+		if (isEmpty()) { return "{ }"; }
+		int level = 0;
+		
+		System.out.println("Printing node in (data, parent, isleafnode) form.");
+		StringBuilder sb = new StringBuilder("{ ");
+		Queue<BasicTrieNode> parentLevel = new LinkedList<>();
+		Queue<BasicTrieNode> currentLevel = new LinkedList<>();
+		
+		// Adding the root to the parent level
+		currentLevel.add(root);
+		sb.append("rootlevel " + " : ");
+		sb.append(root);
+		sb.append("\n");
+		
+		BasicTrieNode child;
+		
+		while (!currentLevel.isEmpty()) {
+			
+			sb.append("level " + level + " : ");
+			
+			parentLevel = new LinkedList<>(currentLevel);
+			currentLevel = new LinkedList<>();
+			// iterating over all the nodes in the parent level and keep adding to the child level, simultaneously append to StringBuffer
+			for (BasicTrieNode parent : parentLevel) {
+				sb.append(parent);
+				// add the parents children to the childlevel
+				if (parent.hasChildren()) {
+					for (char ch : parent.children.keySet()) {
+						child = parent.children.get(ch);
+						currentLevel.add(child);
+					}
+				}
+			}
+			sb.append("\n");
+			level++;
+		} 		
+		
+		sb.append(" }");
+		return sb.toString();
 	}
 }
