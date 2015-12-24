@@ -1,14 +1,13 @@
 package nkher.main;
 
-import nkher.datastructures.tries.EnhancedTrie;
+import nkher.datastructures.tries.BasicTrie;
 
-public class EnhancedTrieTester {
 
-	public static void main(String[] args) {
+public class BasicTrieTester {
+	
+	public static void main(String args[]) {
 		
-		EnhancedTrie trie = new EnhancedTrie();
-		
-		System.out.println("Size of trie : " + trie.size());
+		BasicTrie trie = new BasicTrie();
 		trie.insert("jack");
 		trie.insert("jack");
 		trie.insert("jack");
@@ -27,17 +26,14 @@ public class EnhancedTrieTester {
 		System.out.println(trie.prefixSearchDArray("jack").toString());
 		
 		trie.removeKey("jackson");
-		
-		System.out.println(trie.prefixSearchDArray("jack").toString());
-		
-		trie.removeKey("jack", 2);
-	
-		System.out.println(trie.prefixSearch("jack"));
+					
+		System.out.println("prefix search : " + trie.prefixSearch("jack"));
 		
 		System.out.println("Size of trie : " + trie.size());
 		
 		System.out.println(trie.allKeys());
 		
 	}
+	
 
 }

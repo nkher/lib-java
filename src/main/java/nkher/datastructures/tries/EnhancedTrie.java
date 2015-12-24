@@ -1,28 +1,54 @@
 package nkher.datastructures.tries;
 
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import nkher.Interfaces.MyTrie;
 import nkher.datastructures.lists.DynamicArray;
 
-public class EnhancedTrie implements MyTrie {
-	
-	public static final int COUNT_ONE = 1;
-	
+/***
+ * This is an enhanced form os the simple HashMap where we have a variable in the EnhancedTrieNode
+ * to maintain the counts for each character at each level/position. This trie works like a 
+ * dictionary with word frequencies but is efficient when searching for prefix queries as 
+ * compared to a normal HashMap. </br></br>
+ * 
+ *
+ * Use of the internal HashMap : </br>
+ * The HashMap helps us in knowing when to remove a particular key from the
+ * trie completely. for example when we have jack inserted 4 times and jacket
+ * once, we have our leafs set for the nodes 'k' and 't' in jack and jacket 
+ * respectively. When removing jack from the trie we make use of the HashMap
+ * that stores the keys and their frequency counts in it. </br></br>
+ * 
+ * When trying to remove the key 'jacket' form the trie,
+ * the HashMap helps us to know that only the last 2 nodes from 'jacket' are to be
+ * removed that are 'e' and 't'. We should not do any thing to the key jack other then
+ * decrementing its character counts from the trie.
+ * 
+ * @author nameshkher
+ *
+ */
+
+public class EnhancedTrie extends Trie {
+		
 	private HashMap<String, Integer> dictionary;
-	private TrieNode root;
-	private int size; 
+	private EnhancedTrieNode root;
 	
-	private class TrieNode {
+	/***
+	 * This represents the Internal EnhancedTrieNode for this Trie. It has an
+	 * additional parameter called count which stores the count for that
+	 * particular character in that particular position/level of the trie.
+	 * 
+	 * @author nameshkher
+	 *
+	 */
+	private class EnhancedTrieNode {
 		char data; // this will contain the data
 		int count; // contains the count of the word
 		boolean leaf;
-		private HashMap<Character, TrieNode> children;
+		private HashMap<Character, EnhancedTrieNode> children;
 		
-		public TrieNode(char data, int count) {
+		public EnhancedTrieNode(char data, int count) {
 			this.data = data;
 			this.count = count;
 			children = new HashMap<>();
@@ -50,7 +76,7 @@ public class EnhancedTrie implements MyTrie {
 		
 		// adds a child node to the hashmap with count as 1
 		public void addChild(char ch) {
-			children.put(ch, new TrieNode(ch, COUNT_ONE));
+			children.put(ch, new EnhancedTrieNode(ch, COUNT_ONE));
 		}
 		
 		public void incrementChildCount(char ch) {
@@ -73,7 +99,7 @@ public class EnhancedTrie implements MyTrie {
 	}
 	
 	public EnhancedTrie() {
-		root = new TrieNode('$', 0); // place holder value for the root
+		root = new EnhancedTrieNode('$', 0); // place holder value for the root
 		dictionary = new HashMap<>();
 	}
 	
@@ -94,15 +120,7 @@ public class EnhancedTrie implements MyTrie {
 		else dictionary.put(key, dictionary.get(key)-1);
 	}
 	
-	@Override
-	public int size() {
-		return this.size;
-	}
-
-	@Override
-	public boolean isEmpty() {
-		return (this.size == 0);
-	}
+	/*** TRIE RELATED METHODS */
 
 	@Override
 	public void insert(String key) {
@@ -112,14 +130,12 @@ public class EnhancedTrie implements MyTrie {
 		addKeyToDict(key);
 	}
 	
-	/*** TRIE RELATED METHODS */
-	
 	/***
 	 * A helper to insert the current key at the correct spot.
 	 * @param key
 	 * @param root
 	 */
-	private void insertionUtil(String key, TrieNode node, int level) {
+	private void insertionUtil(String key, EnhancedTrieNode node, int level) {
 		char ch;
 		int n = key.length();
 		for (level=0; level<n; level++) {
@@ -152,7 +168,7 @@ public class EnhancedTrie implements MyTrie {
 	 * @param level
 	 * @return
 	 */
-	private boolean containsUtil(String key, TrieNode node, int level) {
+	private boolean containsUtil(String key, EnhancedTrieNode node, int level) {
 		char ch;
 		int n = key.length();
 		for (level=0; level<n; level++) {
@@ -183,7 +199,7 @@ public class EnhancedTrie implements MyTrie {
 		checkValidKey(prefixKey);
 		List<String> result = new ArrayList<String>();
 		// get the key associated to the last character
-		TrieNode lastCharNode = getLastCharTrieNode(prefixKey, root, 0);
+		EnhancedTrieNode lastCharNode = getLastCharEnhancedTrieNode(prefixKey, root, 0);
 		if (null == lastCharNode) {
 			return result;
 		}
@@ -202,7 +218,7 @@ public class EnhancedTrie implements MyTrie {
 	 * @param prefixKey
 	 * @return
 	 */
-	private TrieNode getLastCharTrieNode(String prefixKey, TrieNode node, int level) {
+	private EnhancedTrieNode getLastCharEnhancedTrieNode(String prefixKey, EnhancedTrieNode node, int level) {
 		char ch;
 		int n = prefixKey.length();
 		for (level=0; level<n; level++) {
@@ -219,10 +235,10 @@ public class EnhancedTrie implements MyTrie {
 	 * A helper method that performs the dfs to get all the keys with the same prefix.
 	 * @return
 	 */
-	private List<String> prefixSearchDFS(TrieNode node, List<String> list, StringBuilder sb) {
+	private List<String> prefixSearchDFS(EnhancedTrieNode node, List<String> list, StringBuilder sb) {
 		for (Character child : node.children.keySet()) {
 			sb.append(child);
-			TrieNode childNode = node.children.get(child);
+			EnhancedTrieNode childNode = node.children.get(child);
 			if (childNode.isLeaf()) {
 				list.add(sb.toString());
 			}
@@ -238,37 +254,6 @@ public class EnhancedTrie implements MyTrie {
 		return containsUtil(prefixKey, root, 0);
 	}
 
-	@Override
-	public void buildTrie(List<String> keys) {
-		checkValidKeysList(keys);
-		for (String key : keys) {
-			insert(key);
-		}
-	}
-	
-	public void buildTrie(DynamicArray<String> keys) {
-		if (null == keys) { throw new NullPointerException("Passed parameter is null !"); }
-		if (keys.size() == 0) { throw new InvalidParameterException("List passed is empty."); }
-		for (String key : keys) {
-			insert(key);
-		}
-	}
-	
-	private void checkValidKey(String key) {
-		if (null == key) { throw new NullPointerException("Passed key is null ! Please check."); }
-		if (key.length() == 0) { 
-			System.out.println("Inserting paramter with 0 length. Nothing inserted. Trie not modified."); 
-		}
-		if (null == root) { 
-			System.out.println("Please initialize the trie and then start adding.");
-		};
-	}
-	
-	private void checkValidKeysList(List<String> keys) {
-		if (null == keys) { throw new NullPointerException("Passed parameter is null !"); }
-		if (keys.size() == 0) { throw new InvalidParameterException("List passed is empty."); }
-	}
-	
 	/***
 	 * 
 	 * @return
@@ -278,7 +263,6 @@ public class EnhancedTrie implements MyTrie {
 			return "{ }";
 		}
 		StringBuilder sb = new StringBuilder();
-		
 		return null;
 	}
 	
@@ -323,7 +307,7 @@ public class EnhancedTrie implements MyTrie {
 	 * @param node
 	 * @param level
 	 */
-	private boolean removalUtil(String key, TrieNode node, int level) {
+	private boolean removalUtil(String key, EnhancedTrieNode node, int level) {
 		char ch;
 		int n = key.length();
 		for (level=0; level<n; level++) {
@@ -341,7 +325,17 @@ public class EnhancedTrie implements MyTrie {
 		return true;
 	}
 
-	@Override
+	/***
+	 * The trie can have a count associated to a single character and also a count for the whole String key. 
+	 * Hence we can add the same key multiple times. This remove method, removes the key with the given prefix
+	 * from the trie by decrementing its count in the trie. If you want to completely remove the key then the method
+	 * removePrefixKeyCompletely() would do that. If the key is not at all present in the trie
+	 * then the method returns 1. If the key is not at all present in the trie
+	 * then the method returns {@code false}. </br></br></br>
+	 * 
+	 * @param prefixKey
+	 * @return
+	 */
 	public void removePrefixKeys(String prefixKey) {
 		List<String> keys = prefixSearch(prefixKey);
 		for (String key : keys) {
@@ -349,7 +343,14 @@ public class EnhancedTrie implements MyTrie {
 		}
 	}
 	
-	@Override
+	/***
+	 * Removes the key completely from the trie. If the key count is greater than 1
+	 * then it removes all the copies of the key. If the key is not at all present in the trie
+	 * then the method returns {@code false}. </br></br>
+	 *  
+	 * @param key
+	 * @return
+	 */
 	public boolean removeKeyCompletely(String key) {
 		checkValidKey(key);
 		boolean found = false;
@@ -359,8 +360,15 @@ public class EnhancedTrie implements MyTrie {
 		}
 		return found;
 	}
-
-	@Override
+	
+	/***
+	 * Removes all the keys that have a prefix key equal to the passed prefix key completely from the trie. 
+	 * For all the keys with the same prefix : if the key count is greater than 1, all the copies of the key are removed. 
+	 * If the key is not at all present in the trie. then the method returns {@code false}. </br></br>
+	 *  
+	 * @param key
+	 * @return
+	 */
 	public void removePrefixKeysCompletely(String prefixKey) {
 		List<String> keys = prefixSearch(prefixKey);
 		for (String key : keys) {
