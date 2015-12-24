@@ -49,7 +49,8 @@ public interface MyTrie {
 	 * The trie can have a count associated to a single character and also a count for the whole String key. 
 	 * Hence we can add the same key multiple times. This remove method, removes the key from the trie by
 	 * decrementing its count in the trie. If you want to completely remove the key then the method
-	 * removeKeyCompletely() would do that. </br></br>
+	 * removeKeyCompletely() would do that. If the key is not at all present in the trie
+	 * then the method returns {@code false}. </br></br>
 	 * 
 	 * the 
 	 * 
@@ -62,16 +63,34 @@ public interface MyTrie {
 	 * The trie can have a count associated to a single character and also a count for the whole String key. 
 	 * Hence we can add the same key multiple times. This remove method, removes the key with the given prefix
 	 * from the trie by decrementing its count in the trie. If you want to completely remove the key then the method
-	 * removePrefixKeyCompletely() would do that. </br></br>
+	 * removePrefixKeyCompletely() would do that. If the key is not at all present in the trie
+	 * then the method returns 1. If the key is not at all present in the trie
+	 * then the method returns {@code false}. </br></br></br>
 	 * 
 	 * @param prefixKey
 	 * @return
 	 */
-	boolean removePrefixKeys(String prefixKey);
+	void removePrefixKeys(String prefixKey);
 	
+	/***
+	 * Removes the key completely from the trie. If the key count is greater than 1
+	 * then it removes all the copies of the key. If the key is not at all present in the trie
+	 * then the method returns {@code false}. </br></br>
+	 *  
+	 * @param key
+	 * @return
+	 */
 	boolean removeKeyCompletely(String key);
 	
-	boolean removePrefixKeysCompletely(String prefixKey);
+	/***
+	 * Removes all the keys that have a prefix key equal to the passed prefix key completely from the trie. 
+	 * For all the keys with the same prefix : if the key count is greater than 1, all the copies of the key are removed. 
+	 * If the key is not at all present in the trie. then the method returns {@code false}. </br></br>
+	 *  
+	 * @param key
+	 * @return
+	 */
+	void removePrefixKeysCompletely(String prefixKey);
 	
 	/***
 	 * Builds a trie from the list of keys passed.
