@@ -659,4 +659,233 @@ public class ArrayUtility {
 			array[i] = dArray.getAt(i);
 		}
 	}
+	
+	/*******
+	 * UTILITY TO REVERSE PRIMITIVE TYPE ARRAYS
+	 ********/
+	
+	/***
+	 * Utility function reverse a {@code char} array starting from indices 'fromIndex' until 'toIndex'.
+	 * 
+	 * @param array
+	 * @param fromIndex
+	 * @param toIndex
+	 */
+	public static void reverse(char[] array) {
+		reverse(array, 0, array.length-1);
+	}
+	
+	/***
+	 * Utility function reverse a {@code char} array starting from indices 'fromIndex' until 'toIndex'.
+	 * 
+	 * @param array
+	 * @param fromIndex
+	 * @param toIndex
+	 */
+	public static void reverse(char[] array, int fromIndex, int toIndex) {
+		while (fromIndex <= toIndex) {
+			char temp = array[fromIndex];
+			array[fromIndex] = array[toIndex];
+			array[toIndex] = temp;
+			fromIndex++;
+			toIndex--;
+		}
+	}
+	
+	/***
+	 * Utility function reverse a {@code int} completely.
+	 * 
+	 * @param array
+	 * @param fromIndex
+	 * @param toIndex
+	 */
+	public static void reverse(int[] array) {
+		reverse(array, 0, array.length-1);
+	}
+	
+	/***
+	 * Utility function reverse a {@code int} array starting from indices 'fromIndex' until 'toIndex'.
+	 * 
+	 * @param array
+	 * @param fromIndex
+	 * @param toIndex
+	 */
+	public static void reverse(int[] array, int fromIndex, int toIndex) {
+		while (fromIndex <= toIndex) {
+			int temp = array[fromIndex];
+			array[fromIndex] = array[toIndex];
+			array[toIndex] = temp;
+			fromIndex++;
+			toIndex--;
+		}
+	}
+	
+	/***
+	 * Utility function reverse a {@code byte} completely.
+	 * 
+	 * @param array
+	 * @param fromIndex
+	 * @param toIndex
+	 */
+	public static void reverse(byte[] array) {
+		reverse(array, 0, array.length-1);
+	}
+	
+	/***
+	 * Utility function reverse a {@code byte} array starting from indices 'fromIndex' until 'toIndex'.
+	 * 
+	 * @param array
+	 * @param fromIndex
+	 * @param toIndex
+	 */
+	public static void reverse(byte[] array, int fromIndex, int toIndex) {
+		while (fromIndex <= toIndex) {
+			byte temp = array[fromIndex];
+			array[fromIndex] = array[toIndex];
+			array[toIndex] = temp;
+			fromIndex++;
+			toIndex--;
+		}
+	}
+	
+	/***
+	 * Utility function reverse a {@code short} completely.
+	 * 
+	 * @param array
+	 * @param fromIndex
+	 * @param toIndex
+	 */
+	public static void reverse(short[] array) {
+		reverse(array, 0, array.length-1);
+	}
+	
+	/***
+	 * Utility function reverse a {@code short} array starting from indices 'fromIndex' until 'toIndex'.
+	 * 
+	 * @param array
+	 * @param fromIndex
+	 * @param toIndex
+	 */
+	public static void reverse(short[] array, int fromIndex, int toIndex) {
+		while (fromIndex <= toIndex) {
+			short temp = array[fromIndex];
+			array[fromIndex] = array[toIndex];
+			array[toIndex] = temp;
+			fromIndex++;
+			toIndex--;
+		}
+	}
+	
+	/***
+	 * Utility function reverse a {@code double} completely.
+	 * 
+	 * @param array
+	 * @param fromIndex
+	 * @param toIndex
+	 */
+	public static void reverse(double[] array) {
+		reverse(array, 0, array.length-1);
+	}
+	
+	/***
+	 * Utility function reverse a {@code double} array starting from indices 'fromIndex' until 'toIndex'.
+	 * 
+	 * @param array
+	 * @param fromIndex
+	 * @param toIndex
+	 */
+	public static void reverse(double[] array, int fromIndex, int toIndex) {
+		while (fromIndex <= toIndex) {
+			double temp = array[fromIndex];
+			array[fromIndex] = array[toIndex];
+			array[toIndex] = temp;
+			fromIndex++;
+			toIndex--;
+		}
+	}
+	
+	/***
+	 * Utility function reverse a {@code float} completely.
+	 * 
+	 * @param array
+	 * @param fromIndex
+	 * @param toIndex
+	 */
+	public static void reverse(float[] array) {
+		reverse(array, 0, array.length-1);
+	}
+
+	/***
+	 * Utility function reverse a {@code float} array starting from indices 'fromIndex' until 'toIndex'.
+	 * 
+	 * @param array
+	 * @param fromIndex
+	 * @param toIndex
+	 */
+	public static void reverse(float[] array, int fromIndex, int toIndex) {
+		while (fromIndex <= toIndex) {
+			float temp = array[fromIndex];
+			array[fromIndex] = array[toIndex];
+			array[toIndex] = temp;
+			fromIndex++;
+			toIndex--;
+		}
+	}
+	
+	/***
+	 * Utility function reverse a {@code long} completely.
+	 * 
+	 * @param array
+	 * @param fromIndex
+	 * @param toIndex
+	 */
+	public static void reverse(long[] array) {
+		reverse(array, 0, array.length-1);
+	}
+	
+	/***
+	 * Utility function reverse a {@code long} array starting from indices 'fromIndex' until 'toIndex'.
+	 * 
+	 * @param array
+	 * @param fromIndex
+	 * @param toIndex
+	 */
+	public static void reverse(long[] array, int fromIndex, int toIndex) {
+		while (fromIndex <= toIndex) {
+			long temp = array[fromIndex];
+			array[fromIndex] = array[toIndex];
+			array[toIndex] = temp;
+			fromIndex++;
+			toIndex--;
+		}
+	}
+	
+	/***
+	 * Utility function reverse a {@code boolean} completely.
+	 * 
+	 * @param array
+	 * @param fromIndex
+	 * @param toIndex
+	 */
+	public static void reverse(boolean[] array) {
+		reverse(array, 0, array.length-1);
+	}
+	
+	/***
+	 * Utility function reverse a {@code boolean} array starting from indices 'fromIndex' until 'toIndex'.
+	 * 
+	 * @param array
+	 * @param fromIndex
+	 * @param toIndex
+	 */
+	public static void reverse(boolean[] array, int fromIndex, int toIndex) {
+		while (fromIndex <= toIndex) {
+			boolean temp = array[fromIndex];
+			array[fromIndex] = array[toIndex];
+			array[toIndex] = temp;
+			fromIndex++;
+			toIndex--;
+		}
+	}
+	
 }

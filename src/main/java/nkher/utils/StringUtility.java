@@ -1,5 +1,7 @@
 package nkher.utils;
 
+import java.util.Arrays;
+
 /***
  * A String API that provides useful functions for String compression.
  * 
@@ -11,7 +13,6 @@ public class StringUtility {
 	// TO IMPLEMENT
 	// 1. SUBSTRING
 	// 2. STR_REPLACE
-	// 3. Multiply 2 Strings
 	
 	/***
 	 * An efficient method for compressing a String using Run Length Encoding.
@@ -404,6 +405,66 @@ public class StringUtility {
 		end = sb.length()-1;
 		while (end >= 0 && sb.charAt(end) == '0') {
 			sb.deleteCharAt(end--);
+		}
+		
+		return sb.toString();
+	}
+	
+	/***
+	 * A function to multiply 2 very large numbers represented in the form of Strings.
+	 * The result is another number in the form of a String. This method supports 
+	 * whole/real numbers and not floating point or double numerics. 
+	 * 
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public static String multiply(String x, String y) {
+		int i, j;
+		
+		boolean positive = true;
+		if (x.charAt(0) == '-') {
+			positive = !positive;
+			x = x.substring(1);
+		}
+		if (y.charAt(0) == '-') {
+			positive = !positive;
+			y = y.substring(1);
+		}
+		
+		int xlen = x.length(), ylen = y.length();
+		char xarr[] = x.toCharArray();
+		char yarr[] = y.toCharArray();
+		
+		int result[] = new int[xlen + ylen]; //result can be of xlen+ylen at max
+		
+		// Reversing the numbers for simplicity
+		ArrayUtility.reverse(xarr);
+		ArrayUtility.reverse(yarr);
+		
+		Arrays.toString(yarr);
+		
+		// core multiplication logic - grade school
+		for (i=0; i<xlen; i++) {
+			for (j=0; j<ylen; j++) {
+				result[i+j] += (xarr[i] - '0') * (yarr[j] - '0');
+				result[i+j+1] += result[i+j]/10;
+				result[i+j] %= 10; 
+			}
+		}
+		
+		i = xlen+ylen-1;
+		while(result[i] == 0 && i != 0) {
+			i--;
+		}
+		
+		StringBuffer sb = new StringBuffer();
+		if (!positive && result[i] != 0) {
+			sb.append('-');
+		}
+		
+		while(i >= 0) {
+			sb.append(result[i--]);
 		}
 		
 		return sb.toString();
