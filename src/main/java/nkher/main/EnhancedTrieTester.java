@@ -18,6 +18,7 @@ public class EnhancedTrieTester {
 		trie.insert("jackman");
 		trie.insert("jacksen");
 		System.out.println("Size of trie : " + trie.size());
+		System.out.println(trie.toString());
 		
 		System.out.println(trie.allKeys());
 		
@@ -30,7 +31,7 @@ public class EnhancedTrieTester {
 		
 		System.out.println(trie.prefixSearchDArray("jack").toString());
 		
-		trie.removeKey("jack", 2);
+		trie.removeKey("jack", 3);
 	
 		System.out.println(trie.prefixSearch("jack"));
 		
@@ -38,6 +39,7 @@ public class EnhancedTrieTester {
 		
 		System.out.println(trie.allKeys());
 		
+		System.out.println(trie.toString());
 	}
 
 }

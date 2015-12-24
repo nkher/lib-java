@@ -18,6 +18,8 @@ public class BasicTrieTester {
 		trie.insert("jacksen");
 		System.out.println("Size of trie : " + trie.size());
 		
+		System.out.println(trie.toString());
+		
 		System.out.println(trie.allKeys());
 		
 		System.out.println(trie.containsPrefix("jab"));
@@ -32,6 +34,8 @@ public class BasicTrieTester {
 		System.out.println("Size of trie : " + trie.size());
 		
 		System.out.println(trie.allKeys());
+		
+		System.out.println(trie.toString());
 		
 	}
 	

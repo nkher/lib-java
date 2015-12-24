@@ -2,7 +2,9 @@ package nkher.datastructures.tries;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import nkher.datastructures.lists.DynamicArray;
 
@@ -46,11 +48,13 @@ public class EnhancedTrie extends Trie {
 		char data; // this will contain the data
 		int count; // contains the count of the word
 		boolean leaf;
+		char parentData;
 		private HashMap<Character, EnhancedTrieNode> children;
 		
-		public EnhancedTrieNode(char data, int count) {
+		public EnhancedTrieNode(char data, int count, char parentData) {
 			this.data = data;
 			this.count = count;
+			this.parentData = parentData;
 			children = new HashMap<>();
 		}
 		
@@ -75,8 +79,8 @@ public class EnhancedTrie extends Trie {
 		}
 		
 		// adds a child node to the hashmap with count as 1
-		public void addChild(char ch) {
-			children.put(ch, new EnhancedTrieNode(ch, COUNT_ONE));
+		public void addChild(char ch, char parentData) {
+			children.put(ch, new EnhancedTrieNode(ch, COUNT_ONE, parentData));
 		}
 		
 		public void incrementChildCount(char ch) {
@@ -88,22 +92,28 @@ public class EnhancedTrie extends Trie {
 			children.get(ch).decrementCount();
 			children.put(ch, children.get(ch));
 		}
-		
-		public boolean childEligibleForDeletion(char ch) {
-			return (children.get(ch).count == 0);
-		}
+
 		
 		public void removeChild(char ch) {
 			children.remove(ch);
 		}
+		
+		public String toString() {
+			return "(" + data + "," + parentData + "," + leaf + "," + count + ")";
+		}
+		
+		public boolean hasChildren() {
+			return (children.size() > 0);
+		}
 	}
 	
 	public EnhancedTrie() {
-		root = new EnhancedTrieNode('$', 0); // place holder value for the root
+		root = new EnhancedTrieNode('$', 0, 'n'); // place holder value for the root
 		dictionary = new HashMap<>();
 	}
 	
-	/** SIMPLE METHODS TO MANIPULATE THE DICTIONARY */
+	/*** SIMPLE METHODS TO MANIPULATE THE DICTIONARY */
+	
 	private void addKeyToDict(String key) {
 		if (!dictionary.containsKey(key)) {
 			dictionary.put(key, COUNT_ONE);
@@ -141,7 +151,7 @@ public class EnhancedTrie extends Trie {
 		for (level=0; level<n; level++) {
 			ch = key.charAt(level); // get the character at that level
 			if (!node.children.containsKey(ch)) {
-				node.addChild(ch); // adding a child with count as 1
+				node.addChild(ch, node.data); // adding a child with count as 1
 			}
 			else {
 				node.incrementChildCount(ch); // incrementing the child count by 1
@@ -259,11 +269,42 @@ public class EnhancedTrie extends Trie {
 	 * @return
 	 */
 	public String toString() {
-		if (isEmpty()) {
-			return "{ }";
-		}
-		StringBuilder sb = new StringBuilder();
-		return null;
+		if (isEmpty()) { return "{ }"; }
+		int level = 0;
+		
+		System.out.println("Printing node in (data, parent, isleafnode, count) form.");
+		StringBuilder sb = new StringBuilder("{ ");
+		Queue<EnhancedTrieNode> parentLevel = new LinkedList<>();
+		Queue<EnhancedTrieNode> currentLevel = new LinkedList<>();
+		
+		// Adding the root to the parent level
+		currentLevel.add(root);
+		
+		EnhancedTrieNode child;
+		
+		while (!currentLevel.isEmpty()) {
+			
+			sb.append("level " + level + " : ");
+			
+			parentLevel = new LinkedList<>(currentLevel);
+			currentLevel = new LinkedList<>();
+			// iterating over all the nodes in the parent level and keep adding to the child level, simultaneously append to StringBuffer
+			for (EnhancedTrieNode parent : parentLevel) {
+				sb.append(parent.toString());
+				// add the parents children to the childlevel
+				if (parent.hasChildren()) {
+					for (char ch : parent.children.keySet()) {
+						child = parent.children.get(ch);
+						currentLevel.add(child);
+					}
+				}
+			}
+			sb.append("\n");
+			level++;
+		} 		
+		
+		sb.append(" }");
+		return sb.toString();
 	}
 	
 	/***
@@ -298,7 +339,9 @@ public class EnhancedTrie extends Trie {
 		if (!contains(key)) return false;
 		size--;
 		removeKeyFromDict(key);
-		return removalUtil(key, root, 0);
+		boolean unsetFlag = (!dictionary.containsKey(key)) ? true : false;
+		System.out.println("Unset Flag " + key + " -> " + unsetFlag);
+		return removalUtil(key, root, 0, key.length(), unsetFlag);
 	}
 	
 	/***
@@ -307,21 +350,25 @@ public class EnhancedTrie extends Trie {
 	 * @param node
 	 * @param level
 	 */
-	private boolean removalUtil(String key, EnhancedTrieNode node, int level) {
-		char ch;
-		int n = key.length();
-		for (level=0; level<n; level++) {
-			ch = key.charAt(level); // get the character at that level
-			node.decrementChildCount(ch);
-			if (node.childEligibleForDeletion(ch)) {
-				node.removeChild(ch);
-				break;
-			}
-			node = node.children.get(ch);
+	private boolean removalUtil(String key, EnhancedTrieNode parent, int position, int n, boolean unsetFlag) {
+		
+		if (position >= n) return true;
+		char curr = key.charAt(position);
+		
+		parent.decrementChildCount(curr); // decrement the child count
+		EnhancedTrieNode child = parent.children.get(curr); // get the child
+		
+		if (position < n-1) { // if this is not the last keep going forward
+			removalUtil(key, child, position+1, n, unsetFlag);
 		}
-		if (!dictionary.containsKey(key) && key.charAt(n-1) == node.data) { // if this is the last character of the key passed, means we never breaked out
-			node.unsetLeaf();
+		// do the removal here
+		if (!child.hasChildren()) {
+			parent.removeChild(curr);
 		}
+		if (position == n-1 && unsetFlag) {
+			child.unsetLeaf();
+		}
+		
 		return true;
 	}
 

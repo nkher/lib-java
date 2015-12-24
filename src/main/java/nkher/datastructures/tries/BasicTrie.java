@@ -11,8 +11,9 @@ import java.util.Set;
 import nkher.datastructures.lists.DynamicArray;
 
 /***
- * This class demonstrates the simple basic data structure of a trie. The TrieNode is basic
- * element or building block of the trie which contains a character, a boolean value to identify it
+ * This class demonstrates the simple basic data structure of a Trie. The Trie is Dynamic in nature
+ * and hence supports additions and deletions within it. The TrieNode is basic
+ * element or building block of the Trie which contains a character, a boolean value to identify it
  * it is a leaf and a HashMap for storing its children. It exposes a useful API which helps us in 
  * performing different functions like insertion, deletion and searching in try with various forms to it.
  * It support prefix search queries for which tries are built. </br>
@@ -214,7 +215,7 @@ public class BasicTrie extends Trie {
 		if (!contains(key)) return false;
 		size--;
 		dictionary.remove(key);
-		return removalUtil(key, root, 0);
+		return removalUtil(key, root, 0, key.length());
 	}
 	
 	/***
@@ -224,20 +225,20 @@ public class BasicTrie extends Trie {
 	 * @param node
 	 * @param level
 	 */
-	private boolean removalUtil(String key, BasicTrieNode node, int level) {
-		char ch;
-		int n = key.length();
-		for (level=0; level<n; level++) {
-			ch = key.charAt(level); // get the character at that level
-			if (node.childEligibleForDeletion(ch)) {
-				node.removeChild(ch);
-				break;
-			}
-			node = node.children.get(ch);
+	private boolean removalUtil(String key, BasicTrieNode parent, int position, int n) {
+
+		if (position >= n) return true;
+		char curr = key.charAt(position);
+		BasicTrieNode child = parent.children.get(curr); // get the child
+		
+		if (position < n-1) { // if this is not the last keep going forward
+			removalUtil(key, child, position+1, n);
 		}
-		if (key.charAt(n-1) == node.data) { // if this is the last character of the key passed, means we never breaked out
-			node.unsetLeaf();
+		// do the removal here
+		if (!child.hasChildren()) {
+			parent.removeChild(curr);
 		}
+		
 		return true;
 	}
 	
@@ -266,9 +267,6 @@ public class BasicTrie extends Trie {
 		
 		// Adding the root to the parent level
 		currentLevel.add(root);
-		sb.append("rootlevel " + " : ");
-		sb.append(root);
-		sb.append("\n");
 		
 		BasicTrieNode child;
 		
