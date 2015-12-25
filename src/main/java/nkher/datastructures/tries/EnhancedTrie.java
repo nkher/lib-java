@@ -9,7 +9,7 @@ import java.util.Queue;
 import nkher.datastructures.lists.DynamicArray;
 
 /***
- * This is an enhanced form os the simple HashMap where we have a variable in the EnhancedTrieNode
+ * This is an enhanced form of the simple HashMap where we have a variable in the EnhancedTrieNode
  * to maintain the counts for each character at each level/position. This trie works like a 
  * dictionary with word frequencies but is efficient when searching for prefix queries as 
  * compared to a normal HashMap. </br></br>
@@ -25,7 +25,10 @@ import nkher.datastructures.lists.DynamicArray;
  * When trying to remove the key 'jacket' form the trie,
  * the HashMap helps us to know that only the last 2 nodes from 'jacket' are to be
  * removed that are 'e' and 't'. We should not do any thing to the key jack other then
- * decrementing its character counts from the trie.
+ * decrementing its character counts from the trie. </br></br>
+ * 
+ * NOTE : These are not implemented as Key(String) and  Value stores as the TernarySearch Tries as we may fill up the heap
+ * faster. </br>
  * 
  * @author nameshkher
  *
@@ -45,10 +48,10 @@ public class EnhancedTrie extends Trie {
 	 *
 	 */
 	private class EnhancedTrieNode {
-		char data; // this will contain the data
-		int count; // contains the count of the word
-		boolean leaf;
-		char parentData;
+		private char data; // this will contain the data
+		private int count; // contains the count of the word
+		private boolean leaf;
+		private char parentData;
 		private HashMap<Character, EnhancedTrieNode> children;
 		
 		public EnhancedTrieNode(char data, int count, char parentData) {

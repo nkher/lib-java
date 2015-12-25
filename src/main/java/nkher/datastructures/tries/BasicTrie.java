@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.Set;
 
 import nkher.datastructures.lists.DynamicArray;
 
@@ -16,8 +15,10 @@ import nkher.datastructures.lists.DynamicArray;
  * element or building block of the Trie which contains a character, a boolean value to identify it
  * it is a leaf and a HashMap for storing its children. It exposes a useful API which helps us in 
  * performing different functions like insertion, deletion and searching in try with various forms to it.
- * It support prefix search queries for which tries are built. </br>
-
+ * It support prefix search queries for which tries are built. </br></br>
+ * 
+ * NOTE : These are not implemented as Key(String) and  Value stores as the TernarySearch Tries as we may fill up the heap
+ * faster. </br>
  * 
  * @author nameshkher
  *
@@ -28,9 +29,9 @@ public class BasicTrie extends Trie {
 	private HashSet<String> dictionary;
 	
 	private class BasicTrieNode {
-		char data; // this will contain the data
-		boolean leaf;
-		char parentData; 
+		private char data; // this will contain the data
+		private boolean leaf;
+		private char parentData; 
 		private HashMap<Character, BasicTrieNode> children;
 		
 		public BasicTrieNode(char data, char parent) {
@@ -41,10 +42,6 @@ public class BasicTrie extends Trie {
 		
 		public void setAsLeaf() {
 			this.leaf = true;
-		}
-		
-		public void unsetLeaf() {
-			this.leaf = false;
 		}
 		
 		public boolean isLeaf() {
@@ -62,10 +59,6 @@ public class BasicTrie extends Trie {
 		
 		public String toString() {
 			return "(" + data + "," + parentData + "," + leaf + ")";
-		}
-		
-		public boolean childEligibleForDeletion(char ch) {
-			return false;
 		}
 		
 		public boolean hasChildren() {
