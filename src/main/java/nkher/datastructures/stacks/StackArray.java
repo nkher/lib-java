@@ -100,8 +100,8 @@ public class StackArray<T> implements MyStack<T> {
 		int start = 0, end = this.size-1;
 		while (start < end) {
 			T temp = dArray.getAt(start);
-			dArray.setAt(start, dArray.getAt(end));
-			dArray.setAt(end, temp);
+			dArray.replaceAt(start, dArray.getAt(end));
+			dArray.replaceAt(end, temp);
 			start++;
 			end--;
 		}

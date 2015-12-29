@@ -137,8 +137,8 @@ public class BubbleSort extends Sorting {
 	 */
 	private static <T extends Comparable<T>> void swap(DynamicArray<T> dArray, int index1, int index2) {
 		T temp = dArray.getAt(index1);
-		dArray.setAt(index1, dArray.getAt(index2));
-		dArray.setAt(index2, temp);
+		dArray.replaceAt(index1, dArray.getAt(index2));
+		dArray.replaceAt(index2, temp);
 	}
 	
 	/***

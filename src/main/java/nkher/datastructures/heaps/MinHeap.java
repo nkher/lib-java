@@ -50,6 +50,7 @@ public class MinHeap<T extends Comparable<T>> implements MyHeap<T> {
 		int ind = size-1;
 		keys.put(t, ind);
 		
+		/** CODE TO SIFT UP */
 		/** Now start fixing the max heap property by checking in bottom up manner in the tree */
 		while (ind != 0 && heapArr.getAt(ind).compareTo(heapArr.getAt(parent(ind))) < 0) { // until the current node has a value greater than its parent or it is not the root
 			swap(ind, parent(ind));
@@ -106,7 +107,7 @@ public class MinHeap<T extends Comparable<T>> implements MyHeap<T> {
 	public T extractMin() {
 		if (isEmpty()) return null;
 		T root = heapArr.getAt(0);
-		heapArr.setAt(0, heapArr.getAt(size-1));
+		heapArr.replaceAt(0, heapArr.getAt(size-1));
 		size--;
 		minHeapify(0);
 		heapArr.removeAt(heapArr.size()-1);
@@ -193,8 +194,8 @@ public class MinHeap<T extends Comparable<T>> implements MyHeap<T> {
 	private void swap(int ind1, int ind2) {
 		swapKeyIndices(heapArr.getAt(ind1), heapArr.getAt(ind2));
 		T temp = heapArr.getAt(ind1);
-		heapArr.setAt(ind1, heapArr.getAt(ind2));
-		heapArr.setAt(ind2, temp);
+		heapArr.replaceAt(ind1, heapArr.getAt(ind2));
+		heapArr.replaceAt(ind2, temp);
 	}
 	
 	/***

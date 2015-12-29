@@ -60,28 +60,28 @@ public class MergeSort extends Sorting {
 		while (i < lLen && j < rLen) {
 			if (sortOrder == ORDER_ASC) {
 				if (right.getAt(j).compareTo(left.getAt(i)) > 0 ) { // right is greater
-					dArray.setAt(k++, left.getAt(i++));
+					dArray.replaceAt(k++, left.getAt(i++));
 				}
 				else {
-					dArray.setAt(k++, right.getAt(j++));
+					dArray.replaceAt(k++, right.getAt(j++));
 				}
 			}
 			else if (sortOrder == ORDER_DESC){
 				if (left.getAt(i).compareTo(right.getAt(j)) > 0 ) { // right is greater
-					dArray.setAt(k++, left.getAt(i++));
+					dArray.replaceAt(k++, left.getAt(i++));
 				}
 				else {
-					dArray.setAt(k++, right.getAt(j++));
+					dArray.replaceAt(k++, right.getAt(j++));
 				}
 			}
 		}
 		
 		/** One of the arrays from left of right might not have reached the end */
 		while (i < lLen) {
-			dArray.setAt(k++, left.getAt(i++));
+			dArray.replaceAt(k++, left.getAt(i++));
 		}
 		while (j < rLen) {
-			dArray.setAt(k++, right.getAt(j++));
+			dArray.replaceAt(k++, right.getAt(j++));
 		}
 	}
 	

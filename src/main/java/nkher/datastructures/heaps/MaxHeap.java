@@ -9,11 +9,13 @@ import nkher.exception.DataStructureEmptyException;
 /****
  * A simple implementation of a MaxHeap data structure. This class extends the MyHeap<T>
  * interface and provides useful API for inserting, deleting and searching through
- * the heap all in logarithmic time complexity. This heap is augmented to store keys
- * in a HashMap of the java.util collection. This helps in having functions like 
- * contains in the heap which tells us if the heap contains a particular object.
+ * the heap all in logarithmic time complexity. It uses a dynamic array internally.
+ * This heap is augmented to store keys in a HashMap of the java.util collection. 
+ * This helps in having functions like contains in the heap which tells us if the heap contains a particular object.
  * 
- * Time Complexity - O(log N)
+ * Time Complexity for insertion and deletion - O(log N)
+ * Time Complexity for insertion and deletion - O(N)
+ * Time Complexity for building a heap of N elements - O(log N)
  * 
  * @author nameshkher
  *
@@ -51,8 +53,9 @@ public class MaxHeap<T extends Comparable<T>> implements MyHeap<T> {
 		int ind = size-1;
 		keys.put(t, ind);
 		
+		/** CODE TO SIFT UP */
 		/** Now start fixing the max heap property by checking in bottom up manner in the tree */
-		while (ind != 0 && heapArr.getAt(parent(ind)).compareTo(heapArr.getAt(ind)) < 0) { // until the parent has a value lesses than the child
+		while (ind != 0 && heapArr.getAt(parent(ind)).compareTo(heapArr.getAt(ind)) < 0) { // until the parent has a value lesser than the child
 			swap(ind, parent(ind)); // swap at the current index and its parent index and make the parent as the current
 			ind = parent(ind); 
 		}
@@ -66,7 +69,7 @@ public class MaxHeap<T extends Comparable<T>> implements MyHeap<T> {
 	public T extractMax() {
 		if (isEmpty()) return null;
 		T root = heapArr.getAt(0);
-		heapArr.setAt(0, heapArr.getAt(size-1));
+		heapArr.replaceAt(0, heapArr.getAt(size-1));
 		size--;
 		maxHeapify(0);
 		heapArr.removeAt(heapArr.size()-1);
@@ -81,7 +84,7 @@ public class MaxHeap<T extends Comparable<T>> implements MyHeap<T> {
 	 */
 	public T peek() {
 		if (isEmpty()) return null;
-		else return heapArr.getAt(0);
+		return heapArr.getAt(0);
 	}
 
 	/***
@@ -99,7 +102,7 @@ public class MaxHeap<T extends Comparable<T>> implements MyHeap<T> {
 	 */
 	public boolean remove(T key) {
 		if (isEmpty()) {
-			throw new DataStructureEmptyException("Heap is empty. Cannot delete from empty heap.");
+			throw new DataStructureEmptyException("Cannot delete from empty heap.");
 		}
 		// Find the node in the heap
 		if (!keys.containsKey(key)) { return false; } // element not found
@@ -107,7 +110,6 @@ public class MaxHeap<T extends Comparable<T>> implements MyHeap<T> {
 						
 		if (ind == size-1) { // if the element is the last node
 			heapArr.removeAt(size-1);
-			System.out.println("Comes here");
 			size--;
 			keys.remove(key);
 			return true;
@@ -203,8 +205,8 @@ public class MaxHeap<T extends Comparable<T>> implements MyHeap<T> {
 	private void swap(int ind1, int ind2) {
 		swapKeyIndices(heapArr.getAt(ind1), heapArr.getAt(ind2));
 		T temp = heapArr.getAt(ind1);
-		heapArr.setAt(ind1, heapArr.getAt(ind2));
-		heapArr.setAt(ind2, temp);
+		heapArr.replaceAt(ind1, heapArr.getAt(ind2));
+		heapArr.replaceAt(ind2, temp);
 	}
 	
 	/***

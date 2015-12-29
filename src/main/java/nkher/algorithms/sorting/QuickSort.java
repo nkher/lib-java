@@ -78,8 +78,8 @@ public class QuickSort extends Sorting {
 		}
 		
 		// Now swap the pIndex and the pivot
-		dArray.setAt(right, dArray.getAt(pIndex));
-		dArray.setAt(pIndex, pivot);
+		dArray.replaceAt(right, dArray.getAt(pIndex));
+		dArray.replaceAt(pIndex, pivot);
 		
 		return pIndex;
 	}
@@ -92,8 +92,8 @@ public class QuickSort extends Sorting {
 	 */
 	private static <T extends Comparable<T>> void swap(DynamicArray<T> dArray, int index1, int index2) {
 		T temp = dArray.getAt(index1);
-		dArray.setAt(index1, dArray.getAt(index2));
-		dArray.setAt(index2, temp);
+		dArray.replaceAt(index1, dArray.getAt(index2));
+		dArray.replaceAt(index2, temp);
 	}
 	
 	/***
