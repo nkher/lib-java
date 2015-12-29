@@ -1,12 +1,9 @@
 package nkher.datastructures.lists;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Random;
 
 import nkher.Interfaces.MyList;
@@ -528,6 +525,17 @@ public class DynamicArray<T> implements MyList<T>, Iterable<T> {
 		for (int i=0; i<size; i++) {
 			ind = randomNumberInBetweenIncluding(MIN, i);
 			ArrayUtility.swap(data, i, ind);
+		}
+	}
+	
+	/***
+	 * Removes duplicates from the dynamic array and returns only unique elements from the array.
+	 * Shrink the array with appropriate conditions.
+	 */
+	public void uniqueArray() {
+		size = ArrayUtility.unique(data);
+		if (data.length > DEFAULT_CAPACITY && data.length > (size * 2) && (data.length/REDUCE_FACTOR > size)) { // resizing appropriately
+			resize(data.length/REDUCE_FACTOR);
 		}
 	}
 

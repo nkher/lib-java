@@ -1,5 +1,8 @@
 package nkher.utils;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import nkher.datastructures.lists.DynamicArray;
 
 
@@ -900,6 +903,25 @@ public class ArrayUtility {
 		Object temp = array[index1];
 		array[index1] = array[index2];
 		array[index2] = temp;
+	}
+	
+	/***
+	 * Utility function remove duplicates from an array. It returns the size of the new array.
+	 * @param array
+	 * @return
+	 */
+	public static int unique(Object[] array) {
+		assert null != array;
+		int i = 0, len = array.length, ind = 0;
+		assert array.length > 0 : "Array is empty";
+		Set<Object> set = new HashSet<>();
+		while (i < len) {
+			if (null == array[i]) break;
+			if (set.add(array[i]))
+				array[ind++] = array[i];
+			i++;
+		}
+		return ind;
 	}
 	
 }
