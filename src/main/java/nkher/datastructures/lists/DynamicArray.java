@@ -1,14 +1,17 @@
 package nkher.datastructures.lists;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Random;
 
 import nkher.Interfaces.MyList;
 import nkher.exception.DataStructureEmptyException;
+import nkher.utils.ArrayUtility;
 
 /***
  * This class is an implementation of the array class and provides a useful set of API for insertion, deletion, searching of elements and much more. 
@@ -23,12 +26,14 @@ public class DynamicArray<T> implements MyList<T>, Iterable<T> {
 	public static int DEFAULT_CAPACITY = 10;
 	public static int SCALE_FACTOR = 2;
 	public static int REDUCE_FACTOR = 2;
+	public static int MIN = 0;
 	// private static int MAX_SIZE = Integer.MAX_VALUE - 10;
 	
 	private int size = 0;
 	private int capacity;
 	private int writeIndex = 0;
 	private Object[] data;
+	private Random r; // initialized only when needed - lazy initialization
 	
 	
 	/***
@@ -501,5 +506,38 @@ public class DynamicArray<T> implements MyList<T>, Iterable<T> {
 		}
 	}
 	
+	/***
+	 * Gets a random element from within the array.
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public T getRandomElement() {
+		if (isEmpty()) return null;
+		r = new Random();
+		int ind = randomNumberInBetweenIncluding(MIN, size-1);
+		return (T) data[ind];
+	}
 	
+	/***
+	 * Shuffles an array in place.
+	 */
+	public void shuffle() {
+		assert this.size > 0 : "DynamicArray is Empty.";
+		r = new Random();
+		int ind;
+		for (int i=0; i<size; i++) {
+			ind = randomNumberInBetweenIncluding(MIN, i);
+			ArrayUtility.swap(data, i, ind);
+		}
+	}
+
+	/***
+	 * Utility function get a random number in between a low and a high, including the low and the high.
+	 * @param low
+	 * @param high
+	 * @return
+	 */
+	private int randomNumberInBetweenIncluding(int low, int high) {
+		return r.nextInt(high - low + 1) + low;
+	}
 }

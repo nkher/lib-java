@@ -888,4 +888,18 @@ public class ArrayUtility {
 		}
 	}
 	
+	/***
+	 * Utility function to swap 2 elements in an array.
+	 * @param array
+	 * @param index2
+	 * @param index2
+	 */
+	public static void swap(Object[] array, int index1, int index2) {
+		assert index1 < array.length;
+		assert index2 < array.length;
+		Object temp = array[index1];
+		array[index1] = array[index2];
+		array[index2] = temp;
+	}
+	
 }
