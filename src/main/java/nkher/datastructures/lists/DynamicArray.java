@@ -205,13 +205,14 @@ public class DynamicArray<T> implements MyList<T>, Iterable<T> {
 	
 	/***
 	 * Sets the element at the specified index in the dynamic array. Throws index-out-of-bounds if 
-	 * an element is set at an index greater than the vectors capacity at that instant.
+	 * an element is set at an index greater than the array's capacity at that instant.
+	 * No shifting is done here. The previous element at this index gets replaced by the new element.
 	 * To be able to set an element at an index the array must be of at least the size of the index.
 	 * 
 	 * @param index
 	 * @param element
 	 */
-	public void setAt(int index, T element) {
+	public void replaceAt(int index, T element) {
 		if (isEmpty() || index > size-1) {
 			throw new ArrayIndexOutOfBoundsException(index);
 		}
@@ -222,6 +223,15 @@ public class DynamicArray<T> implements MyList<T>, Iterable<T> {
 		return this.size;
 	}
 	
+	public void addAt(int index, T element) {
+		if (isEmpty() || index > size-1) {
+			throw new ArrayIndexOutOfBoundsException(index);
+		}
+		if (isFull()) { resize(size * SCALE_FACTOR); }
+		System.arraycopy(data, index, data, index+1, (size-index));
+		data[index] = element;
+		size++;
+	}
 	
 	/***
 	 * Returns the last occurrence index of the element that is passed to the function.
@@ -322,9 +332,6 @@ public class DynamicArray<T> implements MyList<T>, Iterable<T> {
 	 * and sets the capacity to the default capacity and size to zero.
 	 */
 	public void removeAllElements() {
-		if (isEmpty()) {
-			throw new DataStructureEmptyException();
-		}
 		for (int i=0; i<size; i++) {
 			data[i] = null;
 		}
@@ -461,4 +468,38 @@ public class DynamicArray<T> implements MyList<T>, Iterable<T> {
 		DynamicArray<T> cloneDArr = new DynamicArray<T>(this);
 		return cloneDArr;
 	}
+	
+	/***
+	 * Returns the a new copy (object) of the DynamicArray reversed.
+	 * Returns null if the array was null initially.
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public DynamicArray<T> getReverseArray() {
+		assert this.size > 0 : "DynamicArray is Empty.";
+		DynamicArray<T> reversedDArray = new DynamicArray<T>();
+		int i = size-1;
+		while (i >= 0) {
+			reversedDArray.insert((T) data[i]);
+			i--;
+		}
+		return reversedDArray;
+	}
+	
+	/***
+	 * Reverses the array in place. If the array is empty nothing happens.
+	 * @return
+	 */
+	public void reverse() {
+		assert this.size > 0 : "DynamicArray is Empty.";
+		int start = 0, end = size-1;
+		while (start <= end) {
+			Object temp = data[start];
+			data[start] = data[end];
+			data[end] = temp;
+			start++; end--;
+		}
+	}
+	
+	
 }
