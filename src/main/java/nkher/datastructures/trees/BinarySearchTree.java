@@ -11,12 +11,11 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 	private int size;
 	private BSTNode<K, V> root;
 	
-	public static class BSTNode<K extends Comparable<K>, V> {
-		private K key; // field that determines the order of insertion
-		private V val;
+	public static class BSTNode<K extends Comparable<K>, V> extends AbstractTreeNode<K, V>{
 		private BSTNode<K, V> left;
 		private BSTNode<K, V> right;
 		
+		/** Default cons */
 		public BSTNode() {}
 		
 		/** Constructor that initializes a BSTNode with its key and value only 
@@ -24,9 +23,9 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 		 * @param - V value 
 		 * @return - Returns a Node of type {@code BSTNode} 
 		 */
-		public BSTNode(K key, V val) {
+		public BSTNode(K key, V value) {
 			this.key = key;
-			this.val = val;
+			this.value = value;
 			this.left = null;
 			this.right = null;
 		}
@@ -38,9 +37,9 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 		 * @param - right child
 		 * @return - Returns a Node of type {@code BSTNode} 
 		 */
-		public BSTNode(K key, V val, BSTNode<K, V> left, BSTNode<K, V> right) {
+		public BSTNode(K key, V value, BSTNode<K, V> left, BSTNode<K, V> right) {
 			this.key = key;
-			this.val = val;
+			this.value = value;
 			this.left = left;
 			this.right = right;
 		}
@@ -52,7 +51,7 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 		}
 		
 		public V value() {
-			return this.val;
+			return this.value;
 		}
 		
 		public BSTNode<K, V> left() {
@@ -114,7 +113,7 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 		}
 		
 		public String toString() {
-			return "[ key->" + this.key.toString() + ", value->" + this.val.toString() + " ]";
+			return "[ key->" + this.key.toString() + ", value->" + this.value.toString() + " ]";
 		}
 		
 		public boolean isLeaf() {
@@ -346,7 +345,6 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 	}
 	
 	public BSTNode<K, V> root() {
-
 		return this.root;
 	}
 
