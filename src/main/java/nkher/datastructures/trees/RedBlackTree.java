@@ -125,6 +125,10 @@ public class RedBlackTree<K extends Comparable<K>, V>  implements MyTree<K, V> {
 		public boolean isLeaf() {
 			return (left == null && right == null);
 		}
+		
+		public RedBlackNode<K, V> grandparent() {
+			return this.parent.parent;
+		}
 	}
 	
 	@Override
@@ -134,6 +138,7 @@ public class RedBlackTree<K extends Comparable<K>, V>  implements MyTree<K, V> {
 
 	@Override
 	public void insert(K k, V v) {		
+		insert(new RedBlackNode<K, V>(k, v));
 	}
 	
 	public void insert(RedBlackNode<K, V> node) {
@@ -169,27 +174,17 @@ public class RedBlackTree<K extends Comparable<K>, V>  implements MyTree<K, V> {
 					}
 				}
 			}
-			
+						
 			/** Now the Red Black Tree fixing part */
 			if (!node.parent.getColor().equals(Color.Black)) { // if the inserted node's parent is not black
 				
 				RedBlackNode<K, V> uncle = getUncleNode(node);
-				RedBlackNode<K, V> grandparent = node.parent.parent;
+				RedBlackNode<K, V> grandparent = node.grandparent();
 				
 				/** Case 1 : Uncle is red */
-				if (null == uncle || uncle.getColor().equals(Color.Red)) {
-					
-					/** Case where the grandparent is the root itself */
-					if (root == grandparent) {
-						grandparent.right.setColor(Color.Black);
-						grandparent.left.setColor(Color.Black);
-						return;
-					}
-					
-					/** right rotate on the grandparent only if it is not the root */
-					else {
-						 
-					}
+				if (null != uncle && uncle.getColor().equals(Color.Red)) {
+					uncleIsRedCase(grandparent);
+					return;
 				}
 				
 				/** Case 2 : Uncle is black */
@@ -202,20 +197,37 @@ public class RedBlackTree<K extends Comparable<K>, V>  implements MyTree<K, V> {
 					
 					/** Sub case 2 : Left Right Case */
 					else if (node.parent.right == node && grandparent.left == node.parent) {
-						leftRotate(node.parent);
+						node.parent = leftRotate(node.parent);
 						leftleftCase(grandparent, node);
 					}
 					
 					/** Sub case 3 : Right Right Case */
-					else if (node.parent.right == node && grandparent.left == node.parent) {
+					else if (node.parent.right == node && grandparent.right == node.parent) {
 						rightrightCase(grandparent, node.parent);
 					}
 					
 					/** Sub case 4 : Right Left Case */
-					else if (node.parent.right == node && grandparent.left == node.parent) {
-						rightRotate(node.parent);
+					else if (node.parent.left == node && grandparent.right == node.parent) {
+						node.parent = rightRotate(node.parent);
 						rightrightCase(grandparent, node);
 					}
+				}
+			}
+		}
+		
+		System.out.println("Insertion successfull !");
+	}
+	
+	private void uncleIsRedCase(RedBlackNode<K, V> grandparent) {
+		
+		/** Keep changing the color of parent and uncle till we reach null */
+		if (null != grandparent) {
+			grandparent.right.setColor(Color.Black);
+			grandparent.left.setColor(Color.Black);
+			if (grandparent != root) {
+				grandparent.setColor(Color.Red);
+				if (grandparent.parent.color.equals(Color.Red)) {
+					uncleIsRedCase(grandparent.grandparent()); // recurse above
 				}
 			}
 		}
@@ -225,16 +237,16 @@ public class RedBlackTree<K extends Comparable<K>, V>  implements MyTree<K, V> {
 	 * Utility function to perform the left left case rotation. 
 	 */
 	private void leftleftCase(RedBlackNode<K, V> grandparent, RedBlackNode<K, V> parent) {
-		rightRotate(grandparent);
-		swapNodeColors(grandparent, parent);
+		grandparent = rightRotate(grandparent);
+		flipNodeColors(grandparent, parent);
 	}
 	
 	/***
 	 * Utility function to perform the right right case rotation. 
 	 */
 	private void rightrightCase(RedBlackNode<K, V> grandparent, RedBlackNode<K, V> parent) {
-		leftRotate(grandparent);
-		swapNodeColors(grandparent, parent);
+		grandparent = leftRotate(grandparent);
+		flipNodeColors(grandparent, parent);
 	}
 	
 	/***
@@ -248,7 +260,7 @@ public class RedBlackTree<K extends Comparable<K>, V>  implements MyTree<K, V> {
 		return node.parent.right;
 	}
 	
-	private void swapNodeColors(RedBlackNode<K, V> rbNode1, RedBlackNode<K, V> rbNode2) {
+	private void flipNodeColors(RedBlackNode<K, V> rbNode1, RedBlackNode<K, V> rbNode2) {
 		Color temp = rbNode1.color;
 		rbNode1.setColor(rbNode2.color);
 		rbNode2.setColor(temp);
@@ -281,17 +293,35 @@ public class RedBlackTree<K extends Comparable<K>, V>  implements MyTree<K, V> {
 	 * Utility function for performing the left rotation.
 	 * @param root
 	 */
-	private void leftRotate(RedBlackNode<K, V> root) {
+	private RedBlackNode<K, V> leftRotate(RedBlackNode<K, V> node) {
+		RedBlackNode<K, V> r = node.right;
+		RedBlackNode<K, V> rLeft = r.left;
 		
+		r.left = node;
+		node.right = rLeft;
+		
+		return r;
 	}
 	
 	/**
 	 * Utility function for performing the right rotation.
 	 * @param root
 	 */
-	private void rightRotate(RedBlackNode<K, V> grandparent) { // x is th grandparent here (in left left case)
-		RedBlackNode<K, V> parent = grandparent.left; 
+	private RedBlackNode<K, V> rightRotate(RedBlackNode<K, V> node) { 
+		RedBlackNode<K, V> l = node.left;
+		RedBlackNode<K, V> lRight = l.right;
 		
+		l.right = node;
+		node.left = lRight;
+		
+		return l;
+	}
+	
+	public static void main(String args[]) {
+		
+		RedBlackTree<Integer, Integer> rbTree = new RedBlackTree<>();
+		
+		// inserting the data
 	}
 
 }

@@ -204,8 +204,8 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 		}
 	}
 	
-	public void search(BSTNode<K, V> node) {
-		
+	public BSTNode<K, V> search(BSTNode<K, V> node) {
+		return search(node.key);
 	}
 	
 	public BSTNode<K, V> search(K key) {
