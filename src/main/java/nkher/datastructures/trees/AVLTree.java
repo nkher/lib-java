@@ -147,7 +147,7 @@ public class AVLTree<K extends Comparable<K>, V> implements MyTree<K, V> {
 	 * Algorithm to insert a node in a AVL tree.
 	 * The function accepts a Key and Value for inserting into the tree.
 	 * Runtime - O(logN)
-	 * 
+	 * <br>
 	 * @param node - a Key of type {@code K} and Value of type {@code V} for inserting into the tree.
 	 */
 	public void insert(K k, V v) {
@@ -158,7 +158,7 @@ public class AVLTree<K extends Comparable<K>, V> implements MyTree<K, V> {
 	 * Algorithm to insert a node in a AVL tree.
 	 * The function accepts a AVLNode<K, V> type object.
 	 * Runtime - O(logN)
-	 * 
+	 * <br>
 	 * @param node - a {@code AVLNode} type node to be inserted
 	 */
 	public void insert(AVLNode<K, V> node) {
@@ -238,7 +238,7 @@ public class AVLTree<K extends Comparable<K>, V> implements MyTree<K, V> {
 	}
 	
 	/*******************************************************************************
-	 * Functions that perform necessary rotations for balancing the search tree.
+	 * Methods that perform necessary rotations for balancing the search tree.
 	 * These are used to check balance property during insertion and deletion of nodes.
 	 *******************************************************************************/
 	
