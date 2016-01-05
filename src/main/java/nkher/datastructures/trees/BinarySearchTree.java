@@ -204,10 +204,28 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 		}
 	}
 	
+	/***
+	 * A method to search for a particular node in the BST that has the same key.
+	 * The first occurrence of the node with the same key is returned. If the node does not
+	 * exist in the tree then NodeDoesNotExistException is thrown with an appropriate message.
+	 * If the tree is empty then DataStructureEmptyException is thrown with an appropriate message. <br/><br/>
+	 * 
+	 * @param node
+	 * @return
+	 */
 	public BSTNode<K, V> search(BSTNode<K, V> node) {
 		return search(node.key);
 	}
 	
+	/***
+	 * A method to search for a particular node in the BST that has the same key.
+	 * The first occurrence of the node with the same key is returned. If the node does not
+	 * exist in the tree then NodeDoesNotExistException is thrown with an appropriate message.
+	 * If the tree is empty then DataStructureEmptyException is thrown with an appropriate message. <br/><br/>
+	 * 
+	 * @param node
+	 * @return
+	 */
 	public BSTNode<K, V> search(K key) {
 		if (root == null) {
 			throw new DataStructureEmptyException("Binary Search Tree is Empty. Cannot search in an empty BST.");
@@ -215,6 +233,13 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 		return search(key, root);
 	}
 	
+	/***
+	 * A helper method to carry out the search and returning the appropriate result.
+	 * 
+	 * @param key - The key to be searched
+	 * @param node - The current node under evaluation in the flow.
+	 * @return
+	 */
 	private BSTNode<K, V> search(K key, BSTNode<K, V> node) {
 		if (node == null) {
 			throw new NodeDoesNotExistException("Node does not exist in the binary tree.");
@@ -235,17 +260,17 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 	/***
 	 * This is to get all the nodes in the tree between (within) the specified range.
 	 * This works well when the keys are of the numeric types : int, double, float etc.
-	 * It also would work well when the Object Key implements its own Comparator. 
+	 * It also would work well when the Object Key implements its own Comparator. <br/><br/>
 	 * 
 	 * The function starts at the root of the tree and goes
-	 * down to the lower levels based on key comparison. The algorithm is as follows :
+	 * down to the lower levels based on key comparison. The algorithm is as follows :<br/> <br/>
 	 * 
-	 * 1. search key > max, recurse left subtree
-	 * 2. search key < min, recurse right subtree
-	 * 3. search key > min and search key < max, add the key and recurse on both sides
+	 * 1. search key > max, recurse left subtree <br/>
+	 * 2. search key < min, recurse right subtree <br/>
+	 * 3. search key > min and search key < max, add the key and recurse on both sides <br/>
 	 * 
-	 * @param max
-	 * @param min
+	 * @param max - The minimum value for the search
+	 * @param min - The maximum value for the search
 	 * @return
 	 */
 	public DynamicArray<BSTNode<K, V>> rangeSearch(K min, K max) {
@@ -256,6 +281,15 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 		return rangeSearchHelper(min, max, this.root, dArray);
 	}
 	
+	/**
+	 * A utility method that serves as the helper for the range search method.
+	 * 
+	 * @param min - The minimum value for the search
+	 * @param max - The maximum value for the search
+	 * @param curr - The current value under evaluation in the recursive flow.
+	 * @param dArray - The result.
+	 * @return
+	 */
 	private DynamicArray<BSTNode<K, V>> rangeSearchHelper(K min, K max, BSTNode<K, V> curr, DynamicArray<BSTNode<K,V>> dArray) {
 		
 		if (null == curr) return dArray;
@@ -281,23 +315,23 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 	 * Function to remove a node from the binary search tree.
 	 * The function would throw a NodeDoesNotExistException() if the
 	 * node to be deleted is not found in the tree. It uses a recursive algorithm 
-	 * to perform deletion.
+	 * to perform deletion. <br/><br/>
 	 * 
-	 * ALGORITHM : 
+	 * ALGORITHM :  <br/>
 	 * 
-	 * Following are the cases that are taken care of:
+	 * Following are the cases that are taken care of: <br/><br/>
 	 * 
-	 * 1. The tree is empty, throws an exception.
-	 * 2. The tree does not contain the key at all.
+	 * 1. The tree is empty, throws an exception.<br/>
+	 * 2. The tree does not contain the key at all.<br/>
 	 * 
-	 * If the node to be deleted is found then following cases are taken care of :
+	 * If the node to be deleted is found then following cases are taken care of : <br/><br/>
 	 * 
-	 * 3. The root is itself the key node.
-	 * 4. The node is a leaf node.
-	 * 5. The node is an internal node with only right child.
-	 * 6. The node is an internal node with left as well as right child. 
+	 * 3. The root is itself the key node.<br/>
+	 * 4. The node is a leaf node.<br/>
+	 * 5. The node is an internal node with only right child.<br/>
+	 * 6. The node is an internal node with left as well as right child.<br/>
 	 * 
-	 * @return returns true if a node is deleted else returns false
+	 * @return returns true if a node is deleted else returns false<br/>
 	 */
 	public boolean remove(K k) {
 		boolean found = false;
@@ -329,9 +363,26 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 	}
 	
 	/***
-	 * Function to remove a node from the Binary Search Tree.
+	 * Function to remove a node from the binary search tree.
+	 * The function would throw a NodeDoesNotExistException() if the
+	 * node to be deleted is not found in the tree. It uses a recursive algorithm 
+	 * to perform deletion. <br/><br/>
 	 * 
-	 * @param bstNode
+	 * ALGORITHM :  <br/>
+	 * 
+	 * Following are the cases that are taken care of: <br/><br/>
+	 * 
+	 * 1. The tree is empty, throws an exception.<br/>
+	 * 2. The tree does not contain the key at all.<br/>
+	 * 
+	 * If the node to be deleted is found then following cases are taken care of : <br/><br/>
+	 * 
+	 * 3. The root is itself the key node.<br/>
+	 * 4. The node is a leaf node.<br/>
+	 * 5. The node is an internal node with only right child.<br/>
+	 * 6. The node is an internal node with left as well as right child.<br/>
+	 * 
+	 * @return returns true if a node is deleted else returns false<br/>
 	 */
 	public boolean remove(BSTNode<K, V> bstNode) {
 		return remove(bstNode.key);
@@ -344,6 +395,10 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 		return this.root.key;
 	}
 	
+	/***
+	 * Returns the root node of the tree. If the tree is empty it returns null.
+	 * @return
+	 */
 	public BSTNode<K, V> root() {
 		return this.root;
 	}
@@ -353,7 +408,7 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 	}
 	
 	/***
-	 * Returns the min key node of the tree.
+	 * Returns the min key node of the tree.<br/>
 	 * 
 	 * @return - node of {@code BSTNode<K, V>} type
 	 */
@@ -365,7 +420,7 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 	}
 	
 	/***
-	 * Returns the max key node of the tree.
+	 * Returns the max key node of the tree.<br/>
 	 * 
 	 * @return - node of {@code BSTNode<K, V>} type
 	 */
@@ -375,6 +430,10 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 		}
 		return root.maxnode();
 	}
+	
+	/******************************
+	 * TREE TRAVERSALS
+	 ******************************/
 
 	/***
 	 * Function to get the nodes of the tree in in-order fashion.
@@ -449,6 +508,12 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 		return heightUtil(root);
 	}
 	
+	/***
+	 * Helper method to get the height of the tree.</br>
+	 * 
+	 * @param node - The current node under evaluation.
+	 * @return - height of the tree
+	 */
 	private int heightUtil(BSTNode<K, V> node) {
 		if (null == node) return 0;
 		return Math.max(heightUtil(node.left), heightUtil(node.right)) + 1;
@@ -488,9 +553,13 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 		return result;
 	}
 	
+	/*****************************************************
+	 * TREE TRAVERSAL - TO GET KEYS IN DIFFERENT FASHION
+	 *****************************************************/
+	
 	/***
 	 * Function to get the keys of all the nodes of the tree in in-order fashion.
-	 * In-order -> left, vertex, right
+	 * In-order -> left, vertex, right <br/>
 	 * 
 	 * @return - array of {@code DynamicArray<K>} type
 	 */
@@ -500,6 +569,13 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 		return inorderkeysUtil(root, dArray);
 	}
 	
+	/***
+	 * Helper method for getting the keys in an in order fashion.<br/>
+	 * 
+	 * @param node - Current node under evaluation.
+	 * @param dArray - The result.
+	 * @return
+	 */
 	private DynamicArray<K> inorderkeysUtil(BSTNode<K, V> node, DynamicArray<K> dArray) {
 		if (node != null) {
 			inorderkeysUtil(node.left, dArray);
@@ -511,7 +587,7 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 
 	/***
 	 * Function to get the keys of all the nodes of the tree in pre-order fashion.
-	 * Pre-order -> vertex, left, right
+	 * Pre-order -> vertex, left, right <br/>
 	 * 
 	 * @return - array of {@code DynamicArray<K>} type
 	 */
@@ -521,6 +597,13 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 		return preorderkeysUtil(root, dArray);
 	}
 	
+	/***
+	 * Helper method for getting the keys in a pre order fashion.<br/>
+	 * 
+	 * @param node - Current node under evaluation.
+	 * @param dArray - The result.
+	 * @return
+	 */
 	private DynamicArray<K> preorderkeysUtil(BSTNode<K, V> node, DynamicArray<K> dArray) {
 		if (node != null) {
 			dArray.insert(node.key);
@@ -532,7 +615,7 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 
 	/***
 	 * Function to get the keys of all the nodes of the tree in post-order fashion.
-	 * Pre-order -> vertex, left, right
+	 * Pre-order -> vertex, left, right <br/>
 	 * 
 	 * @return - array of {@code DynamicArray<K>} type
 	 */
@@ -542,6 +625,13 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V
 		return postorderkeysUtil(root, dArray);
 	}
 
+	/***
+	 * Helper method for getting the keys in an in order fashion.<br/>
+	 * 
+	 * @param node - Current node under evaluation.
+	 * @param dArray - The result.
+	 * @return
+	 */
 	private DynamicArray<K> postorderkeysUtil(BSTNode<K, V> node, DynamicArray<K> dArray) {
 		if (node != null) {
 			postorderkeysUtil(node.left, dArray);

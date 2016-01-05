@@ -110,7 +110,7 @@ public class RedBlackTree<K extends Comparable<K>, V>  implements MyTree<K, V> {
 		}
 		
 		/***
-		 * Returns the minimum key node in the the current node's subtree 
+		 * Returns the minimum key node in the the current node's subtree.
 		 * 
 		 * @return a node of type {@code RedBlackNode<K, V>}
 		 */
@@ -137,11 +137,23 @@ public class RedBlackTree<K extends Comparable<K>, V>  implements MyTree<K, V> {
 		return this.size;
 	}
 
+	/***
+	 * A method for inserting the new RedBlack node into the RB Tree. This method follows a detailed algorithm based on
+	 * re coloring and rotation appropriately. <br/>
+	 * 
+	 * @param node - node of type {@code RedBlackNode<K, V>} to be inserted
+	 */
 	@Override
 	public void insert(K k, V v) {		
 		insert(new RedBlackNode<K, V>(k, v));
 	}
 	
+	/***
+	 * A method for inserting the new RedBlack node into the RB Tree. This method follows a detailed algorithm based on
+	 * re coloring and rotation appropriately. <br/>
+	 * 
+	 * @param node - node of type {@code RedBlackNode<K, V>} to be inserted
+	 */
 	public void insert(RedBlackNode<K, V> node) {
 		size++;
 		if (null == root) {
@@ -224,6 +236,12 @@ public class RedBlackTree<K extends Comparable<K>, V>  implements MyTree<K, V> {
 		System.out.println("Insertion successfull !");
 	}
 	
+	/***
+	 * A utility method to perform the re coloring of the tree rooted at the passed node.<br/>
+	 * 
+	 * @param grandparent - The node at which coloring is to be performed.
+	 * @return - The node which should be checked next in the fix up iteration.
+	 */
 	private RedBlackNode<K, V> performReColoring(RedBlackNode<K, V> grandparent) {
 		/** Keep changing the color of parent and uncle till we reach null */
 		if (null != grandparent) {
@@ -247,7 +265,7 @@ public class RedBlackTree<K extends Comparable<K>, V>  implements MyTree<K, V> {
 	}
 	
 	/***
-	 * Utility function to perform the left left case rotation. 
+	 * Utility function to perform the left left case rotation. <br/>
 	 */
 	private RedBlackNode<K, V> leftleftCase(RedBlackNode<K, V> grandparent) {
 		RedBlackNode<K, V> temp = rightRotate(grandparent, (grandparent == root));
@@ -256,7 +274,7 @@ public class RedBlackTree<K extends Comparable<K>, V>  implements MyTree<K, V> {
 	}
 	
 	/***
-	 * Utility function to perform the right right case rotation. 
+	 * Utility function to perform the right right case rotation. <br/>
 	 */
 	private RedBlackNode<K, V> rightrightCase(RedBlackNode<K, V> grandparent) {
 		RedBlackNode<K, V> temp = leftRotate(grandparent, (grandparent == root));
@@ -265,7 +283,7 @@ public class RedBlackTree<K extends Comparable<K>, V>  implements MyTree<K, V> {
 	}
 	
 	/***
-	 * Utility function to get the uncle node for the current node.
+	 * Utility function to get the uncle node for the current node.<br/>
 	 */
 	private RedBlackNode<K, V> getUncleNode(RedBlackNode<K, V> node) {
 		if (null == node || null == node.parent() || null == node.grandparent()) return null; // no parent sibling		
@@ -275,6 +293,12 @@ public class RedBlackTree<K extends Comparable<K>, V>  implements MyTree<K, V> {
 		return node.grandparent().left;
 	}
 	
+	/***
+	 * Utility function to swap the colors of the nodes passed to the method. <br/><br/>
+	 * 
+	 * @param rbNode1 - a node of type {@code RedBlackNode} whose color is to be swapped
+	 * @param rbNode2 - a node of type {@code RedBlackNode} whose color is to be swapped
+	 */
 	private void flipNodeColors(RedBlackNode<K, V> rbNode1, RedBlackNode<K, V> rbNode2) {
 		Color temp = rbNode1.color;
 		rbNode1.setColor(rbNode2.color);
@@ -305,8 +329,8 @@ public class RedBlackTree<K extends Comparable<K>, V>  implements MyTree<K, V> {
 	 *******************************************************************************/
 	
 	/**
-	 * Utility function for performing the left rotation.
-	 * @param root
+	 * Utility function for performing the left rotation. <br/>
+	 * @param root - The new root of the subtree
 	 */
 	private RedBlackNode<K, V> leftRotate(RedBlackNode<K, V> node, boolean isRoot) {
 		RedBlackNode<K, V> r = node.right;
@@ -337,8 +361,8 @@ public class RedBlackTree<K extends Comparable<K>, V>  implements MyTree<K, V> {
 	}
 	
 	/**
-	 * Utility function for performing the right rotation.
-	 * @param root
+	 * Utility function for performing the right rotation. <br/>
+	 * @param root - The new root of the subtree
 	 */
 	private RedBlackNode<K, V> rightRotate(RedBlackNode<K, V> node, boolean isRoot) {		
 		RedBlackNode<K, V> l = node.left; // 17
@@ -368,9 +392,13 @@ public class RedBlackTree<K extends Comparable<K>, V>  implements MyTree<K, V> {
 		return l;
 	}
 	
+	/******************************
+	 * TREE TRAVERSALS
+	 ******************************/
+	
 	/***
-	 * Function to get the nodes of the tree in in-order fashion.
-	 * In-order -> left, vertex, right
+	 * Function to get the nodes of the RedBlack Tree in in-order fashion.
+	 * In-order -> left, vertex, right. <br/><br/>
 	 * 
 	 * @return - array of {@code DynamicArray<RedBlackNode<K, V>>} type
 	 */
@@ -390,8 +418,50 @@ public class RedBlackTree<K extends Comparable<K>, V>  implements MyTree<K, V> {
 	}
 	
 	/***
-	 * Utility function to get the nodes of a BST in level order fashion.
-	 * Each level is a linked list of nodes.
+	 * Function to get the nodes of the RedBlack Tree in pre-order fashion.
+	 * Pre-order -> vertex, left, right. <br/><br/>
+	 * 
+	 * @return - array of {@code DynamicArray<RedBlackNode<K, V>>} type
+	 */
+	public DynamicArray<RedBlackNode<K, V>> preorder() {
+		DynamicArray<RedBlackNode<K, V>> dArray = new DynamicArray<RedBlackNode<K,V>>();
+		if (this.root == null) return dArray;
+		return preorderUtil(root, dArray);
+	}
+	
+	private DynamicArray<RedBlackNode<K, V>> preorderUtil(RedBlackNode<K, V> node, DynamicArray<RedBlackNode<K, V>> dArray) {
+		if (node != null) {
+			dArray.insert(node);
+			preorderUtil(node.left, dArray);
+			preorderUtil(node.right, dArray);
+		}
+		return dArray;
+	}
+
+	/***
+	 * Function to get the nodes of the RedBlack Tree in post-order fashion.
+	 * Post-order -> left, right, vertex. <br/><br/>
+	 * 
+	 * @return - array of {@code DynamicArray<RedBlackNode<K, V>>} type
+	 */
+	public DynamicArray<RedBlackNode<K, V>> postorder() {
+		DynamicArray<RedBlackNode<K, V>> dArray = new DynamicArray<RedBlackNode<K,V>>();
+		if (this.root == null) return dArray;
+		return postorderUtil(root, dArray);
+	}
+
+	private DynamicArray<RedBlackNode<K, V>> postorderUtil(RedBlackNode<K, V> node, DynamicArray<RedBlackNode<K, V>> dArray) {
+		if (node != null) {
+			postorderUtil(node.left, dArray);
+			postorderUtil(node.right, dArray);
+			dArray.insert(node);
+		}
+		return dArray;
+	}
+	
+	/***
+	 * Utility function to get the nodes of a RedBlack Tree in level order fashion.
+	 * Each level is a linked list of nodes.<br/><br/>
 	 * 
 	 * @return - an array of type {@code DynamicArray<SinglyLinkedList<RedBlackNode<K, V>>>}
 	 */
@@ -421,5 +491,114 @@ public class RedBlackTree<K extends Comparable<K>, V>  implements MyTree<K, V> {
 			}
 		}
 		return result;
+	}
+	
+	/***
+	 * Returns the height of the RedBlack Tree. It calculates the height of the subtree tree at every
+	 * node under it and hence is inefficient. <br/>
+	 *  
+	 */
+	public int height() {
+		return heightUtil(root);
+	}
+	
+	/***
+	 * Helper method to get the height of the tree.</br>
+	 * 
+	 * @param node - The current node under evaluation.
+	 * @return - height of the tree
+	 */
+	private int heightUtil(RedBlackNode<K, V> node) {
+		if (null == node) return 0;
+		return Math.max(heightUtil(node.left), heightUtil(node.right)) + 1;
+	}
+	
+
+	/*****************************************************
+	 * TREE TRAVERSAL - TO GET KEYS IN DIFFERENT FASHION
+	 *****************************************************/
+	
+	/***
+	 * Function to get the keys of all the nodes of the tree in in-order fashion.
+	 * In-order -> left, vertex, right <br/>
+	 * 
+	 * @return - array of {@code DynamicArray<K>} type
+	 */
+	public DynamicArray<K> inorderkeys() {
+		DynamicArray<K> dArray = new DynamicArray<K>();
+		if (this.root == null) return dArray;
+		return inorderkeysUtil(root, dArray);
+	}
+	
+	/***
+	 * Helper method for getting the keys in an in order fashion.<br/>
+	 * 
+	 * @param node - Current node under evaluation.
+	 * @param dArray - The result.
+	 * @return
+	 */
+	private DynamicArray<K> inorderkeysUtil(RedBlackNode<K, V> node, DynamicArray<K> dArray) {
+		if (node != null) {
+			inorderkeysUtil(node.left, dArray);
+			dArray.insert(node.key);
+			inorderkeysUtil(node.right, dArray);
+		}
+		return dArray;
+	}
+
+	/***
+	 * Function to get the keys of all the nodes of the tree in pre-order fashion.
+	 * Pre-order -> vertex, left, right <br/>
+	 * 
+	 * @return - array of {@code DynamicArray<K>} type
+	 */
+	public DynamicArray<K> preorderkeys() {
+		DynamicArray<K> dArray = new DynamicArray<K>();
+		if (this.root == null) return dArray;
+		return preorderkeysUtil(root, dArray);
+	}
+	
+	/***
+	 * Helper method for getting the keys in a pre order fashion.<br/>
+	 * 
+	 * @param node - Current node under evaluation.
+	 * @param dArray - The result.
+	 * @return
+	 */
+	private DynamicArray<K> preorderkeysUtil(RedBlackNode<K, V> node, DynamicArray<K> dArray) {
+		if (node != null) {
+			dArray.insert(node.key);
+			preorderkeysUtil(node.left, dArray);
+			preorderkeysUtil(node.right, dArray);
+		}
+		return dArray;
+	}
+
+	/***
+	 * Function to get the keys of all the nodes of the tree in post-order fashion.
+	 * Pre-order -> vertex, left, right <br/>
+	 * 
+	 * @return - array of {@code DynamicArray<K>} type
+	 */
+	public DynamicArray<K> postorderkeys() {
+		DynamicArray<K> dArray = new DynamicArray<K>();
+		if (this.root == null) return dArray;
+		return postorderkeysUtil(root, dArray);
+	}
+
+	/***
+	 * Helper method for getting the keys in an in order fashion.<br/>
+	 * 
+	 * @param node - Current node under evaluation.
+	 * @param dArray - The result.
+	 * @return
+	 */
+	private DynamicArray<K> postorderkeysUtil(RedBlackNode<K, V> node, DynamicArray<K> dArray) {
+		if (node != null) {
+			postorderkeysUtil(node.left, dArray);
+			postorderkeysUtil(node.right, dArray);
+			dArray.insert(node.key);
+		}
+		return dArray;
 	}
 }
