@@ -2,6 +2,7 @@ package nkher.datastructures.trees;
 
 import nkher.Interfaces.MyTree;
 import nkher.datastructures.lists.DynamicArray;
+import nkher.datastructures.lists.SinglyLinkedList;
 import nkher.exception.DataStructureEmptyException;
 
 public class RedBlackTree<K extends Comparable<K>, V>  implements MyTree<K, V> {
@@ -175,16 +176,17 @@ public class RedBlackTree<K extends Comparable<K>, V>  implements MyTree<K, V> {
 			
 			/** Setting the color of the newly inserted node to Red */
 			node.setColor(Color.Red);
+			
+			RedBlackNode<K, V> nodeToFixAt = node;
 						
-			/** Now the Red Black Tree fixing part */
-			if (!node.parent.getColor().equals(Color.Black)) { // if the inserted node's parent is not black
-								
-				RedBlackNode<K, V> uncle = getUncleNode(node);
-				RedBlackNode<K, V> grandparent = node.grandparent();
+			while (null != nodeToFixAt && !nodeToFixAt.parent.getColor().equals(Color.Black) && nodeToFixAt.color.equals(Color.Red)) {
+												
+				RedBlackNode<K, V> uncle = getUncleNode(nodeToFixAt);
+				RedBlackNode<K, V> grandparent = nodeToFixAt.grandparent();
 								
 				/** Case 1 : Uncle is red -- ReColoring Case */
 				if (null != uncle && uncle.getColor().equals(Color.Red)) {
-					performReColoring(grandparent);
+					nodeToFixAt = performReColoring(grandparent);
 				}
 				
 				/** Case 2 : Uncle is black -- Rotation Case */
@@ -192,64 +194,74 @@ public class RedBlackTree<K extends Comparable<K>, V>  implements MyTree<K, V> {
 				else if (null == uncle || uncle.getColor().equals(Color.Black)) {
 										
 					/** Sub case 1 : Left Left Case */
-					if (node.parent.left == node && grandparent.left == node.parent) {
-						leftleftCase(grandparent);
+					if (nodeToFixAt.parent.left == nodeToFixAt && grandparent.left == node.parent) {
+						nodeToFixAt = leftleftCase(grandparent);
 					}
 					
 					/** Sub case 2 : Left Right Case */
-					else if (node.parent.right == node && grandparent.left == node.parent) {
-						node = leftRotate(node.parent);
-						System.out.println("Back : " + node);
-						System.out.println("Back : " + node.parent);
-						System.out.println("Back : " + node.parent.left);
-						leftleftCase(grandparent);
+					else if (nodeToFixAt.parent.right == nodeToFixAt && grandparent.left == node.parent) {
+						nodeToFixAt = leftRotate(node.parent, (node.parent == root));
+						nodeToFixAt = leftleftCase(grandparent);
 					}
 					
 					/** Sub case 3 : Right Right Case */
-					else if (node.parent.right == node && grandparent.right == node.parent) {
-						rightrightCase(grandparent);
+					else if (nodeToFixAt.parent.right == nodeToFixAt && grandparent.right == nodeToFixAt.parent) {
+						nodeToFixAt = rightrightCase(grandparent);
 					}
 					
 					/** Sub case 4 : Right Left Case */
-					else if (node.parent.left == node && grandparent.right == node.parent) {
-						node = rightRotate(node.parent);
-						rightrightCase(grandparent);
+					else if (nodeToFixAt.parent.left == nodeToFixAt && grandparent.right == nodeToFixAt.parent) {
+						nodeToFixAt = rightRotate(node.parent, (node.parent == root));
+						nodeToFixAt = rightrightCase(grandparent);
 					}
+				}	
+				
+				if (root == nodeToFixAt) { // we cannot go above root
+					break;
 				}
 			}
 		}
 		System.out.println("Insertion successfull !");
 	}
 	
-	private void performReColoring(RedBlackNode<K, V> grandparent) {
-		
+	private RedBlackNode<K, V> performReColoring(RedBlackNode<K, V> grandparent) {
 		/** Keep changing the color of parent and uncle till we reach null */
 		if (null != grandparent) {
 			grandparent.right.setColor(Color.Black);
 			grandparent.left.setColor(Color.Black);
 			if (grandparent != root) {
 				grandparent.setColor(Color.Red);
-				if (grandparent.parent.color.equals(Color.Red)) {
+				
+				/* 
+				 * Re color if following 3 conditions are met
+				 * 	1. Grandparent is not null
+				 *  2. Grandparent's parent's color is Red
+				 *  3. Grandparent's uncle's color is Red
+				 */
+				if (null != getUncleNode(grandparent) && grandparent.parent.color.equals(Color.Red) && getUncleNode(grandparent).color.equals(Color.Red)) {
 					performReColoring(grandparent.grandparent()); // recurse above
 				}
 			}
-		}
+		}		
+		return grandparent;
 	}
 	
 	/***
 	 * Utility function to perform the left left case rotation. 
 	 */
-	private void leftleftCase(RedBlackNode<K, V> grandparent) {
-		RedBlackNode<K, V> temp = rightRotate(grandparent);
+	private RedBlackNode<K, V> leftleftCase(RedBlackNode<K, V> grandparent) {
+		RedBlackNode<K, V> temp = rightRotate(grandparent, (grandparent == root));
 		flipNodeColors(grandparent, temp);
+		return temp;
 	}
 	
 	/***
 	 * Utility function to perform the right right case rotation. 
 	 */
-	private void rightrightCase(RedBlackNode<K, V> grandparent) {
-		RedBlackNode<K, V> temp = leftRotate(grandparent);
+	private RedBlackNode<K, V> rightrightCase(RedBlackNode<K, V> grandparent) {
+		RedBlackNode<K, V> temp = leftRotate(grandparent, (grandparent == root));
 		flipNodeColors(grandparent, temp);
+		return temp;
 	}
 	
 	/***
@@ -296,23 +308,30 @@ public class RedBlackTree<K extends Comparable<K>, V>  implements MyTree<K, V> {
 	 * Utility function for performing the left rotation.
 	 * @param root
 	 */
-	private RedBlackNode<K, V> leftRotate(RedBlackNode<K, V> node) {
+	private RedBlackNode<K, V> leftRotate(RedBlackNode<K, V> node, boolean isRoot) {
 		RedBlackNode<K, V> r = node.right;
 		RedBlackNode<K, V> rLeft = r.left;
 		
+		/* Setting the left and right pointers appropriately */
 		r.left = node;
 		node.right = rLeft;
 		
-		// Reset the parents appropriately -- very important
+		/* Reset the parents and children appropriately -- very important */ 
 		r.setParent(node.parent);
-		node.setParent(r);
 		
-		if (r.parent.left == node) {
-			r.parent.setLeft(r);
+		if (!isRoot) {
+			if (node.parent.left == node) {
+				node.parent.setLeft(r);
+			}
+			else if (node.parent.right == node) {
+				node.parent.setRight(r);
+			}
 		}
-		else {
-			r.parent.setRight(r);
+		else { // if we are rotating the root
+			root = r;
 		}
+		
+		node.setParent(r);
 		
 		return r;
 	}
@@ -321,23 +340,30 @@ public class RedBlackTree<K extends Comparable<K>, V>  implements MyTree<K, V> {
 	 * Utility function for performing the right rotation.
 	 * @param root
 	 */
-	private RedBlackNode<K, V> rightRotate(RedBlackNode<K, V> node) { 
-		RedBlackNode<K, V> l = node.left;
-		RedBlackNode<K, V> lRight = l.right;
+	private RedBlackNode<K, V> rightRotate(RedBlackNode<K, V> node, boolean isRoot) {		
+		RedBlackNode<K, V> l = node.left; // 17
+		RedBlackNode<K, V> lRight = l.right; // null
 		
+		/* Setting the left and right pointers appropriately */
 		l.right = node;
 		node.left = lRight;
 		
-		// Reset the parents and children appropriately -- very important
+		/* Reset the parents and children appropriately -- very important */ 
 		l.setParent(node.parent);
-		node.setParent(l);
 		
-		if (l.parent.left == node) {
-			l.parent.setLeft(l);
+		if (!isRoot) {
+			if (node.parent.left == node) {
+				node.parent.setLeft(l);
+			}
+			else if (node.parent.right == node) {
+				node.parent.setRight(l);
+			}
 		}
-		else {
-			l.parent.setRight(l);
+		else { // if we are rotating the root
+			root = l;
 		}
+		
+		node.setParent(l);
 		
 		return l;
 	}
@@ -363,19 +389,37 @@ public class RedBlackTree<K extends Comparable<K>, V>  implements MyTree<K, V> {
 		return dArray;
 	}
 	
-	public static void main(String args[]) {
+	/***
+	 * Utility function to get the nodes of a BST in level order fashion.
+	 * Each level is a linked list of nodes.
+	 * 
+	 * @return - an array of type {@code DynamicArray<SinglyLinkedList<RedBlackNode<K, V>>>}
+	 */
+	public DynamicArray<SinglyLinkedList<RedBlackNode<K, V>>> levelorder() {
 		
-		RedBlackTree<Integer, Integer> rbTree = new RedBlackTree<>();
+		DynamicArray<SinglyLinkedList<RedBlackNode<K, V>>> result = new DynamicArray<SinglyLinkedList<RedBlackNode<K,V>>>();
+		SinglyLinkedList<RedBlackNode<K, V>> children = new SinglyLinkedList<RedBlackNode<K,V>>();
+		SinglyLinkedList<RedBlackNode<K, V>> parents;
 		
-		// inserting the data
-		rbTree.insert(new RedBlackNode<>(10, 10));
-		rbTree.insert(new RedBlackNode<>(20, 20));
-		rbTree.insert(new RedBlackNode<>(-10, -10));
-		rbTree.insert(new RedBlackNode<>(15, 15));
-		rbTree.insert(new RedBlackNode<>(17, 17));
-		rbTree.insert(new RedBlackNode<>(40, 40));
+		if (null == root) return result;
 		
-		System.out.println(rbTree.inorder());
+		children.insert(root); // insert the first node in the tree
+		
+		while (!children.isEmpty()) {
+			result.insert(children);
+			parents = children;
+			children = new SinglyLinkedList<RedBlackNode<K,V>>();
+			
+			for (RedBlackNode<K, V> rbNode : parents) {
+				
+				if (rbNode.left != null) {
+					children.insert(rbNode.left);
+				}
+				if (rbNode.right != null) {
+					children.insert(rbNode.right);
+				}
+			}
+		}
+		return result;
 	}
-
 }
