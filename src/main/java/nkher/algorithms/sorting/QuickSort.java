@@ -85,18 +85,6 @@ public class QuickSort extends Sorting {
 	}
 	
 	/***
-	 * @param array - {@code Object} array in which indexes are to be swapped
-	 * @param index1 - index1 to be swapped {@code int}
-	 * @param index2 - index2 to be swapped {@code int}
-	 * @param sortOrder
-	 */
-	private static <T extends Comparable<T>> void swap(DynamicArray<T> dArray, int index1, int index2) {
-		T temp = dArray.getAt(index1);
-		dArray.replaceAt(index1, dArray.getAt(index2));
-		dArray.replaceAt(index2, temp);
-	}
-	
-	/***
 	 * Sorts the Integer[] array using the quick sort algorithm.
 	 * 
 	 * @param iArray

@@ -14,7 +14,7 @@ import nkher.utils.ArrayUtility;
 public class BubbleSort extends Sorting {
 	
 	/***
-	 * Sorts the passed array in ascending order using the bubble sort algorithm.
+	 * Sorts the passed array in order provided by the sort order parameter using the bubble sort algorithm.
 	 * If the incoming array is of a complex type (object), then it sorts the array based on the 
 	 * implementation of the compareTo() method of the object (if the incoming object type's extends the Comparable interface.) 
 	 * Else if the array is of a primitive type {any one of Integer, String, Double, Float, Double, Long etc.} then 
@@ -127,18 +127,6 @@ public class BubbleSort extends Sorting {
 		dArray.fill(fArray);
 		sort(dArray, sortOrder);
 		ArrayUtility.fillArray(dArray, fArray);
-	}
-	
-	/***
-	 * @param array - {@code Object} array in which indexes are to be swapped
-	 * @param index1 - index1 to be swapped {@code int}
-	 * @param index2 - index2 to be swapped {@code int}
-	 * @param sortOrder
-	 */
-	private static <T extends Comparable<T>> void swap(DynamicArray<T> dArray, int index1, int index2) {
-		T temp = dArray.getAt(index1);
-		dArray.replaceAt(index1, dArray.getAt(index2));
-		dArray.replaceAt(index2, temp);
 	}
 	
 	/***
