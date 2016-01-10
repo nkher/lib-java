@@ -5,8 +5,8 @@ import nkher.datastructures.lists.DynamicArray;
 
 public abstract class Sorting {
 	
-	protected static final int ORDER_ASC = 0;
-	protected static final int ORDER_DESC = 1;		
+	public static final int ORDER_ASC = 0;
+	public static final int ORDER_DESC = 1;		
 	
 	/***
 	 * @param array - {@code Object} array in which indexes are to be swapped
