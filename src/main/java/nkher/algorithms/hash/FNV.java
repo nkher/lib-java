@@ -1,5 +1,7 @@
 package nkher.algorithms.hash;
 
+import java.util.function.Function;
+
 /***
  * Reference : 
  * 1. https://en.wikipedia.org/wiki/Fowler%E2%80%93Noll%E2%80%93Vo_hash_function
@@ -9,7 +11,7 @@ package nkher.algorithms.hash;
  * @author nameshkher
  *
  */
-public class FNV extends HashMethod {
+public class FNV extends HashMethod implements Function<byte[], Integer>{
 	
 	private static final int FNVPRIME_32BIT = 0x01000193;
 	private static final long FNVPRIME_64BIT = 0x100000001b3L;
@@ -21,7 +23,15 @@ public class FNV extends HashMethod {
 		setHashFunctionName("fnv");
 	}
 	
-	public int hash_32(byte[] bytes) {
+	/***
+	 * We are actually not using seed here
+	 */
+	@Override
+	public Integer apply(byte[] data) {
+		return hash_32(data);
+	}
+	
+	public static int hash_32(byte[] bytes) {
 		int hash = FNVOFFSET_32BIT;
 		for (int i=0; i<bytes.length; i++) {
 			hash *= FNVPRIME_32BIT;
@@ -30,7 +40,7 @@ public class FNV extends HashMethod {
 		return hash;
 	}
 	
-	public long hash_64(byte[] bytes) {
+	public static long hash_64(byte[] bytes) {
 		long hash = FNVOFFSET_64BIT;
 		for (int i=0; i<bytes.length; i++) {
 			hash *= FNVPRIME_64BIT;
@@ -39,7 +49,7 @@ public class FNV extends HashMethod {
 		return hash;
 	}
 	
-	public int hash_32(String str) {
+	public static int hash_32(String str) {
 		int hash = FNVOFFSET_32BIT;
 		for (int i=0; i<str.length(); i++) {
 			hash *= FNVPRIME_32BIT;
@@ -48,7 +58,7 @@ public class FNV extends HashMethod {
 		return hash;
 	}
 	
-	public long hash_64(String str) {
+	public static long hash_64(String str) {
 		long hash = FNVOFFSET_64BIT;
 		for (int i=0; i<str.length(); i++) {
 			hash *= FNVPRIME_64BIT;

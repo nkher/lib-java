@@ -1,6 +1,6 @@
 package nkher.algorithms.hash;
 
-import java.util.Random;
+import java.util.function.BiFunction;
 
 /***
  * References : 
@@ -10,7 +10,7 @@ import java.util.Random;
  * @author nameshkher
  *
  */
-public class Murmur3 extends HashMethod {
+public class Murmur3 extends HashMethod implements BiFunction<byte[], Integer, Integer> {
 	
 	private static final int c1 = 0xcc9e2d51;
 	private static final int c2 = 0x1b873593;
@@ -18,19 +18,21 @@ public class Murmur3 extends HashMethod {
 	private static final int r2 = 13;
 	private static final int m = 5;
 	private static final int n = 0xe6546b64;
-	
-	private static final Random r = new Random();
-	
+		
 	public Murmur3() {
 		setHashFunctionName("murmur3");
 	}
 	
-	public int hash_32(byte[] data) {
-		int seed = r.nextInt();
+	@Override
+	public Integer apply(byte[] data, Integer seed) {
+		return hash_32(data, seed);
+	}
+	
+	public static int hash_32(byte[] data, int seed) {
 		return hash_32(data, data.length, seed);
 	}
 	
-	private int hash_32(byte[] data, int len, int seed) {
+	private static int hash_32(byte[] data, int len, int seed) {
 		
 		int hash = seed;
 		
@@ -66,18 +68,17 @@ public class Murmur3 extends HashMethod {
 		hash = hash ^ (hash >> 13);
 		hash = hash * 0xc2b2ae35;
 		hash = hash ^ (hash >> 16);
-		
 		return hash;
 	}
 	
-	private int mixKey(int k) {
+	private static int mixKey(int k) {
 		k = k * c1;
 		k = Integer.rotateLeft(k, r1);
 		k = k * c2;
 		return k;
 	}
 	
-	private int mixHash(int h, int k) {
+	private static int mixHash(int h, int k) {
 		h = h ^ k;
 		h = Integer.rotateLeft(h, r2);
 		h = h * m + n;

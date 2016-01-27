@@ -1,9 +1,14 @@
 package nkher.datastructures.bloomfilter;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import nkher.Interfaces.MyBloomFilter;
 import nkher.algorithms.hash.FNV;
+import nkher.algorithms.hash.HashGenerator;
 import nkher.algorithms.hash.HashMethod;
 import nkher.algorithms.hash.Murmur3;
 import nkher.datastructures.lists.DynamicArray;
@@ -26,7 +31,7 @@ public class BloomFilter<T> implements MyBloomFilter<T> {
 	
 	private int numberOfExpectedElements;
 	private double expectedFalsePositiveProbability;
-	private int count;
+	private int capacity;
 	private int size;
 	private int numberOfHashFunctions;
 	private BitMap bloomDS;
@@ -35,9 +40,7 @@ public class BloomFilter<T> implements MyBloomFilter<T> {
 	public BloomFilter() {
 		initHashMethods(); // initializing hash methods
 		numberOfHashFunctions = hashMethods.length;
-		
 		// still to decide on default expected elements and false positive probability
-
 		bloomDS = new BitMap(); //  initializing the underlying bitmap		
 	}
 	
@@ -46,8 +49,8 @@ public class BloomFilter<T> implements MyBloomFilter<T> {
 		expectedFalsePositiveProbability = falsePositiveProbability;
 		numberOfExpectedElements = expectedElements;
 		numberOfHashFunctions = hashMethods.length;
-		size = optimialSize(expectedElements, falsePositiveProbability);
-		bloomDS = new BitMap(size);
+		capacity = optimialSize(expectedElements, falsePositiveProbability);
+		bloomDS = new BitMap(capacity);
 	}
 	
 	public BloomFilter(BloomFilter<T> other) {
@@ -68,35 +71,43 @@ public class BloomFilter<T> implements MyBloomFilter<T> {
 	@Override
 	public boolean addBytes(byte[] bytes) {
 		boolean inserted = false;
-		int[] hashes = getHashedIndexes(bytes);
+		int[] hashes = hashes(bytes);
 		for (int index : hashes) {
 			if (bloomDS.get(index) == 0) {
 				inserted = true;
 				bloomDS.set(index);
 			}
 		}
+		if (inserted) {
+			size++;
+		}
 		return inserted;
 	}
 
 	@Override
-	public boolean addElement(T element) {
-		return false;
+	public boolean add(T element) {
+		byte[] data = element.toString().getBytes();
+		return addBytes(data);
 	}
 
 	@Override
-	public List<Boolean> addAllElements(DynamicArray<T> elements) {
-		return null;
+	public List<Boolean> addList(DynamicArray<T> elements) {
+		List<Boolean> result = new ArrayList<>();
+		for (T elem : elements) {
+			result.add(add(elem));
+		}
+		return result;
 	}
 
 	@Override
 	public void clear() {
 		bloomDS.clear();
-		this.count = 0;
+		this.size = 0;
 	}
 
 	@Override
-	public boolean checkBloom(byte[] bytes) {
-		int[] hashes = getHashedIndexes(bytes);
+	public boolean contains(byte[] data) {
+		int[] hashes = hashes(data);
 		for (int index : hashes) {
 			if (bloomDS.get(index) == 0) {
 				return false;
@@ -106,13 +117,18 @@ public class BloomFilter<T> implements MyBloomFilter<T> {
 	}
 
 	@Override
-	public boolean checkBloom(T element) {
-		return false;
+	public boolean contains(T element) {
+		byte[] data = element.toString().getBytes();
+		return contains(data);
 	}
 
 	@Override
-	public List<Boolean> checkAllElements(DynamicArray<T> elements) {
-		return null;
+	public List<Boolean> contains(DynamicArray<T> elements) {
+		List<Boolean> result = new ArrayList<>();
+		for (T elem : elements) {
+			result.add(contains(elem));
+		}
+		return result;
 	}
 
 	@Override
@@ -124,10 +140,11 @@ public class BloomFilter<T> implements MyBloomFilter<T> {
 	}
 
 	@Override
-	public int count() {
-		return this.count;
+	public int capacity() {
+		return this.capacity;
 	}
 	
+	@Override
 	public int size() {
 		return size;
 	}
@@ -154,18 +171,13 @@ public class BloomFilter<T> implements MyBloomFilter<T> {
 		return this.bloomDS;
 	}
 	
-	private int[] getHashedIndexes(byte[] data) {
+	private int[] hashes(byte[] data) {
 		int[] hashes = new int[2];
-		HashMethod hm;
-		for (int i=0; i<hashMethods.length; i++) {
-			hm = hashMethods[i];
-			if (hm instanceof FNV) {
-				hashes[0] = ((FNV) hm).hash_32(data)/this.size;
-			}
-			else if (hm instanceof Murmur3) {
-				hashes[0] = ((Murmur3) hm).hash_32(data)/this.size;
-			}
-		}
+		
+		/*** Calculating two hashes FNV and Murmur3 **/
+		hashes[0] = HashGenerator.rejectionSample(FNV::hash_32, data, this.size);
+		hashes[1] = HashGenerator.rejectionSample(Murmur3::hash_32, data, this.size);
+		System.out.println(Arrays.toString(hashes));
 		return hashes;
 	}
 }

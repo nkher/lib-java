@@ -23,7 +23,7 @@ public interface MyBloomFilter<T> extends Serializable, Cloneable {
 	 * @param element
 	 * @return
 	 */
-	public boolean addElement(T element);
+	public boolean add(T element);
 	
 	/***
 	 * A method that adds an Array of elements to the BloomFilter. Internally adds each element
@@ -32,7 +32,7 @@ public interface MyBloomFilter<T> extends Serializable, Cloneable {
 	 * @param elements
 	 * @return
 	 */
-	public List<Boolean> addAllElements(DynamicArray<T> elements);
+	public List<Boolean> addList(DynamicArray<T> elements);
 
 	/***
 	 * A method to clear the BloomFilter and remove all the elements from it.</br>
@@ -44,7 +44,7 @@ public interface MyBloomFilter<T> extends Serializable, Cloneable {
 	 * @param bytes
 	 * @return
 	 */
-	public boolean checkBloom(byte[] bytes);
+	public boolean contains(byte[] data);
 	
 	/***
 	 * A method to check if the element is present in the BloomFilter.</br>
@@ -52,7 +52,7 @@ public interface MyBloomFilter<T> extends Serializable, Cloneable {
 	 * @param element
 	 * @return
 	 */
-	public boolean checkBloom(T element);
+	public boolean contains(T element);
 	
 	/***
 	 * A method to check if an array of elements are present in the BloomFilter. It returns a list of 
@@ -61,7 +61,7 @@ public interface MyBloomFilter<T> extends Serializable, Cloneable {
 	 * @param elements
 	 * @return
 	 */
-	public List<Boolean> checkAllElements(DynamicArray<T> elements);
+	public List<Boolean> contains(DynamicArray<T> elements);
 	
 	/***
 	 * A method to clone the existing BloomFilter and return a new copy of it.
@@ -70,12 +70,21 @@ public interface MyBloomFilter<T> extends Serializable, Cloneable {
 	public MyBloomFilter<T> clone();
 	
 	/***
+	 * A method to return the capacity of the BloomFilter. This returns a size that is calculated once the
+	 * number of expected elements and desired false probability are passed in by the client. When none of these
+	 * parameters are passed the BloomFilter uses default values. </br>
+	 * 
+	 * @return
+	 */
+	public int capacity();
+	
+	/***
 	 * A method to return the size of the BloomFilter. This returns the number of elements that are actually
 	 * present in the BloomFilter. </br>
 	 * 
 	 * @return
 	 */
-	public int count();
+	public int size();
 	
 	/***
 	 * A method to return the number of Hash Functions used for inserting / retrieving the elements from the BloomFilter.</br>
