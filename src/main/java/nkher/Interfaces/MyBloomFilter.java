@@ -6,7 +6,7 @@ import java.util.List;
 import nkher.datastructures.lists.DynamicArray;
 import nkher.datastructures.map.BitMap;
 
-public interface MyBloomFilter<T> extends Serializable {
+public interface MyBloomFilter<T> extends Serializable, Cloneable {
 		
 	/***
 	 * A method that adds the bytes of an element into the BloomFilter.</br>
@@ -44,7 +44,7 @@ public interface MyBloomFilter<T> extends Serializable {
 	 * @param bytes
 	 * @return
 	 */
-	public boolean checkFilter(byte[] bytes);
+	public boolean checkBloom(byte[] bytes);
 	
 	/***
 	 * A method to check if the element is present in the BloomFilter.</br>
@@ -52,7 +52,7 @@ public interface MyBloomFilter<T> extends Serializable {
 	 * @param element
 	 * @return
 	 */
-	public boolean checkFilter(T element);
+	public boolean checkBloom(T element);
 	
 	/***
 	 * A method to check if an array of elements are present in the BloomFilter. It returns a list of 

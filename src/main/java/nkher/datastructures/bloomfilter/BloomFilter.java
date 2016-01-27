@@ -50,6 +50,11 @@ public class BloomFilter<T> implements MyBloomFilter<T> {
 		bloomDS = new BitMap(size);
 	}
 	
+	public BloomFilter(BloomFilter<T> other) {
+		this(other.numberOfExpectedElements, other.expectedFalsePositiveProbability);
+		bloomDS = other.bloomDS.clone();
+	}
+	
 	/***
 	 * A utility function to initialize our hash methods. 
 	 * We use two methods for this BloomFilter. 1. FNV and 2. Murmur3. </br>
@@ -112,7 +117,10 @@ public class BloomFilter<T> implements MyBloomFilter<T> {
 
 	@Override
 	public MyBloomFilter<T> clone() {
-		return null;
+		if (null == bloomDS) {
+			throw new NullPointerException("BloomFilter not initialized.");
+		}
+		return new BloomFilter<>(this);
 	}
 
 	@Override
@@ -138,7 +146,6 @@ public class BloomFilter<T> implements MyBloomFilter<T> {
 		return numberOfExpectedElements;
 	}
 	
-	/* Code used from : */
 	private int optimialSize(int n, double p) {
 		return (int) Math.ceil(-1 * (n * Math.log(p)) / Math.pow(Math.log(2), 2));
 	}
