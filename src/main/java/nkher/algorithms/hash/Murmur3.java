@@ -25,12 +25,12 @@ public class Murmur3 extends HashMethod {
 		setHashFunctionName("murmur3");
 	}
 	
-	public static int hash_32(byte[] data) {
+	public int hash_32(byte[] data) {
 		int seed = r.nextInt();
 		return hash_32(data, data.length, seed);
 	}
 	
-	private static int hash_32(byte[] data, int len, int seed) {
+	private int hash_32(byte[] data, int len, int seed) {
 		
 		int hash = seed;
 		
@@ -70,14 +70,14 @@ public class Murmur3 extends HashMethod {
 		return hash;
 	}
 	
-	private static int mixKey(int k) {
+	private int mixKey(int k) {
 		k = k * c1;
 		k = Integer.rotateLeft(k, r1);
 		k = k * c2;
 		return k;
 	}
 	
-	private static int mixHash(int h, int k) {
+	private int mixHash(int h, int k) {
 		h = h ^ k;
 		h = Integer.rotateLeft(h, r2);
 		h = h * m + n;

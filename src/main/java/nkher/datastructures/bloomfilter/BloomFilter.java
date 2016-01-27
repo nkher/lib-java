@@ -62,7 +62,15 @@ public class BloomFilter<T> implements MyBloomFilter<T> {
 
 	@Override
 	public boolean addBytes(byte[] bytes) {
-		return false;
+		boolean inserted = false;
+		int[] hashes = getHashedIndexes(bytes);
+		for (int index : hashes) {
+			if (bloomDS.get(index) == 0) {
+				inserted = true;
+				bloomDS.set(index);
+			}
+		}
+		return inserted;
 	}
 
 	@Override
@@ -82,12 +90,18 @@ public class BloomFilter<T> implements MyBloomFilter<T> {
 	}
 
 	@Override
-	public boolean checkFilter(byte[] bytes) {
-		return false;
+	public boolean checkBloom(byte[] bytes) {
+		int[] hashes = getHashedIndexes(bytes);
+		for (int index : hashes) {
+			if (bloomDS.get(index) == 0) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	@Override
-	public boolean checkFilter(T element) {
+	public boolean checkBloom(T element) {
 		return false;
 	}
 
@@ -131,5 +145,20 @@ public class BloomFilter<T> implements MyBloomFilter<T> {
 	
 	public BitMap getUnerlyingBloomDS() {
 		return this.bloomDS;
+	}
+	
+	private int[] getHashedIndexes(byte[] data) {
+		int[] hashes = new int[2];
+		HashMethod hm;
+		for (int i=0; i<hashMethods.length; i++) {
+			hm = hashMethods[i];
+			if (hm instanceof FNV) {
+				hashes[0] = ((FNV) hm).hash_32(data)/this.size;
+			}
+			else if (hm instanceof Murmur3) {
+				hashes[0] = ((Murmur3) hm).hash_32(data)/this.size;
+			}
+		}
+		return hashes;
 	}
 }

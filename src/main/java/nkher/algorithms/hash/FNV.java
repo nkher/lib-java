@@ -21,7 +21,7 @@ public class FNV extends HashMethod {
 		setHashFunctionName("fnv");
 	}
 	
-	public static int hash_32(byte[] bytes) {
+	public int hash_32(byte[] bytes) {
 		int hash = FNVOFFSET_32BIT;
 		for (int i=0; i<bytes.length; i++) {
 			hash *= FNVPRIME_32BIT;
@@ -30,7 +30,7 @@ public class FNV extends HashMethod {
 		return hash;
 	}
 	
-	public static long hash_64(byte[] bytes) {
+	public long hash_64(byte[] bytes) {
 		long hash = FNVOFFSET_64BIT;
 		for (int i=0; i<bytes.length; i++) {
 			hash *= FNVPRIME_64BIT;
@@ -39,7 +39,7 @@ public class FNV extends HashMethod {
 		return hash;
 	}
 	
-	public static int hash_32(String str) {
+	public int hash_32(String str) {
 		int hash = FNVOFFSET_32BIT;
 		for (int i=0; i<str.length(); i++) {
 			hash *= FNVPRIME_32BIT;
@@ -48,7 +48,7 @@ public class FNV extends HashMethod {
 		return hash;
 	}
 	
-	public static long hash_64(String str) {
+	public long hash_64(String str) {
 		long hash = FNVOFFSET_64BIT;
 		for (int i=0; i<str.length(); i++) {
 			hash *= FNVPRIME_64BIT;
