@@ -2,7 +2,7 @@ package nkher.datastructures.map;
 
 import nkher.exception.DataStructureEmptyException;
 
-public class BitMap {
+public class BitMap implements Cloneable {
 	
 	public static final int DEFAULT_SIZE = 100;
 	
@@ -25,6 +25,18 @@ public class BitMap {
 		data = new long[size];
 		clearDataArray();
 		setBitCount(size);
+	}
+	
+	public BitMap(BitMap bMap) {
+		size = bMap.size;
+		bitCount = bMap.bitCount;
+		numberOfElements = bMap.numberOfElements;
+		data = new long[size];
+		int i=0;
+		for (long field : data) {
+			bMap.data[i] = data[i];
+			i++;
+		}
 	}
 	
 	private void clearDataArray() {
@@ -93,5 +105,12 @@ public class BitMap {
 	// to be implemented
 	public String toString() {
 		return null;
+	}
+	
+	public BitMap clone() {
+		if (null == data) {
+			throw new NullPointerException("BitMap is null");
+		}
+		return new BitMap(this);
 	}
 }
