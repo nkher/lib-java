@@ -10,7 +10,7 @@ import java.util.Random;
  * @author nameshkher
  *
  */
-public class Murmur3 {
+public class Murmur3 extends HashMethod {
 	
 	private static final int c1 = 0xcc9e2d51;
 	private static final int c2 = 0x1b873593;
@@ -21,6 +21,9 @@ public class Murmur3 {
 	
 	private static final Random r = new Random();
 	
+	public Murmur3() {
+		setHashFunctionName("murmur3");
+	}
 	
 	public static int hash_32(byte[] data) {
 		int seed = r.nextInt();

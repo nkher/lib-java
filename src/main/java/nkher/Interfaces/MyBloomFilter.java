@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import nkher.datastructures.lists.DynamicArray;
+import nkher.datastructures.map.BitMap;
 
 public interface MyBloomFilter<T> extends Serializable {
 		
@@ -74,15 +75,7 @@ public interface MyBloomFilter<T> extends Serializable {
 	 * 
 	 * @return
 	 */
-	public int size();
-	
-	/***
-	 * A method that returns the Expected Capacity of the BloomFilter. This is the capacity which we set at the start
-	 * of the BloomFilter.</br>
-	 * 
-	 * @return
-	 */
-	public int expectedCapacity();
+	public int count();
 	
 	/***
 	 * A method to return the number of Hash Functions used for inserting / retrieving the elements from the BloomFilter.</br>
@@ -94,5 +87,19 @@ public interface MyBloomFilter<T> extends Serializable {
 	 * A method to get the false positive probability of a BloomFilter.
 	 * @return
 	 */
-	public int falsePositiveProbability();
+	public double falsePositiveProbability();
+	
+	/***
+	 * Returns the number of expected elements to be filled in the BloomFilter which is set by the client. 
+	 * Otherwise it returns the default value.
+	 * 
+	 * @return
+	 */
+	public int numberOfExpectedElements();
+	
+	/***
+	 * A method to return the underlying BitMap data structure that stores the actual data.
+	 * @return
+	 */
+	public BitMap getUnerlyingBloomDS();
 }
