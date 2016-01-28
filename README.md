@@ -3,7 +3,7 @@
 This is a library of in memory data structures and algorithms implemented in Java. I had been investing a lot of time studying algorithms and data structures since some time now and hence wanted a way of sharing this with any one who might be interested. The repository by no means is at production level, but you can surely go ahead and try using it for your projects. The solutions are absolutely readable and easy to understand. I still work on this repository in my free time and try improving the current code base by adding new implementations or adding
 more utility functions to the existing ones.
 
-Below is a list of what is already implemented. The list is not a comprehensive one but would enhance as I would be adding more over time.
+Below is a list of what is already implemented. The list is not a comprehensive one but would definitely grow as I continue to add more over time.
 
 ####**_Data Structures -_**
 
