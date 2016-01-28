@@ -1,4 +1,4 @@
-package nkher.datastructures.map;
+package nkher.datastructures.lists;
 
 import nkher.exception.DataStructureEmptyException;
 

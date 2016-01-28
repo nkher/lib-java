@@ -11,6 +11,7 @@ Below is a list of what is already implemented. The list is not a comprehensive 
  * DynamicArray - Self resizing arrays
  * SinglyLinkedList
  * DoublyLinkedList
+ * BitMap
 
 2. Stacks  
  * StackArray - Array based stack
@@ -21,7 +22,6 @@ Below is a list of what is already implemented. The list is not a comprehensive 
  * DequeArray - **Not implemented yet**
 
 4. Maps
- * BitMap
  * HashLinkedList - HashMap using separate chaining
 
 5. Trees

@@ -1,6 +1,6 @@
 package nkher.main;
 
-import nkher.datastructures.map.BitMap;
+import nkher.datastructures.lists.BitMap;
 
 public class BitMapTester {
 	

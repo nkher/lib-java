@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import nkher.datastructures.lists.DynamicArray;
-import nkher.datastructures.map.BitMap;
+import nkher.datastructures.lists.BitMap;
 
 public interface MyBloomFilter<T> extends Serializable, Cloneable {
 		

@@ -1,10 +1,8 @@
 package nkher.datastructures.bloomfilter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import nkher.Interfaces.MyBloomFilter;
 import nkher.algorithms.hash.FNV;
@@ -12,7 +10,7 @@ import nkher.algorithms.hash.HashGenerator;
 import nkher.algorithms.hash.HashMethod;
 import nkher.algorithms.hash.Murmur3;
 import nkher.datastructures.lists.DynamicArray;
-import nkher.datastructures.map.BitMap;
+import nkher.datastructures.lists.BitMap;
 
 
 /***
