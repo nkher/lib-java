@@ -50,4 +50,10 @@ public interface MyMap<K, V> {
 	 * @param key
 	 */
 	void remove(K key);
+	
+	/***
+	 * A method to get all the keys from the hashmap in an iterable collction.
+	 * @return
+	 */
+	Iterable<K> keySet();
 }
