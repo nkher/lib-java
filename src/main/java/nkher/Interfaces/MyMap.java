@@ -27,6 +27,12 @@ public interface MyMap<K, V> {
 	boolean isEmpty();
 	
 	/***
+	 * Returns the size of the map.
+	 * @return
+	 */
+	int size();
+	
+	/***
 	 * Function to check if the map contains the passed key
 	 * 
 	 * @param key of type {@code K}
@@ -34,5 +40,14 @@ public interface MyMap<K, V> {
 	 */
 	boolean containsKey(K key);
 	
+	/***
+	 * A function for clearing all the key value pairs from the hashmap.
+	 */
+	void clear();
 	
+	/***
+	 * Removes the key and value for the passed key from the hashmap.
+	 * @param key
+	 */
+	void remove(K key);
 }
