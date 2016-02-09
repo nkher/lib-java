@@ -22,7 +22,8 @@ Below is a list of what is already implemented. The list is not a comprehensive 
  * DequeArray - **Not implemented yet**
 
 4. Maps
- * HashLinkedList - HashMap using separate chaining
+ * HashMapSC - HashMap using separate chaining
+ * HashMapLP - HashMap using linear probing
 
 5. Trees
  * BinarySearchTree
