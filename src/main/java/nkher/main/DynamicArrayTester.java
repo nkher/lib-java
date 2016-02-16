@@ -1,9 +1,7 @@
 package nkher.main;
 
-import java.util.ArrayList;
 
 import nkher.datastructures.lists.DynamicArray;
-import nkher.utils.ArrayUtility;
 
 public class DynamicArrayTester {
 
@@ -18,6 +16,13 @@ public class DynamicArrayTester {
 		v.insert(5);
 		v.insert(1);
 		v.insert(233);
+		
+		System.out.println("Before : " + v.toString());
+		System.out.println("Reversing");
+		System.out.println(v.getReverseArray());
+		v.reverse();
+		System.out.println("After : " + v);
+		
 		v.insert(1);
 		v.insert(90);
 		v.insert(100);
@@ -32,10 +37,10 @@ public class DynamicArrayTester {
 		System.out.println(v.toString() + " " + v.size());
 		v.removeAt(13);
 		System.out.println(v.toString());
-		v.setAt(10, 999);
+		v.replaceAt(10, 999);
 		System.out.println(v.toString());
 		System.out.println(v.getAt(12));
-		v.setAt(12, 1);
+		v.replaceAt(12, 1);
 		System.out.println(v.toString());
 
 		
@@ -78,39 +83,31 @@ public class DynamicArrayTester {
 		
 		System.out.println("\n----------------------------------\n");
 		
-		v.clear();
 		
-		System.out.println(v.toString() + " -- " + v.size());
 		
-		Integer a[] = {1, 2, 3};
-				
-		v.fill(a);
+		DynamicArray<Integer> v1 = new DynamicArray<>();
 		
-		System.out.println(v.toString() + " -- " + v.size());
+		v1.insert(1);
+		v1.insert(2);
+		v1.insert(13);
+		v1.insert(4);
+		v1.insert(55);
+		v1.insert(55);
+		v1.insert(13);
+		v1.insert(3);
+		v1.insert(4);
+		v1.insert(5);
+		v1.insert(5);
+		v1.insert(2);
+		v1.insert(2);
+		v1.insert(3);
 		
-		v.insert(4);
-		v.insert(4);
-		v.insert(4);
-		v.insert(4);
-		v.insert(4);
-		v.insert(4);
-		v.insert(4);
-		v.insert(4);
-		v.insert(4);
-		v.insert(4);
-		v.insert(4);
-		v.insert(4);
-		v.insert(4);
+		System.out.println(v1);
 		
-		System.out.println(v.toString() + " -- " + v.size());
+		v1.uniqueArray();
 		
-//		Integer[] arr = (Integer[]) v.toArray();
-//		System.out.println(arr.toString());
+		System.out.println(v1);
 		
-		ArrayList<Integer> list = v.toArrayList();
-
-		System.out.println(list.toString());
-
 	}
 
 }

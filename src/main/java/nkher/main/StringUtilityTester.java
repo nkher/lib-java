@@ -7,7 +7,7 @@ public class StringUtilityTester {
 	public static void main(String[] args) {
 
 		String str = "aabeedbbbesssffeh";
-		System.out.println(StringUtility.runLengthEncoding(str));
+		System.out.println(StringUtility.compress(str));
 		
 		// System.out.println(decompress("a2be2db3es3f2").equals(str));
 		

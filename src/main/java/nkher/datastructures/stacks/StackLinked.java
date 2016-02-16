@@ -2,7 +2,7 @@ package nkher.datastructures.stacks;
 
 import nkher.Interfaces.MyStack;
 import nkher.exception.DataStructureEmptyException;
-import nkher.sorting.Sorting;
+import nkher.algorithms.sorting.Sorting;
 
 public class StackLinked<T extends Comparable<T>> implements MyStack<T> {
 

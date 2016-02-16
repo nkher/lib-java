@@ -1,8 +1,5 @@
 package nkher.Interfaces;
 
-import nkher.datastructures.BinarySearchTree.BSTNode;
-import nkher.datastructures.DynamicArray;
-
 public interface MyTree<K, V> {
 	
 	/***
@@ -24,7 +21,7 @@ public interface MyTree<K, V> {
 	 * 
 	 * @param t
 	 */
-	void remove(K k);
+	boolean remove(K k);
 	
 	/***
 	 * Returns the root node of the tree
@@ -45,20 +42,20 @@ public interface MyTree<K, V> {
 	 * 
 	 * @return dynamicArray of type {@code T} which has the inorder
 	 */
-	DynamicArray<V> inorder();
+	// DynamicArray<V> inorder();
 	
 	/***
 	 * Returns a dynamic array which contains the preorder of the tree
 	 * 
 	 * @return dynamicArray of type {@code T} which has the preorder
 	 */
-	DynamicArray<V> preorder();
+	// DynamicArray<V> preorder();
 	
 	/***
 	 * Returns a dynamic array which contains the postorder of the tree
 	 * 
 	 * @return dynamicArray of type {@code T} which has the postorder
 	 */
-	DynamicArray<V> postorder();
+	// DynamicArray<V> postorder();
 	
 }
