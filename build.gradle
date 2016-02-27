@@ -1,0 +1,21 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+
+group = 'nkher.ds-algos'
+version = '0.0.1-SNAPSHOT'
+
+description = """DataStructuresAndAlgorithms"""
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+
+
+repositories {
+        
+     maven { url "http://repo.maven.apache.org/maven2" }
+}
+dependencies {
+    compile group: 'org.apache.commons', name: 'commons-collections4', version:'4.1'
+    testCompile group: 'junit', name: 'junit', version:'3.8.1'
+}
