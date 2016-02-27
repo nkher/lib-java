@@ -29,7 +29,7 @@ public class HashGenerator {
 		}
 	}
 	
-	public static int rejectionSample(BiFunction<byte[], Integer, Integer> hashFunction, byte[] data, int m) {
+	public static int rejectionSampleMurmur(BiFunction<byte[], Integer, Integer> hashFunction, byte[] data, int m) {
 		int hash = -1;
 		int seed = 0;
 		while (hash == -1) {
@@ -39,7 +39,7 @@ public class HashGenerator {
 		return hash;
 	}
 	
-	public static int rejectionSample(Function<byte[], Integer> hashFunction, byte[] data, int m) {
+	public static int rejectionSampleFNV(Function<byte[], Integer> hashFunction, byte[] data, int m) {
 		int hash = -1;
 		int seed = 0;
 		while (hash == -1) {

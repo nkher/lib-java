@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-  <classpathentry kind="src" path="src/test/java" output="target/test-classes" including="**/*.java"/>
-  <classpathentry kind="src" path="src/main/java" including="**/*.java"/>
-  <classpathentry kind="output" path="target/classes"/>
-  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-  <classpathentry kind="var" path="M2_REPO/junit/junit/3.8.1/junit-3.8.1.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/apache/commons/commons-collections4/4.1/commons-collections4-4.1.jar" sourcepath="M2_REPO/org/apache/commons/commons-collections4/4.1/commons-collections4-4.1-sources.jar"/>
+	<classpathentry including="**/*.java" output="target/test-classes" kind="src" path="src/test/java"/>
+	<classpathentry including="**/*.java" kind="src" path="src/main/java"/>
+	<classpathentry kind="output" path="target/classes"/>
+	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/test/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8/"/>
+	<classpathentry sourcepath="/Users/nameshkher/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-collections4/4.1/f305f3aa45a3b208c013ef92328f8f230329f20e/commons-collections4-4.1-sources.jar" kind="lib" path="/Users/nameshkher/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-collections4/4.1/a4cf4688fe1c7e3a63aa636cc96d013af537768e/commons-collections4-4.1.jar"/>
+	<classpathentry sourcepath="/Users/nameshkher/.gradle/caches/modules-2/files-2.1/junit/junit/3.8.1/525753763e53f6f76da052b316d0f2e3bfa4d73/junit-3.8.1-sources.jar" kind="lib" path="/Users/nameshkher/.gradle/caches/modules-2/files-2.1/junit/junit/3.8.1/99129f16442844f6a4a11ae22fbbee40b14d774f/junit-3.8.1.jar"/>
 </classpath>

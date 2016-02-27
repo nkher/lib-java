@@ -173,8 +173,8 @@ public class BloomFilter<T> implements MyBloomFilter<T> {
 		int[] hashes = new int[2];
 		
 		/*** Calculating two hashes FNV and Murmur3 **/
-		hashes[0] = HashGenerator.rejectionSample(FNV::hash_32, data, this.capacity);
-		hashes[1] = HashGenerator.rejectionSample(Murmur3::hash_32, data, this.capacity);
+		hashes[0] = HashGenerator.rejectionSampleFNV(FNV::hash_32, data, this.capacity);
+		hashes[1] = HashGenerator.rejectionSampleMurmur(Murmur3::hash_32, data, this.capacity);
 		//System.out.println(Arrays.toString(hashes));
 		return hashes;
 	}
