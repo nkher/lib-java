@@ -177,4 +177,16 @@ public class BloomFilter<T> implements MyBloomFilter<T> {
 		//System.out.println(Arrays.toString(hashes));
 		return hashes;
 	}
+
+	@Override
+	public boolean isEmpty() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Object[] toArray() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

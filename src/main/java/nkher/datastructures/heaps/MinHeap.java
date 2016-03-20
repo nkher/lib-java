@@ -212,5 +212,18 @@ public class MinHeap<T extends Comparable<T>> implements MyHeap<T> {
 		keys.put(e1, ind_e2);
 		keys.put(e2, ind_e1);
 	}
-
+	
+	/***
+	 * A function to check if the key is present in the heap or not.
+	 * 
+	 * @param key
+	 * @return
+	 */
+	public boolean contains(T key) {
+		return keys.containsKey(key);
+	}
+	
+	public Object[] toArray() {
+		return heapArr.toArray();
+	}
 }

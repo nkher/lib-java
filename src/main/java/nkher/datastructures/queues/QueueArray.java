@@ -57,7 +57,6 @@ public class QueueArray<T> implements MyQueue<T>, Iterable<T> {
 		return capacity;
 	}
 
-	@SuppressWarnings("unchecked")
 	public T head() {
 		if (isEmpty()) {
 			throw new DataStructureEmptyException("Cannot get head of an empty queue");
@@ -65,7 +64,11 @@ public class QueueArray<T> implements MyQueue<T>, Iterable<T> {
 		return (T) data[front];
 	}
 	
-	@SuppressWarnings("unchecked")
+	/***
+	 * A utility method added for convenience. This returns the element that was last inserted into the queue.
+	 * 
+	 * @return the element at the tail of the queue.
+	 */
 	public T tail() {
 		if (isEmpty()) {
 			throw new DataStructureEmptyException("Cannot get tail of an empty queue");
@@ -76,19 +79,14 @@ public class QueueArray<T> implements MyQueue<T>, Iterable<T> {
 		return (T) data[rear-1];
 	}
 
-	/***
-	 * Removes and returns the element at the head of the queue.
-	 * Follows the FIFO principle where the element that came in first
-	 * goes out first.
-	 */
 	public T dequeue() {
 		if (isEmpty()) {
 			throw new DataStructureEmptyException("Cannot remove from an empty queue");
 		}
-		@SuppressWarnings("unchecked")
 		T ret = (T) data[front];
 		front = (front+1) % data.length;
 		size--;
+		/* Resizing criteria */
 		if (data.length > DEFAULT_CAPACITY && data.length > (size * 2) && (data.length/k_REDUCE_FACTOR > size)) {
 			resize(data.length/k_REDUCE_FACTOR);
 		}
@@ -107,6 +105,7 @@ public class QueueArray<T> implements MyQueue<T>, Iterable<T> {
 		return (T) data[front];
 	}
 
+	
 	public void enqueue(T element) {
 		if (isFull()) {
 			resize(data.length * k_SCALE_FACTOR);
@@ -283,6 +282,11 @@ public class QueueArray<T> implements MyQueue<T>, Iterable<T> {
 	public QueueArray<T> clone(QueueArray<T> queue) {
 		QueueArray<T> clonedQueue = new QueueArray<T>(queue);
 		return clonedQueue;
+	}
+
+	@Override
+	public boolean contains(T elem) {
+		return false;
 	}	
 }
 

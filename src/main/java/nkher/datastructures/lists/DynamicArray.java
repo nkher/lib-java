@@ -548,4 +548,16 @@ public class DynamicArray<T> implements MyList<T>, Iterable<T> {
 	private int randomNumberInBetweenIncluding(int low, int high) {
 		return r.nextInt(high - low + 1) + low;
 	}
+
+	@Override
+	public boolean contains(T elem) {
+		if (!isEmpty()) {
+			for (int i=0; i<data.length; i++) {
+				if (data[i].equals(elem)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }

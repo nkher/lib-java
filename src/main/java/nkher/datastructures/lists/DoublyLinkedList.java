@@ -315,4 +315,16 @@ public class DoublyLinkedList<T> implements MyList<T> {
 		clone_list.insert(itr);
 		return clone_list;
 	}
+
+	@Override
+	public boolean contains(T elem) {
+		if (!isEmpty()) {
+			DoublyNode<T> temp = head;
+			while (temp != null || temp != tail) {
+				if (temp.equals(elem)) return true;
+			}
+			temp = temp.next;
+		}
+		return false;
+	}
 }

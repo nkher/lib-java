@@ -3,17 +3,19 @@ package nkher.interfaces;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.lang.model.element.Element;
+
 import nkher.datastructures.lists.DynamicArray;
 import nkher.datastructures.lists.BitMap;
 
-public interface MyBloomFilter<T> extends Serializable, Cloneable {
+public interface MyBloomFilter<T> extends Serializable, Cloneable, MyCollection<T> {
 		
 	/***
 	 * A method that adds the bytes of an element into the BloomFilter.</br>
 	 * @param bytes
 	 * @return
 	 */
-	public boolean addBytes(byte[] bytes);
+	boolean addBytes(byte[] bytes);
 	
 	
 	/***
@@ -23,36 +25,25 @@ public interface MyBloomFilter<T> extends Serializable, Cloneable {
 	 * @param element
 	 * @return
 	 */
-	public boolean add(T element);
+	boolean add(T element);
 	
 	/***
 	 * A method that adds an Array of elements to the BloomFilter. Internally adds each element
 	 * to the BloomFilter by converting them into raw bytes.</br>
 	 * 
-	 * @param elements
-	 * @return
+	 * @param elements {@link List} of {@link Element}'s for insertion into the BloomFilter 
+	 * @return  {@link List} of {@link Boolean} values indicating true or false whether which values are
+	 * inserted and which are not from the list that was passed for insertion. This list must be equal to
+	 * the incoming insertion list 
 	 */
-	public List<Boolean> addList(DynamicArray<T> elements);
-
-	/***
-	 * A method to clear the BloomFilter and remove all the elements from it.</br>
-	 */
-	public void clear();
+	List<Boolean> addList(DynamicArray<T> elements);
 	
 	/***
 	 * A method to check if the data represented by the raw bytes is present in the BloomFilter.</br>
-	 * @param bytes
+	 * @param bytes <code>true</code> if the byte data is present in the bloom filter
 	 * @return
 	 */
-	public boolean contains(byte[] data);
-	
-	/***
-	 * A method to check if the element is present in the BloomFilter.</br>
-	 * 
-	 * @param element
-	 * @return
-	 */
-	public boolean contains(T element);
+	boolean contains(byte[] data);
 	
 	/***
 	 * A method to check if an array of elements are present in the BloomFilter. It returns a list of 
@@ -61,13 +52,13 @@ public interface MyBloomFilter<T> extends Serializable, Cloneable {
 	 * @param elements
 	 * @return
 	 */
-	public List<Boolean> contains(DynamicArray<T> elements);
+	List<Boolean> contains(DynamicArray<T> elements);
 	
 	/***
 	 * A method to clone the existing BloomFilter and return a new copy of it.
 	 * @return
 	 */
-	public MyBloomFilter<T> clone();
+	MyBloomFilter<T> clone();
 	
 	/***
 	 * A method to return the capacity of the BloomFilter. This returns a size that is calculated once the
@@ -76,7 +67,7 @@ public interface MyBloomFilter<T> extends Serializable, Cloneable {
 	 * 
 	 * @return
 	 */
-	public int capacity();
+	int capacity();
 	
 	/***
 	 * A method to return the size of the BloomFilter. This returns the number of elements that are actually
@@ -90,13 +81,13 @@ public interface MyBloomFilter<T> extends Serializable, Cloneable {
 	 * A method to return the number of Hash Functions used for inserting / retrieving the elements from the BloomFilter.</br>
 	 * @return
 	 */
-	public int numberOfHashFunctionsUsed();
+	int numberOfHashFunctionsUsed();
 	
 	/***
 	 * A method to get the false positive probability of a BloomFilter.
 	 * @return
 	 */
-	public double falsePositiveProbability();
+	double falsePositiveProbability();
 	
 	/***
 	 * Returns the number of expected elements to be filled in the BloomFilter which is set by the client. 
@@ -104,11 +95,11 @@ public interface MyBloomFilter<T> extends Serializable, Cloneable {
 	 * 
 	 * @return
 	 */
-	public int numberOfExpectedElements();
+	int numberOfExpectedElements();
 	
 	/***
 	 * A method to return the underlying BitMap data structure that stores the actual data.
 	 * @return
 	 */
-	public BitMap getUnerlyingBloomDS();
+	BitMap getUnerlyingBloomDS();
 }

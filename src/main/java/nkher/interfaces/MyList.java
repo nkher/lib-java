@@ -1,20 +1,7 @@
 package nkher.interfaces;
 
-public interface MyList<T> {
+public interface MyList<T> extends MyCollection<T> {
 	
-	/***
-	 * Returns the size of the list.
-	 * 
-	 * @return number of elements in the list
-	 */
-	int size();
-	
-	/***
-	 * Checks if the list is empty of not.
-	 * 
-	 * @return true if the list is empty else false
-	 */
-	boolean isEmpty();
 	
 	/***
 	 * Inserts the element at the tail of the list.
@@ -45,16 +32,4 @@ public interface MyList<T> {
 	 */
 	void removeAt(int index);
 	
-	
-	/***
-	 * Clears the list by removing all the elements from it.
-	 */
-	void clear();
-	
-	/***
-	 * Returns an array containing all the elements.
-	 * 
-	 * @return
-	 */
-	Object[] toArray();
 }

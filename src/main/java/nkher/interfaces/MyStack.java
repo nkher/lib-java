@@ -1,13 +1,6 @@
 package nkher.interfaces;
 
-public interface MyStack<T> {
-	
-	/***
-	 * Returns the size of the stack
-	 * 
-	 * @return
-	 */
-	int size();
+public interface MyStack<T> extends MyCollection<T> {
 	
 	/***
 	 * Returns the top most element (Last inserted element) of the stack.
@@ -23,17 +16,4 @@ public interface MyStack<T> {
 	 */
 	T pop();
 	
-	/***
-	 * Pushes an element into the stack
-	 * 
-	 * @param element - data to be inserted
-	 */
-	void push(T element);
-	
-	/***
-	 * Returns true if the stack is empty else falses
-	 * 
-	 * @return
-	 */
-	boolean isEmpty();
 }

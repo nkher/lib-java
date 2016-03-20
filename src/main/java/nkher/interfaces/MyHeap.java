@@ -1,6 +1,6 @@
 package nkher.interfaces;
 
-public interface MyHeap<T> {
+public interface MyHeap<T> extends MyCollection<T> {
 	
 	/***
 	 * Inserts the element T into the heap.
@@ -30,22 +30,4 @@ public interface MyHeap<T> {
 	 */
 	boolean remove(T key);
 	
-	/***
-	 * Returns the size of the heap.
-	 * 
-	 * @return number of elements in the heap
-	 */
-	int size();
-	
-	/***
-	 * Checks if the heap is empty of not.
-	 * 
-	 * @return true if the heap is empty else false
-	 */
-	boolean isEmpty();
-	
-	/***
-	 * Removes all the elements from the heap.
-	 */
-	void clear();
 }

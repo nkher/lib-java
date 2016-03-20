@@ -179,4 +179,23 @@ public class StackLinked<T extends Comparable<T>> implements MyStack<T> {
 		top = bottom = null;
 		this.size = 0;
 	}
+
+	@Override
+	public Object[] toArray() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean contains(T elem) {
+		if (!isEmpty()) {
+			Node<T> temp = top;
+			while (temp != null) {
+				if (temp.equals(elem)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }

@@ -321,5 +321,19 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<T> {
 			return curr.data;
 		}
 	}
+
+	@Override
+	public boolean contains(T elem) {
+		if (!isEmpty()) {
+			SinglyNode<T> temp = head;
+			while (temp != null) {
+				if (temp.equals(elem)) {
+					return true;
+				}
+				temp = temp.next;
+			}
+		}
+		return false;
+	}
 	
 }

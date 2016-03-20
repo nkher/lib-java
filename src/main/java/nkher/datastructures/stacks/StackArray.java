@@ -106,4 +106,26 @@ public class StackArray<T> implements MyStack<T> {
 			end--;
 		}
 	}
+
+	@Override
+	public void clear() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Object[] toArray() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean contains(T elem) {
+		if (!isEmpty()) {
+			for (int i=0; i<top; i++) {
+				if (dArray.getAt(i).equals(elem)) return true;
+			}
+		}
+		return false;
+	}
 }
