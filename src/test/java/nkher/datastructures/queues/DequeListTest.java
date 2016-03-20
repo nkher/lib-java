@@ -1,5 +1,6 @@
 package nkher.datastructures.queues;
 
+import nkher.datastructures.util.Constants;
 import nkher.exception.DataStructureEmptyException;
 
 import org.junit.Assert;
@@ -7,23 +8,18 @@ import org.junit.Test;
 
 public class DequeListTest {
 	
-	private static final int NUMBER_FIVE = 5;
-	private static final int NUMBER_SIX = 6;
-	
-	private final int[] elements = {1, 2, 3, 4, 5};
-	
 	@Test
 	public void testEnqueueAndDequeueOperation() {
 		DequeList<Integer> deque = getIntegerDequeueWith5Elements();
 		
 		/* Asserting the size of the deque */
-		Assert.assertEquals(deque.size(), NUMBER_FIVE);
+		Assert.assertEquals(deque.size(), Constants.NUMBER_FIVE);
 		
 		int size = deque.size();
 		
 		/* Assert each element has been inserted in the correct order */
-		for (int i=0; i<elements.length; i++) {
-			Assert.assertEquals(deque.dequeue().intValue(), elements[i]);
+		for (int i=0; i<Constants.dataLen; i++) {
+			Assert.assertEquals(deque.dequeue().intValue(), Constants.data[i]);
 			Assert.assertEquals(deque.size(), (size-(i+1)));
 		}
 	}
@@ -38,7 +34,7 @@ public class DequeListTest {
 		/* Asserting that we have the correct element at the head of the deque */
 		Assert.assertEquals(deque.head(), new Integer(0));
 		
-		Assert.assertEquals(deque.size(), NUMBER_SIX);
+		Assert.assertEquals(deque.size(), Constants.NUMBER_SIX);
 	}
 	
 	@Test(expected = DataStructureEmptyException.class)
@@ -53,7 +49,7 @@ public class DequeListTest {
 		DequeList<Integer> deque = getIntegerDequeueWith5Elements();
 		int size = deque.size();
 		
-		int elementAtTail = elements[4];
+		int elementAtTail = Constants.data[4];
 		Assert.assertEquals(deque.deqeueAtTail().intValue(), elementAtTail);
 		
 		/* Asserting the size */
@@ -71,14 +67,14 @@ public class DequeListTest {
 	@Test
 	public void testHeadOperation() {
 		DequeList<Integer> deque = getIntegerDequeueWith5Elements();
-		int elementAtHead = elements[0];
+		int elementAtHead = Constants.data[0];
 		Assert.assertEquals(deque.head().intValue(), elementAtHead);
 	}
 	
 	@Test
 	public void testTailOperation() {
 		DequeList<Integer> deque = getIntegerDequeueWith5Elements();
-		int elementAtTail = elements[4];
+		int elementAtTail = Constants.data[4];
 		Assert.assertEquals(deque.tail().intValue(), elementAtTail);
 	}
 	
@@ -92,15 +88,15 @@ public class DequeListTest {
 	@Test
 	public void testContainsOperation() {
 		DequeList<Integer> deque = getIntegerDequeueWith5Elements();
-		for (int i=0; i<elements.length; i++) {
-			Assert.assertTrue(deque.contains(elements[i]));
+		for (int i=0; i<Constants.dataLen; i++) {
+			Assert.assertTrue(deque.contains(Constants.data[i]));
 		}
 	}
 		
 	private DequeList<Integer> getIntegerDequeueWith5Elements() {
 		DequeList<Integer> deque = new DequeList<>();
-		for (int i=0; i<elements.length; i++) {
-			deque.enqueue(elements[i]);
+		for (int i=0; i<Constants.dataLen; i++) {
+			deque.enqueue(Constants.data[i]);
 		}
 		return deque;
 	}
