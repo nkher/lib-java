@@ -1,4 +1,4 @@
-package nkher.Interfaces;
+package nkher.interfaces;
 
 /***
  * An interface that defines the methods for a randomized binary search tree called the Treap.

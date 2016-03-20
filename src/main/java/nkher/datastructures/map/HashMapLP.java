@@ -3,7 +3,7 @@ package nkher.datastructures.map;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import nkher.Interfaces.MyMap;
+import nkher.interfaces.MyMap;
 
 /***
  * An implementation of a HashMap that uses the LinearProbing method for resolving collisions.

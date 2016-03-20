@@ -1,9 +1,9 @@
 package nkher.datastructures.lists;
 
-import nkher.Interfaces.MyList;
 import nkher.exception.DataStructureEmptyException;
 import nkher.exception.DataStructureSmallerException;
 import nkher.exception.InvalidIndexException;
+import nkher.interfaces.MyList;
 
 /***
  * This class demonstrates the doubly linked list implementation.

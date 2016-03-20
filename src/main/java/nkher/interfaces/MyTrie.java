@@ -1,4 +1,4 @@
-package nkher.Interfaces;
+package nkher.interfaces;
 
 import java.util.List;
 

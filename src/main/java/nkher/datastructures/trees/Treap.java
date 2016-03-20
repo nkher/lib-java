@@ -2,8 +2,8 @@ package nkher.datastructures.trees;
 
 import java.util.Random;
 
-import nkher.Interfaces.MyTreap;
 import nkher.datastructures.lists.DynamicArray;
+import nkher.interfaces.MyTreap;
 
 public class Treap<K extends Comparable<K>, V> implements MyTreap<K, V> {
 	

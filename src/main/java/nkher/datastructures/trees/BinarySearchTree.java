@@ -1,10 +1,10 @@
 package nkher.datastructures.trees;
 
-import nkher.Interfaces.MyTree;
 import nkher.datastructures.lists.DynamicArray;
 import nkher.datastructures.lists.SinglyLinkedList;
 import nkher.exception.DataStructureEmptyException;
 import nkher.exception.NodeDoesNotExistException;
+import nkher.interfaces.MyTree;
 
 public class BinarySearchTree<K extends Comparable<K>, V> implements MyTree<K, V> {
 	

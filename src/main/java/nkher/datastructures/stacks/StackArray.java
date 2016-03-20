@@ -1,8 +1,8 @@
 package nkher.datastructures.stacks;
 
-import nkher.Interfaces.MyStack;
 import nkher.datastructures.lists.DynamicArray;
 import nkher.exception.DataStructureEmptyException;
+import nkher.interfaces.MyStack;
 
 /***
  *	This class demonstrates the implementation of a Stack interface. The underlying implementation is an array.

@@ -1,9 +1,10 @@
 package nkher.datastructures.heaps;
 
 import java.util.HashMap;
-import nkher.Interfaces.MyHeap;
+
 import nkher.datastructures.lists.DynamicArray;
 import nkher.exception.DataStructureEmptyException;
+import nkher.interfaces.MyHeap;
 
 /****
  * A simple implementation of a MinHeap data structure. This class extends the MyHeap<T>

@@ -1,4 +1,4 @@
-package nkher.Interfaces;
+package nkher.interfaces;
 
 public interface MyStack<T> {
 	

@@ -3,14 +3,13 @@ package nkher.datastructures.bloomfilter;
 import java.util.ArrayList;
 import java.util.List;
 
-
-import nkher.Interfaces.MyBloomFilter;
 import nkher.algorithms.hash.FNV;
 import nkher.algorithms.hash.HashGenerator;
 import nkher.algorithms.hash.HashMethod;
 import nkher.algorithms.hash.Murmur3;
 import nkher.datastructures.lists.DynamicArray;
 import nkher.datastructures.lists.BitMap;
+import nkher.interfaces.MyBloomFilter;
 
 
 /***

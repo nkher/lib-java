@@ -1,7 +1,7 @@
 package nkher.datastructures.trees;
 
-import nkher.Interfaces.MyTree;
 import nkher.exception.DataStructureEmptyException;
+import nkher.interfaces.MyTree;
 
 /****
  * 

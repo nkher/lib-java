@@ -3,8 +3,8 @@ package nkher.datastructures.tries;
 import java.security.InvalidParameterException;
 import java.util.List;
 
-import nkher.Interfaces.MyTrie;
 import nkher.datastructures.lists.DynamicArray;
+import nkher.interfaces.MyTrie;
 
 public abstract class Trie implements MyTrie {
 
