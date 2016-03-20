@@ -4,9 +4,11 @@ public interface MyQueue<T> extends MyCollection<T> {
 	
 	
 	/***
-	 * Returns the first inserted element of the queue or the head of the queue.
+	 * It is similar to the peekFirst method of the java API. It returns the element
+	 * that was inserted the first in the deque but does not remove it. 
+	 * The peek() and the head() method are the same. (This is to be changed)
 	 * 
-	 * @return
+	 * @return element at the front or the head of the queue
 	 */
 	T head();
 	
@@ -17,13 +19,14 @@ public interface MyQueue<T> extends MyCollection<T> {
 	 * Follows the FIFO principle where the element that came in first
 	 * goes out first.
 	 * 
-	 * @return returns the element from the head of the queue
+	 * @return removes and returns the element from the head of the queue
 	 */
 	T dequeue();
 	
 	/***
-	 * Returns the element at the front or the head or the queue or in other words
-	 * the first inserted element from the queue but does not delete the element.
+	 * It is similar to the peekFirst method of the java API. It returns the element
+	 * that was inserted the first in the deque but does not remove it. 
+	 * The peek() and the head() method are the same. (This is to be changed)
 	 * 
 	 * @return element at the front or the head of the queue
 	 */

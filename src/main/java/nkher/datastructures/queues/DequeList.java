@@ -1,7 +1,10 @@
 package nkher.datastructures.queues;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
+import nkher.datastructures.lists.SinglyLinkedList;
+import nkher.datastructures.lists.SinglyLinkedList.SinglyNode;
 import nkher.exception.DataStructureEmptyException;
 import nkher.interfaces.MyQueue;
 
@@ -17,25 +20,25 @@ import nkher.interfaces.MyQueue;
  *
  * @param <T>
  */
-public class DequeList<T> extends AbstractQueue<T> implements MyQueue<T>, Iterable<T> {
+public class DequeList<T> implements MyQueue<T>, Iterable<T> {
 	
-	public static class DequeueNode<T> {
+	public static class DequeNode<T> {
 		T data;
-		DequeueNode<T> next;
+		DequeNode<T> next;
 		
-		public DequeueNode(T data) {
+		public DequeNode(T data) {
 			this.data = data;
 		}
 		
-		public void setNextNode(DequeueNode<T> node) {
+		public void setNextNode(DequeNode<T> node) {
 			next = node;
 		}
 	}
 	
 	private int size;
 	
-	private DequeueNode<T> front = null; 
-	private DequeueNode<T> rear = null;
+	private DequeNode<T> front = null; 
+	private DequeNode<T> rear = null;
 	
 	public DequeList() {
 		size = 0;
@@ -58,13 +61,27 @@ public class DequeList<T> extends AbstractQueue<T> implements MyQueue<T>, Iterab
 		}
 		return front.data;
 	}
+	
+	/***
+	 * It is similar to the peekLast method of the java API. It returns the element
+	 * that was inserted the last in the deque but does not remove it. 
+	 * 
+	 * @return element at the rear or the tail of the queue
+	 */
+	public T tail() {
+		if (isEmpty()) {
+			throw new DataStructureEmptyException("Cannot remove from an empty deque data structure !");
+		}
+		return rear.data;
+
+	}
 
 	public void enqueue(T element) {
 		size++;
 		if (size == 1) { // first element
-			front = rear = new DequeueNode<T>(element);
+			front = rear = new DequeNode<T>(element);
 		} else {
-			rear.next = new DequeueNode<T>(element);
+			rear.next = new DequeNode<T>(element);
 			rear = rear.next;
 		}
 	}
@@ -72,10 +89,10 @@ public class DequeList<T> extends AbstractQueue<T> implements MyQueue<T>, Iterab
 	public void enqueueAtHead(T element) {
 		size++;
 		if (size == 1) { // first element
-			front = rear = new DequeueNode<T>(element);
+			front = rear = new DequeNode<T>(element);
 		} else {
-			DequeueNode<T> newNode = new DequeueNode<T>(element);
-			DequeueNode<T> temp = front;
+			DequeNode<T> newNode = new DequeNode<T>(element);
+			DequeNode<T> temp = front;
 			front = newNode;
 			front.next = temp;
 		}
@@ -102,7 +119,7 @@ public class DequeList<T> extends AbstractQueue<T> implements MyQueue<T>, Iterab
 		size--;
 		T ret = rear.data;
 		if (size > 0){ 
-			DequeueNode<T> newRear = front;
+			DequeNode<T> newRear = front;
 			while (newRear.next != rear) {
 				newRear = newRear.next;
 			}
@@ -126,7 +143,28 @@ public class DequeList<T> extends AbstractQueue<T> implements MyQueue<T>, Iterab
 	}
 
 	public Iterator<T> iterator() {
-		return null;
+		return new DequeIterator();
+	}
+	
+	private class DequeIterator implements Iterator<T> {
+
+		DequeNode<T> curr = null;
+		
+		public boolean hasNext() {
+			return (!DequeList.this.isEmpty() && curr != DequeList.this.rear);
+		}
+
+		public T next() {
+			if (curr == null) {
+				curr = front;
+				return curr.data;
+			}
+			if (curr.next == null) {
+				throw new NoSuchElementException();
+			}
+			curr = curr.next;
+			return curr.data;
+		}
 	}
 
 	public void clear() {
@@ -141,9 +179,16 @@ public class DequeList<T> extends AbstractQueue<T> implements MyQueue<T>, Iterab
 
 	@Override
 	public boolean contains(T elem) {
+		if (!isEmpty()) {
+			DequeNode<T> temp = front;
+			while (temp != null) {
+				if (temp.data.equals(elem)) {
+					return true;
+				}
+				temp = temp.next;
+			}
+		}
 		return false;
 	}
-	
-	
 
 }
