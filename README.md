@@ -25,7 +25,8 @@ Below is a list of what is already implemented. The list is not a comprehensive 
 
 3. Queues
  * QueueArray - Array Based queue
- * DequeArray - Linked List Based Double Ended Queue.
+ * DequeArray - Linked List Based Double Ended Queue
+ * CircularBuffer (On going)
 
 4. Maps
  * HashMapSC - HashMap using separate chaining
