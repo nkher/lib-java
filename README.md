@@ -19,7 +19,7 @@ Below is a list of what is already implemented. The list is not a comprehensive 
 
 3. Queues
  * QueueArray - Array Based queue
- * DequeArray - **Not implemented yet**
+ * DequeArray - Linked List Based Double Ended Queue. (Ongoing implementation)
 
 4. Maps
  * HashMapSC - HashMap using separate chaining
