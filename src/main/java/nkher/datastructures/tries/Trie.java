@@ -26,7 +26,7 @@ public abstract class Trie implements MyTrie {
 	protected void checkValidKey(String key) {
 		if (null == key) { throw new NullPointerException("Passed key is null ! Please check."); }
 		if (key.length() == 0) { 
-			System.out.println("Inserting paramter with 0 length. Nothing inserted. Trie not modified."); 
+			System.out.println("Inserting parameter with 0 length. Nothing inserted. Trie not modified.");
 		}
 	}
 	
@@ -67,6 +67,6 @@ public abstract class Trie implements MyTrie {
 	public abstract boolean containsPrefix(String prefixKey);
 
 	@Override
-	public abstract boolean removeKey(String key) ;
+	public abstract boolean removeKey(String key);
 	
 }
