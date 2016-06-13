@@ -2,6 +2,7 @@ package nkher.datastructures.queues;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.function.Consumer;
 
 import nkher.datastructures.lists.SinglyLinkedList;
 import nkher.datastructures.lists.SinglyLinkedList.SinglyNode;
@@ -145,7 +146,12 @@ public class DequeList<T> implements MyQueue<T>, Iterable<T> {
 	public Iterator<T> iterator() {
 		return new DequeIterator();
 	}
-	
+
+	@Override
+	public void forEach(Consumer<? super T> action) {
+
+	}
+
 	private class DequeIterator implements Iterator<T> {
 
 		DequeNode<T> curr = null;
@@ -188,6 +194,16 @@ public class DequeList<T> implements MyQueue<T>, Iterable<T> {
 				temp = temp.next;
 			}
 		}
+		return false;
+	}
+
+	@Override
+	public boolean add(T elem) {
+		return false;
+	}
+
+	@Override
+	public boolean remove(T elem) {
 		return false;
 	}
 

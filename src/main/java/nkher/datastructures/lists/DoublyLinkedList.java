@@ -327,4 +327,10 @@ public class DoublyLinkedList<T> implements MyList<T> {
 		}
 		return false;
 	}
+
+	@Override
+	public boolean add(T elem) {
+		insert(elem);
+		return true;
+	}
 }

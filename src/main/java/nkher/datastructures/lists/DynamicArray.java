@@ -20,10 +20,10 @@ import nkher.utils.ArrayUtility;
  */
 public class DynamicArray<T> implements MyList<T>, Iterable<T> {
 	
-	public static int DEFAULT_CAPACITY = 10;
-	public static int SCALE_FACTOR = 2;
-	public static int REDUCE_FACTOR = 2;
-	public static int MIN = 0;
+	private static int DEFAULT_CAPACITY = 10;
+	private static int SCALE_FACTOR = 2;
+	private static int REDUCE_FACTOR = 2;
+	private static int MIN = 0;
 	// private static int MAX_SIZE = Integer.MAX_VALUE - 10;
 	
 	private int size = 0;
@@ -43,7 +43,7 @@ public class DynamicArray<T> implements MyList<T>, Iterable<T> {
 	/***
 	 * Constructor that creates and empty array of size = capacity
 	 * 
-	 * @param capacity
+	 * @param capacity Creates a Dynamic array of the given capacity
 	 */
 	public DynamicArray(int capacity) {
 		this.capacity = capacity;
@@ -73,7 +73,8 @@ public class DynamicArray<T> implements MyList<T>, Iterable<T> {
 	
 	/***
 	 * Constructor that initializes the array with an existing List of type {@code java.util.List}.
-	 * @param dArray
+	 *
+	 * @param list Creates a Dynamic Array from the given list
 	 */
 	public DynamicArray(List<T> list) {
 		this(DEFAULT_CAPACITY);
@@ -83,7 +84,9 @@ public class DynamicArray<T> implements MyList<T>, Iterable<T> {
 	}
 	
 	/***
-	 * Returns the capacity of the DynamicArray.
+	 *
+	 * This method returns the capacity of the DynamicArray.
+	 *
 	 * @return
 	 */
 	public int capacity() {
@@ -157,9 +160,8 @@ public class DynamicArray<T> implements MyList<T>, Iterable<T> {
 	}
 	
 	/***
-	 * Deletes the element from the tail of the dynamic array. 
+	 * Deletes the element from the tail of the dynamic array.
 	 *
-	 * @param index
 	 * @return
 	 */
 	public void remove() {
@@ -197,7 +199,6 @@ public class DynamicArray<T> implements MyList<T>, Iterable<T> {
 	 * @param index
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	public T getAt(int index) {
 		if (isEmpty() || index > size-1) {
 			throw new ArrayIndexOutOfBoundsException(index);
@@ -559,5 +560,11 @@ public class DynamicArray<T> implements MyList<T>, Iterable<T> {
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public boolean add(T elem) {
+		insert(elem);
+		return true;
 	}
 }

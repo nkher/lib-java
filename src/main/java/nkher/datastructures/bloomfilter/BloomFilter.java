@@ -18,10 +18,10 @@ import nkher.interfaces.MyBloomFilter;
  * 
  * @author nameshkher
  *
- * @param <T>
+ * @param <E>
  */
 
-public class BloomFilter<T> implements MyBloomFilter<T> {
+public class BloomFilter<E> implements MyBloomFilter<E> {
 
 	/** SERIAL ID GENERATED */
 	private static final long serialVersionUID = 2328139686555028763L;
@@ -50,7 +50,7 @@ public class BloomFilter<T> implements MyBloomFilter<T> {
 		bloomDS = new BitMap(capacity);
 	}
 	
-	public BloomFilter(BloomFilter<T> other) {
+	public BloomFilter(BloomFilter<E> other) {
 		this(other.numberOfExpectedElements, other.expectedFalsePositiveProbability);
 		bloomDS = other.bloomDS.clone();
 	}
@@ -82,15 +82,20 @@ public class BloomFilter<T> implements MyBloomFilter<T> {
 	}
 
 	@Override
-	public boolean add(T element) {
+	public boolean add(E element) {
 		byte[] data = element.toString().getBytes();
 		return addBytes(data);
 	}
 
 	@Override
-	public List<Boolean> addList(DynamicArray<T> elements) {
+	public boolean remove(E elem) {
+		return false;
+	}
+
+	@Override
+	public List<Boolean> addList(DynamicArray<E> elements) {
 		List<Boolean> result = new ArrayList<>();
-		for (T elem : elements) {
+		for (E elem : elements) {
 			result.add(add(elem));
 		}
 		return result;
@@ -114,22 +119,22 @@ public class BloomFilter<T> implements MyBloomFilter<T> {
 	}
 
 	@Override
-	public boolean contains(T element) {
+	public boolean contains(E element) {
 		byte[] data = element.toString().getBytes();
 		return contains(data);
 	}
 
 	@Override
-	public List<Boolean> contains(DynamicArray<T> elements) {
+	public List<Boolean> contains(DynamicArray<E> elements) {
 		List<Boolean> result = new ArrayList<>();
-		for (T elem : elements) {
+		for (E elem : elements) {
 			result.add(contains(elem));
 		}
 		return result;
 	}
 
 	@Override
-	public MyBloomFilter<T> clone() {
+	public MyBloomFilter<E> clone() {
 		if (null == bloomDS) {
 			throw new NullPointerException("BloomFilter not initialized.");
 		}
@@ -163,7 +168,8 @@ public class BloomFilter<T> implements MyBloomFilter<T> {
 	private int optimialSize(int n, double p) {
 		return (int) Math.ceil(-1 * (n * Math.log(p)) / Math.pow(Math.log(2), 2));
 	}
-	
+
+	@Override
 	public BitMap getUnerlyingBloomDS() {
 		return this.bloomDS;
 	}
@@ -180,13 +186,11 @@ public class BloomFilter<T> implements MyBloomFilter<T> {
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.size == 0;
 	}
 
 	@Override
 	public Object[] toArray() {
-		// TODO Auto-generated method stub
-		return null;
+		return null; // TO BE IMPLEMENTED
 	}
 }

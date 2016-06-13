@@ -4,7 +4,7 @@ import nkher.exception.DataStructureEmptyException;
 
 public class BitMap implements Cloneable {
 	
-	public static final int DEFAULT_SIZE = 100;
+	private static final int DEFAULT_SIZE = 100;
 	
 	private long data[]; // 64 bit data
 	private int bitCount; // the total number of bits

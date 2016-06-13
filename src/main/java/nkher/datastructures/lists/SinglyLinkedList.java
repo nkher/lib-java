@@ -335,5 +335,10 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<T> {
 		}
 		return false;
 	}
-	
+
+	@Override
+	public boolean add(T elem) {
+		return false;
+	}
+
 }

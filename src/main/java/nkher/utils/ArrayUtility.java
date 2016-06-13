@@ -17,6 +17,11 @@ import nkher.datastructures.lists.DynamicArray;
  *
  */
 public class ArrayUtility {
+
+	// To make the class uninstantiable
+	private ArrayUtility() {
+		throw new AssertionError();
+	}
 	
 	public static final Integer INTEGER_OBJ_ARR[] = new Integer[0];
 	

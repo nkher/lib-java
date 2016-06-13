@@ -56,6 +56,14 @@ public class CompressedTrie extends Trie implements MyTrie {
 
     @Override
     public void insert(String key) {
+        checkValidKey(key);
+        if (dictionary.contains(key)) return;
+        size++;
+        insertionUtil(key, root, 0);
+        dictionary.add(key);
+    }
+
+    private void insertionUtil(String key, CompressedTrieNode node, int level) {
 
     }
 

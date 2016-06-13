@@ -9,6 +9,11 @@ import java.util.Arrays;
  *
  */
 public class StringUtility {
+
+	// To make the class uninstantiable
+	private StringUtility() {
+		throw new AssertionError();
+	}
 	
 	// TO IMPLEMENT
 	// 1. SUBSTRING

@@ -287,7 +287,17 @@ public class QueueArray<T> implements MyQueue<T>, Iterable<T> {
 	@Override
 	public boolean contains(T elem) {
 		return false;
-	}	
+	}
+
+	@Override
+	public boolean add(T elem) {
+		return false;
+	}
+
+	@Override
+	public boolean remove(T elem) {
+		return false;
+	}
 }
 
 

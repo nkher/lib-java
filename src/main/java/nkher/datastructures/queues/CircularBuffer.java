@@ -57,6 +57,16 @@ public class CircularBuffer<T> implements MyQueue<T> {
 	}
 
 	@Override
+	public boolean add(T elem) {
+		return false;
+	}
+
+	@Override
+	public boolean remove(T elem) {
+		return false;
+	}
+
+	@Override
 	public T head() {
 		if (isEmpty()) {
 			throw new DataStructureEmptyException("Cannot remove from an empty deque data structure !");

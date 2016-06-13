@@ -1,16 +1,23 @@
 package nkher.interfaces;
 
-public interface MyCollection<T> {
+/***
+ * This class represents a generic collection type and has the following methods/behaviours in it.
+ *
+ * @param <E> A collection of E type elemente. Here E is a raw type.
+ */
+public interface MyCollection<E> {
 	
 	/***
-	 * Returns the size of the queue
+	 *
+	 * This method returns the size of the collection as an integer value.
 	 * 
-	 * @return
+	 * @return Returns the size of the collection.
 	 */
 	int size();
 	
 	/***
-	 * Returns true if the collection is empty else false.
+	 * This method checks if a collection is empty or not.
+	 * A return value of true indicates that the collection is empty.
 	 * 
 	 * @return
 	 */
@@ -18,7 +25,7 @@ public interface MyCollection<T> {
 	
 	
 	/***
-	 * Clears the dequeue array and sets the size to the default capacity.
+	 * This method clears the collection and sets the size to the default capacity.
 	 */
 	void clear();
 	
@@ -34,11 +41,26 @@ public interface MyCollection<T> {
 	Object[] toArray();
 	
 	/***
-	 * A method to check if a particular element exists in a collection.
+	 * This method checks if a particular element exists in a collection.
 	 * 
-	 * @param elem
+	 * @param elem Element {@code E} to be checked for existance in the collection.
 	 * @return a {@code Boolean} value indicating whether the collections contains the element or not.
-	 * 			True means the element exists.
+	 * 			Return value of true indicates that the element exists.
 	 */
-	boolean contains(T elem);
+	boolean contains(E elem);
+
+	/**
+	 * This method adds the element into the collection.
+	 *
+	 * @param elem Element {@code E} to be added to the collection.
+     */
+	boolean add(E elem);
+
+	/***
+	 * This method removes the element E from the collection. The first instance of the element would be removed.
+	 *
+	 * @param elem Element {@code E} to be removed.
+	 * @return Returns true if the element was removed.
+     */
+	boolean remove(E elem);
 }

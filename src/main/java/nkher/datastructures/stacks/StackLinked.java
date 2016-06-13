@@ -198,4 +198,15 @@ public class StackLinked<T extends Comparable<T>> implements MyStack<T> {
 		}
 		return false;
 	}
+
+	@Override
+	public boolean add(T elem) {
+		push(elem);
+		return true;
+	}
+
+	@Override
+	public boolean remove(T elem) {
+		return false;
+	}
 }

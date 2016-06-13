@@ -222,7 +222,12 @@ public class MinHeap<T extends Comparable<T>> implements MyHeap<T> {
 	public boolean contains(T key) {
 		return keys.containsKey(key);
 	}
-	
+
+	@Override
+	public boolean add(T elem) {
+		return true;
+	}
+
 	public Object[] toArray() {
 		return heapArr.toArray();
 	}

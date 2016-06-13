@@ -18,7 +18,7 @@ import nkher.interfaces.MyMap;
  */
 public class HashMapSC<K, V> implements MyMap<K, V>{
 	
-	public static final int DEFAULT_CAP = 10;
+	private static final int DEFAULT_CAP = 10;
 	
 	private int M; // size of the table
 	private int N; // number of key value pairs in the hashmap
