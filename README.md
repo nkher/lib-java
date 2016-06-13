@@ -36,6 +36,7 @@ Below is a list of what is already implemented. The list is not a comprehensive 
  * BinarySearchTree
  * AVLTree
  * RedBlackTree
+ * HashedArrayTree (To be Tested)
 
 6. Tries
  * BasicTrie
