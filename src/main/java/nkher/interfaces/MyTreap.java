@@ -1,5 +1,8 @@
 package nkher.interfaces;
 
+import nkher.datastructures.trees.Treap;
+import nkher.datastructures.trees.Treap.TreapNode;
+
 /***
  * An interface that defines the methods for a randomized binary search tree called the Treap.
  * An ADT for a {@code Treap} data structure.
@@ -25,7 +28,7 @@ public interface MyTreap<K, V> {
 	 * 
 	 * @param key - Key of type {@code K}
 	 */
-	void remove(K key);
+	boolean remove(K key);
 	
 	/***
 	 * A method to check if a particular treap node exists in the treap based on the key.
@@ -33,7 +36,7 @@ public interface MyTreap<K, V> {
 	 * @param key - Key of type {@code K}
 	 * @return - A {@code boolean} value
 	 */
-	boolean exists(K key);
+	boolean contains(K key);
 	
 	/**
 	 * A method to return the smallest key in the treap.

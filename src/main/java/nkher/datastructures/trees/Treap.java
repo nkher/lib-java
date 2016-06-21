@@ -5,6 +5,20 @@ import java.util.Random;
 import nkher.datastructures.lists.DynamicArray;
 import nkher.interfaces.MyTreap;
 
+/***
+ * A Treap a is a special type of tree data structure that stores 2 pieces of information.
+ * 
+ * 1. The data we want to store - We look up for this as we do in a usual Binary Search Tree.
+ * 2. A random real number - We store a random real number as in a Binary Heap.
+ * 
+ * A treap combines the advantages of a Binary Search Tree and a Binary Heap. With a very high probability
+ * an n-node treap's height is O(log(n)).
+ * 
+ * @author nameshkher
+ *
+ * @param <K> - Key to be stored
+ * @param <V> - Value to be stored
+ */
 public class Treap<K extends Comparable<K>, V> implements MyTreap<K, V> {
 	
 	private int size;
@@ -14,7 +28,7 @@ public class Treap<K extends Comparable<K>, V> implements MyTreap<K, V> {
 	
 	public static class TreapNode<K extends Comparable<K>, V> {
 		
-		private int priority; // the numeric value that decides priority
+		private int priority; // the numeric value that decides priority is a real random number
 		private K key;
 		private V value;
 		private TreapNode<K, V> left;
@@ -28,12 +42,16 @@ public class Treap<K extends Comparable<K>, V> implements MyTreap<K, V> {
 			this.priority = rand.nextInt(Integer.MAX_VALUE/2) + 1;
 		}
 		
-		public TreapNode(K key, V value, TreapNode<K, V> left, TreapNode<K, V> right) {
-			this.key = key; 
+		public TreapNode(K key, V value, int priority) {
+			this.key = key;
 			this.value = value;
+			this.priority = priority;
+		}
+		
+		public TreapNode(K key, V value, TreapNode<K, V> left, TreapNode<K, V> right) {
+			this(key, value);
 			this.left = left;
 			this.right = right;
-			this.priority = rand.nextInt(Integer.MAX_VALUE/2) + 1;
 		}
 
 		/** Getters  for key, value, left and right nodes */
@@ -131,21 +149,25 @@ public class Treap<K extends Comparable<K>, V> implements MyTreap<K, V> {
 		root = insertHelper(root, node);
 	}
 	
+	public void insertWithPriority(K key, V val, int priority) {
+		root = insertHelper(root, new TreapNode<>(key, val, priority));
+	}
+	
 	private TreapNode<K, V> insertHelper(TreapNode<K, V> root, TreapNode<K, V> node) {
 		
 		if (null == root) {
-			root = node;
+			return node;
 		} 
 		else if (root.key.compareTo(node.key) > 0) { // root is greater
 			root.left = insertHelper(root.left, node);
 			if (root.left.priority < root.priority) {
-				root = leftRotate(root);
+				root = rightRotate(root);
 			}			
 		}
 		else if (node.key.compareTo(root.key) > 0){ // root is smaller
 			root.right = insertHelper(root.right, node);
 			if (root.right.priority < root.priority) {
-				root = rightRotate(root);
+				root = leftRotate(root);
 			}
 		}
 		
@@ -153,12 +175,62 @@ public class Treap<K extends Comparable<K>, V> implements MyTreap<K, V> {
 	}
 
 	@Override
-	public void remove(K key) {		
+	public boolean remove(K key) {
+		if (contains(key)) {
+			removeHelper(root, key);
+			return true;
+		}
+		return false;		
+	}
+	
+	private TreapNode<K, V> removeHelper(TreapNode<K, V> root, K key) {
+		
+		if (root == null) return root;
+		
+		if (key.compareTo(root.key) < 0) { // if key is smaller
+			root.left = removeHelper(root.left, key);
+		} else if (key.compareTo(root.key) > 0) { // if key is larger
+			root.right = removeHelper(root.right, key);
+		} 
+		
+		else if (root.left == null) { // If the key is at the root and left is null
+			TreapNode<K, V> temp = root;
+			root = temp.right;
+		} 
+		else if (root.right == null) { // If the key is at the root and right is null
+			TreapNode<K, V> temp = root;
+			root = temp.left;
+		}
+			
+		else if (root.left.priority < root.right.priority) {
+			root = leftRotate(root);
+			root.left = removeHelper(root.left, key);
+		} 
+		else {
+			root = rightRotate(root);
+			root.right = removeHelper(root.right, key);
+		}
+		
+		return root;
 	}
 
 	@Override
-	public boolean exists(K key) {
-		return false;
+	public boolean contains(K key) {
+		return containsHelper(this.root, key);
+	}
+	
+	private boolean containsHelper(TreapNode<K, V> root, K key) {
+		if (root == null) return false;
+		
+		if (root.key.compareTo(key) == 0) {
+			return true;
+		}
+		
+		if (root.key.compareTo(key) < 0) { // If root's key is greater than key to be searched
+			return containsHelper(root.left, key);
+		}
+		
+		return containsHelper(root.right, key);
 	}
 
 	@Override
