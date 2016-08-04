@@ -1,27 +1,26 @@
 package nkher.datastructures.graphs;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import nkher.exception.DataStructureEmptyException;
 
 public class GraphNode<T extends Comparable<T>> {
 	
-	private String nodeId;
+	private int nodeId;
 	
 	private List<GraphNode<T>> neighbors;
 	
-	public GraphNode(String nodeId) {
-		this.nodeId = nodeId;
-		neighbors = new ArrayList<>();
+	public GraphNode(int nodeId) {
+		this(nodeId, Collections.emptyList());
 	}
 	
-	public GraphNode(String nodeId, List<GraphNode<T>> neighbors) {
+	public GraphNode(int nodeId, List<GraphNode<T>> neighbors) {
 		this.nodeId = nodeId;
 		setNeighbors(neighbors);
 	}
 	
-	public String getNodeId() { return nodeId; }
+	public int getNodeId() { return nodeId; }
 	
 	public List<GraphNode<T>> getNeighbors() { return neighbors; }
 	

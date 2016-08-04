@@ -1,33 +1,32 @@
 package nkher.datastructures.graphs;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Graph<T> {
 	
-	private String graphId;
+	private int graphId;
+
 	private int size;
-	private Map<String, GraphNode<?>> nodeMap;
+
+	private Map<Integer, GraphNode<?>> nodeMap;
 	
 	public Graph(String graphId) {
-		nodeMap = new HashMap<>();
+
+		this(graphId, new ArrayList<>());
 	}
 	
 	public Graph(String graphId, ArrayList<GraphNode<?>> nodes) {
 		nodeMap = new HashMap<>();
 		for (GraphNode<?> node : nodes) {
-			nodeMap.put(node.getNodeId(), node);
-			size++;
+			addNode(node);
 		}
 	}
 	
-	public void setGraphId(String graphId) {
+	public void setGraphId(int graphId) {
 		this.graphId = graphId;
 	}
 	
-	public String getGraphId() {
+	public int getGraphId() {
 		return graphId;
 	}
 	
@@ -37,5 +36,26 @@ public class Graph<T> {
 	
 	public Collection<GraphNode<?>> getGraphNodes() {
 		return nodeMap.values();
+	}
+
+	public GraphNode<?> getGraphNode(int nodeId) {
+
+		if (nodeMap == null || nodeMap.isEmpty()) {
+			throw new IllegalStateException("Node Map within graph is empty.");
+		}
+
+		return nodeMap.get(nodeId);
+	}
+
+	public void addNode(GraphNode<?> node) {
+		if (nodeMap.containsKey(node.getNodeId())) {
+			throw new IllegalArgumentException("Graph already contains the node.");
+		}
+		nodeMap.put(node.getNodeId(), node);
+		size++;
+	}
+
+	public boolean isEmpty() {
+		return (size == 0);
 	}
 }
