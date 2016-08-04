@@ -3,7 +3,7 @@ package nkher.datastructures.trees;
 import java.util.Random;
 
 import nkher.datastructures.lists.DynamicArray;
-import nkher.interfaces.MyTreap;
+import nkher.api.MyTreap;
 
 /***
  * A Treap a is a special type of tree data structure that stores 2 pieces of information.
@@ -164,7 +164,7 @@ public class Treap<K extends Comparable<K>, V> implements MyTreap<K, V> {
 				root = rightRotate(root);
 			}			
 		}
-		else if (node.key.compareTo(root.key) > 0){ // root is smaller
+		else if (root.key.compareTo(node.key) < 0){ // root is smaller
 			root.right = insertHelper(root.right, node);
 			if (root.right.priority < root.priority) {
 				root = leftRotate(root);
