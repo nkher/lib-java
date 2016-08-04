@@ -3,4 +3,7 @@ build/
 lib-java.iml
 .gradle/
 .idea/
+.classpath
+.project
+.settings
 
