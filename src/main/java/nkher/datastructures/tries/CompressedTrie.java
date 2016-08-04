@@ -1,6 +1,6 @@
 package nkher.datastructures.tries;
 
-import nkher.interfaces.MyTrie;
+import nkher.api.MyTrie;
 
 import java.util.HashMap;
 import java.util.HashSet;

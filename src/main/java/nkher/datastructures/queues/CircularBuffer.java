@@ -1,7 +1,7 @@
 package nkher.datastructures.queues;
 
 import nkher.exception.DataStructureEmptyException;
-import nkher.interfaces.MyQueue;
+import nkher.api.MyQueue;
 
 public class CircularBuffer<T> implements MyQueue<T> {
 	

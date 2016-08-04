@@ -3,7 +3,7 @@ package nkher.datastructures.queues;
 import java.util.Iterator;
 
 import nkher.exception.DataStructureEmptyException;
-import nkher.interfaces.MyQueue;
+import nkher.api.MyQueue;
 
 /***
  * A simple array based implementation of the Queue Data Structure. Exposes a nice API

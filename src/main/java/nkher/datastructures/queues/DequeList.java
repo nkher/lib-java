@@ -4,10 +4,8 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.function.Consumer;
 
-import nkher.datastructures.lists.SinglyLinkedList;
-import nkher.datastructures.lists.SinglyLinkedList.SinglyNode;
 import nkher.exception.DataStructureEmptyException;
-import nkher.interfaces.MyQueue;
+import nkher.api.MyQueue;
 
 /***
  * A simple LinkedList based implementation of the Dequeue Data Structure. It is also called

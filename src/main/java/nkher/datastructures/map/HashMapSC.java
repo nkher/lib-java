@@ -3,7 +3,7 @@ package nkher.datastructures.map;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import nkher.interfaces.MyMap;
+import nkher.api.MyMap;
 
 /***
  * An implementation of a HashMap that uses the SeparateChaining method for resolving collisions.

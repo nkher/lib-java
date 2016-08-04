@@ -1,7 +1,4 @@
-package nkher.interfaces;
-
-import nkher.datastructures.trees.Treap;
-import nkher.datastructures.trees.Treap.TreapNode;
+package nkher.api;
 
 /***
  * An interface that defines the methods for a randomized binary search tree called the Treap.

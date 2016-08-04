@@ -1,4 +1,4 @@
-package nkher.interfaces;
+package nkher.api;
 
 public interface MyStack<T> extends MyCollection<T> {
 	

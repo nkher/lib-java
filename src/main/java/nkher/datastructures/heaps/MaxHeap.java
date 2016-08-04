@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import nkher.datastructures.lists.DynamicArray;
 import nkher.exception.DataStructureEmptyException;
-import nkher.interfaces.MyHeap;
+import nkher.api.MyHeap;
 
 /****
  * A simple implementation of a MaxHeap data structure. This class extends the MyHeap<T>

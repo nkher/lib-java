@@ -4,7 +4,7 @@ import java.security.InvalidParameterException;
 import java.util.List;
 
 import nkher.datastructures.lists.DynamicArray;
-import nkher.interfaces.MyTrie;
+import nkher.api.MyTrie;
 
 public abstract class Trie implements MyTrie {
 

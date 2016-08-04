@@ -3,7 +3,7 @@ package nkher.datastructures.trees;
 import nkher.datastructures.lists.DynamicArray;
 import nkher.datastructures.lists.SinglyLinkedList;
 import nkher.exception.DataStructureEmptyException;
-import nkher.interfaces.MyTree;
+import nkher.api.MyTree;
 
 public class RedBlackTree<K extends Comparable<K>, V>  implements MyTree<K, V> {
 	

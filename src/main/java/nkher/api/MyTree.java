@@ -1,4 +1,4 @@
-package nkher.interfaces;
+package nkher.api;
 
 public interface MyTree<K, V> {
 	
@@ -19,7 +19,7 @@ public interface MyTree<K, V> {
 	/***
 	 * Removes the first occurrence of the node whose data equals t's data
 	 * 
-	 * @param t
+	 * @param k
 	 */
 	boolean remove(K k);
 	

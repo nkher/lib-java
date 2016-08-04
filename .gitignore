@@ -1,0 +1,6 @@
+/bin
+build/
+lib-java.iml
+.gradle/
+.idea/
+

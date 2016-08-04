@@ -1,11 +1,11 @@
-package nkher.interfaces;
+package nkher.api;
 
 public interface MyHeap<T> extends MyCollection<T> {
 	
 	/***
 	 * Inserts the element T into the heap.
 	 * 
-	 * @param element
+	 * @param t - element to be inserted
 	 */
 	void insert(T t);
 	

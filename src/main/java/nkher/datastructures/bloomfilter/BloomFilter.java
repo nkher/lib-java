@@ -9,7 +9,7 @@ import nkher.algorithms.hash.HashMethod;
 import nkher.algorithms.hash.Murmur3;
 import nkher.datastructures.lists.DynamicArray;
 import nkher.datastructures.lists.BitMap;
-import nkher.interfaces.MyBloomFilter;
+import nkher.api.MyBloomFilter;
 
 
 /***

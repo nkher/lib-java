@@ -1,4 +1,4 @@
-package nkher.interfaces;
+package nkher.api;
 
 /***
  * This class represents a generic collection type and has the following methods/behaviours in it.

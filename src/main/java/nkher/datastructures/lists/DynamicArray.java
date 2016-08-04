@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Random;
 
 import nkher.exception.DataStructureEmptyException;
-import nkher.interfaces.MyList;
+import nkher.api.MyList;
 import nkher.utils.ArrayUtility;
 
 /***
