@@ -6,4 +6,5 @@ lib-java.iml
 .classpath
 .project
 .settings
+.DS_Store
 
